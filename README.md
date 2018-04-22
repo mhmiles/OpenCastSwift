@@ -6,7 +6,7 @@ This framework implements the Google Cast APIs so they can be used in macOS and 
 
 ### OS support
 
-I've tested this to work on macOS 10.11+ and iOS 11+. It may work on earlier versions, I just haven't tested it. Sample apps are included for both macOS and iOS that support basic functionality. The iOS app is more built-out with a working example of casting an audio stream.
+I've tested this to work on macOS 10.12 and iOS 11. It may work on earlier versions, I just haven't tested it. Sample apps with some basic functionality are included for both macOS and iOS. The iOS app is more built-out with a working example of casting an audio stream.
 
 This framework fails build for watchOS because watchOS does not support SSL over CFStream sockets. I've left the target in this project in hopes that support is added in a future version of watchOS 🤞🤞.
 
