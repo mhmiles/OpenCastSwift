@@ -1,6 +1,7 @@
 ## OpenCastSwift: An open source implementation of the Google Cast SDK written in Swift
 
-[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+<!-- [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) -->
+![Swift 4.1](https://img.shields.io/badge/Swift-4.1-orange.svg) ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS-lightgrey.svg)
 
 This framework implements the Google Cast APIs so they can be used in macOS and iOS apps. Google provides an official SDK but it is only for iOS and closed source.
 
