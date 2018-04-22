@@ -81,6 +81,7 @@ client.launch(appId: CastAppIdentifier.defaultMediaPlayer) { [weak self] result 
 
 To connect to an existing app session, you use the `join` method on `CastClient`:
 
+```swift
 // appId is the unique identifier of the caster app to join. A value of nil will cause the client to attempt to connect to the currently running app.
 
 client.join() { [weak self] result in
