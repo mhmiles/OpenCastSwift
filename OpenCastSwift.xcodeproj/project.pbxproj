@@ -82,6 +82,7 @@
 		02F6F1EE2010062300CF01E1 /* Channelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1ED2010062300CF01E1 /* Channelable.swift */; };
 		02F6F1EF2010066F00CF01E1 /* Channelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1ED2010062300CF01E1 /* Channelable.swift */; };
 		02F6F1F02010066F00CF01E1 /* Channelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1ED2010062300CF01E1 /* Channelable.swift */; };
+		DB61BEF12246037E00073F21 /* YoutubeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61BEF02246037E00073F21 /* YoutubeChannel.swift */; };
 		DD15225D1DBACFE4004B5762 /* CASTV2Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15225C1DBACFE4004B5762 /* CASTV2Protocol.swift */; };
 		DD15225F1DBAD013004B5762 /* CastStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15225E1DBAD013004B5762 /* CastStatus.swift */; };
 		DD1522611DBAD02D004B5762 /* CastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1522601DBAD02D004B5762 /* CastApp.swift */; };
@@ -121,6 +122,7 @@
 		0298FB9B2009ACA600A0B016 /* cast_channel.proto */ = {isa = PBXFileReference; lastKnownFileType = text; path = cast_channel.proto; sourceTree = "<group>"; };
 		02F6F1EB2010059200CF01E1 /* RequestSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSink.swift; sourceTree = "<group>"; };
 		02F6F1ED2010062300CF01E1 /* Channelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channelable.swift; sourceTree = "<group>"; };
+		DB61BEF02246037E00073F21 /* YoutubeChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeChannel.swift; sourceTree = "<group>"; };
 		DD15225C1DBACFE4004B5762 /* CASTV2Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CASTV2Protocol.swift; sourceTree = "<group>"; };
 		DD15225E1DBAD013004B5762 /* CastStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastStatus.swift; sourceTree = "<group>"; };
 		DD1522601DBAD02D004B5762 /* CastApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastApp.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 		027E35C3200E8BB800A863E6 /* Channels */ = {
 			isa = PBXGroup;
 			children = (
+				DB61BEF02246037E00073F21 /* YoutubeChannel.swift */,
 				027E35B6200E8A1400A863E6 /* CastChannel.swift */,
 				02F6F1ED2010062300CF01E1 /* Channelable.swift */,
 				02F6F1EB2010059200CF01E1 /* RequestSink.swift */,
@@ -539,6 +542,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD274EB01DB7EF7F00428530 /* CastDevice.swift in Sources */,
+				DB61BEF12246037E00073F21 /* YoutubeChannel.swift in Sources */,
 				027E35C5200E933800A863E6 /* CastMessage.swift in Sources */,
 				027E35D3200EAF8D00A863E6 /* DeviceDiscoveryChannel.swift in Sources */,
 				DD674A451DB7E89500E1FC24 /* CastDeviceScanner.swift in Sources */,
