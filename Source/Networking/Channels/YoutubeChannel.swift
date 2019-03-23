@@ -18,7 +18,7 @@ enum YoutubeAction: String {
   case clear = "clearPlaylist"
 }
 
-class YoutubeChannel: CastChannel {
+public class YoutubeChannel: CastChannel {
   
   private static let YOUTUBE_BASE_URL = "https://www.youtube.com/"
   private static let BIND_URL = URL(string: "\(YOUTUBE_BASE_URL)api/lounge/bc/bind")!
@@ -55,7 +55,7 @@ class YoutubeChannel: CastChannel {
   
   private var loungeToken: String = ""
 
-  init() {
+  public init() {
     super.init(namespace: CastNamespace.youtube)
   }
 

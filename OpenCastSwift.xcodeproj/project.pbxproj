@@ -79,9 +79,6 @@
 		0298FB952009955600A0B016 /* CastV2PlatformReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028733A7200932B90015266E /* CastV2PlatformReader.swift */; };
 		0298FB962009955600A0B016 /* CastV2PlatformReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028733A7200932B90015266E /* CastV2PlatformReader.swift */; };
 		02F6F1EC2010059200CF01E1 /* RequestSink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1EB2010059200CF01E1 /* RequestSink.swift */; };
-		02F6F1EE2010062300CF01E1 /* Channelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1ED2010062300CF01E1 /* Channelable.swift */; };
-		02F6F1EF2010066F00CF01E1 /* Channelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1ED2010062300CF01E1 /* Channelable.swift */; };
-		02F6F1F02010066F00CF01E1 /* Channelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1ED2010062300CF01E1 /* Channelable.swift */; };
 		DB61BEF12246037E00073F21 /* YoutubeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61BEF02246037E00073F21 /* YoutubeChannel.swift */; };
 		DB61BEF2224614C300073F21 /* YoutubeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61BEF02246037E00073F21 /* YoutubeChannel.swift */; };
 		DB61BEF3224614C400073F21 /* YoutubeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61BEF02246037E00073F21 /* YoutubeChannel.swift */; };
@@ -123,7 +120,6 @@
 		0289007C200551B80024D80F /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
 		0298FB9B2009ACA600A0B016 /* cast_channel.proto */ = {isa = PBXFileReference; lastKnownFileType = text; path = cast_channel.proto; sourceTree = "<group>"; };
 		02F6F1EB2010059200CF01E1 /* RequestSink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSink.swift; sourceTree = "<group>"; };
-		02F6F1ED2010062300CF01E1 /* Channelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channelable.swift; sourceTree = "<group>"; };
 		DB61BEF02246037E00073F21 /* YoutubeChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeChannel.swift; sourceTree = "<group>"; };
 		DD15225C1DBACFE4004B5762 /* CASTV2Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CASTV2Protocol.swift; sourceTree = "<group>"; };
 		DD15225E1DBAD013004B5762 /* CastStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastStatus.swift; sourceTree = "<group>"; };
@@ -211,7 +207,6 @@
 			children = (
 				DB61BEF02246037E00073F21 /* YoutubeChannel.swift */,
 				027E35B6200E8A1400A863E6 /* CastChannel.swift */,
-				02F6F1ED2010062300CF01E1 /* Channelable.swift */,
 				02F6F1EB2010059200CF01E1 /* RequestSink.swift */,
 				027E35B7200E8A1400A863E6 /* HeartbeatChannel.swift */,
 				027E35B5200E8A1400A863E6 /* ReceiverControlChannel.swift */,
@@ -499,7 +494,6 @@
 				0252C2B920113FF4002AE6A2 /* CastMultizoneStatus.swift in Sources */,
 				020C21AE200EE3A6006E53CA /* DeviceConnectionChannel.swift in Sources */,
 				02618DD8200829360074AD87 /* CASTV2Protocol.swift in Sources */,
-				02F6F1EF2010066F00CF01E1 /* Channelable.swift in Sources */,
 				0298FB952009955600A0B016 /* CastV2PlatformReader.swift in Sources */,
 				02618DE2200829470074AD87 /* CastDeviceScanner.swift in Sources */,
 				027E35D0200EAF0E00A863E6 /* DeviceSetupChannel.swift in Sources */,
@@ -524,7 +518,6 @@
 				02618DFC20082EBD0074AD87 /* CastStatus.swift in Sources */,
 				027E35D5200EAF8D00A863E6 /* DeviceDiscoveryChannel.swift in Sources */,
 				02618DFF20082EBD0074AD87 /* CastMediaStatus.swift in Sources */,
-				02F6F1F02010066F00CF01E1 /* Channelable.swift in Sources */,
 				0298FB962009955600A0B016 /* CastV2PlatformReader.swift in Sources */,
 				0252C2BE20113FF5002AE6A2 /* MultizoneControlChannel.swift in Sources */,
 				0252C2B220113404002AE6A2 /* RequestSink.swift in Sources */,
@@ -551,7 +544,6 @@
 				027E35D3200EAF8D00A863E6 /* DeviceDiscoveryChannel.swift in Sources */,
 				DD674A451DB7E89500E1FC24 /* CastDeviceScanner.swift in Sources */,
 				027E35B8200E8A1400A863E6 /* ReceiverControlChannel.swift in Sources */,
-				02F6F1EE2010062300CF01E1 /* Channelable.swift in Sources */,
 				DD15225F1DBAD013004B5762 /* CastStatus.swift in Sources */,
 				027E35BB200E8A1400A863E6 /* CastChannel.swift in Sources */,
 				02F6F1EC2010059200CF01E1 /* RequestSink.swift in Sources */,

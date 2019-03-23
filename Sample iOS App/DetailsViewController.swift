@@ -53,21 +53,13 @@ class DetailsViewController: UIViewController {
   }
   
   @IBAction func handleTestCast(_ sender: Any) {
-    client.launch(appId: CastAppIdentifier.defaultMediaPlayer) { (result) in
+    let youtube = YoutubeChannel()
+    client.add(channel: youtube)
+
+    client.launch(appId: CastAppIdentifier.youTube) { (result) in
       switch result {
       case .success(let app):
-        let media = CastMedia(title: "TEST CAST", url: URL(string: "http://traffic.libsyn.com/billburr/MMPC_8-1-16.mp3")!, contentType: "audio/mp3")
-        
-        self.client.load(media: media, with: app) { result in
-          switch result {
-          case .success(let status):
-            print(status)
-            
-          case .failure(let error):
-            print(error)
-          }
-        }
-        
+        youtube.playVideo(for: app, videoID: "oHg5SJYRHA0")
       case .failure(let error):
         print(error)
       }

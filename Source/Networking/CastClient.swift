@@ -69,7 +69,7 @@ public class CastRequest: NSObject {
   
 }
 
-public final class CastClient: NSObject, RequestDispatchable, Channelable {
+public final class CastClient: NSObject, RequestDispatchable {
   
   public let device: CastDevice
   public weak var delegate: CastClientDelegate?
@@ -288,6 +288,27 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
   
   var channels = [String: CastChannel]()
   
+  public func add(channel: CastChannel) {
+    let namespace = channel.namespace
+    guard channels[namespace] == nil else {
+      print("Channel already attached for \(namespace)")
+      return
+    }
+    
+    channels[namespace] = channel
+    channel.requestDispatcher = self
+  }
+  
+  public func remove(channel: CastChannel) {
+    let namespace = channel.namespace
+    guard let channel = channels.removeValue(forKey: namespace) else {
+      print("No channel attached for \(namespace)")
+      return
+    }
+    
+    channel.requestDispatcher = nil
+  }
+  
   private lazy var heartbeatChannel: HeartbeatChannel = {
     let channel = HeartbeatChannel()
     self.add(channel: channel)
@@ -320,13 +341,6 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
     let channel = MultizoneControlChannel()
     self.add(channel: channel)
     
-    return channel
-  }()
-
-  private lazy var youtubeChannel: YoutubeChannel = {
-    let channel = YoutubeChannel()
-    self.add(channel: channel)
-
     return channel
   }()
 
