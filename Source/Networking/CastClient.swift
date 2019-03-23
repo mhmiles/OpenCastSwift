@@ -323,6 +323,13 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
     return channel
   }()
 
+  private lazy var youtubeChannel: YoutubeChannel = {
+    let channel = YoutubeChannel()
+    self.add(channel: channel)
+
+    return channel
+  }()
+
   // MARK: - Request response
   
   private lazy var currentRequestId = Int(arc4random_uniform(800))
