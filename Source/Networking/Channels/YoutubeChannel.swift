@@ -24,22 +24,18 @@ class YoutubeChannel: CastChannel {
   
   static let LOUNGE_TOKEN_URL = URL(string: "https://www.youtube.com/api/lounge/pairing/get_lounge_token_batch")!
 
-  private var rid: int = 0
+  private var rid: Int = 0
   
-  private var reqCount: int = 0
+  private var reqCount: Int = 0
   
-  private var sid: int = 0
+  private var sid: Int = 0
   
   private var screenID: String = ""
   
   private var gsessionID: Int? = nil
   
   private var loungeToken: String? = nil
-  
-  private var delegate: YoutubeChannelDelegate? {
-    return requestDispatcher as? YoutubeChannelDelegate
-  }
-  
+
   init() {
     super.init(namespace: CastNamespace.youtube)
   }
@@ -111,7 +107,7 @@ class YoutubeChannel: CastChannel {
     The token is used as a header in all session requests
   */
   private func getLoungeID() {
-    postRequest(LOUNGE_TOKEN_URL, data: ["screen_ids": screenID]) { result in
+    postRequest(YoutubeChannel.LOUNGE_TOKEN_URL, data: ["screen_ids": screenID]) { result in
       switch result {
       case .success(let response):
         // TODO: Traverse json response
@@ -184,7 +180,7 @@ class YoutubeChannel: CastChannel {
     ]
 
     postRequest(
-      BIND_URL,
+      YoutubeChannel.BIND_URL,
       data: data,
       headers: headers,
       params: params,
@@ -238,22 +234,22 @@ class YoutubeChannel: CastChannel {
     request.HTTPMethod = "POST"
     request.setValue("https://www.youtube.com/", forHTTPHeaderField: "Origin")
     request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+
     if let headers = headers {
       for (k, v) in headers {
         request.setValue(v, forHTTPHeaderField: k)
       }
     }
-
-    guard let httpBody = try? JSONSerialization.data(withJSONObject: data, options: []) else {
-      return
+    
+    let dataParts = data.map { (key, value) -> String in
+      return "\(key)=\(self.percentEscapeString(value))"
     }
-    request.httpBody = httpBody
+
+    request.httpBody = dataParts.joined(separator: "&").data(using: String.Encoding.utf8)
     
     let session = URLSession.shared
     session.dataTask(with: request) { (data, response, error) in
-      if let response = response {
-        print(response)
-      }
+      // TODO: Handle error
       if let data = data {
         do {
           let json = try JSONSerialization.jsonObject(with: data, options: [])
@@ -269,9 +265,19 @@ class YoutubeChannel: CastChannel {
     return (gsessionID != nil && loungeToken != nil)
   }
   
+  private func percentEscapeString(string: String) -> String {
+    var characterSet = CharacterSet.alphanumerics
+    characterSet.insert(charactersIn: "-._* ")
+    
+    return string
+      .addingPercentEncoding(withAllowedCharacters: characterSet)!
+      .replacingOccurrences(of: " ", with: "+")
+      .replacingOccurrences(of: " ", with: "+", options: [], range: nil)
+  }
+
   private func formatSessionParams(_ params: [String: Any]) -> [String: Any] {
-    var reqCount = "req\(reqCount)"
-    return {req_count + k if k.startswith("_") else k: v for k, v in param_dict.items()}
+    var reqCount = "req\(self.reqCount)"
+//    return {req_count + k if k.startswith("_") else k: v for k, v in param_dict.items()}
   }
 
   private func fetchScreenIDIfNecessary(for app: CastApp, completion: @escaping (Result<String, CastError>) -> Void) {
@@ -302,8 +308,4 @@ class YoutubeChannel: CastChannel {
       }
     }
   }
-}
-
-protocol YoutubeChannelDelegate: class {
-  func channel(_ channel: YoutubeChannel, didReceive mediaStatus: CastMediaStatus)
 }

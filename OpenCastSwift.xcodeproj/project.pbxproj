@@ -83,6 +83,8 @@
 		02F6F1EF2010066F00CF01E1 /* Channelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1ED2010062300CF01E1 /* Channelable.swift */; };
 		02F6F1F02010066F00CF01E1 /* Channelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F6F1ED2010062300CF01E1 /* Channelable.swift */; };
 		DB61BEF12246037E00073F21 /* YoutubeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61BEF02246037E00073F21 /* YoutubeChannel.swift */; };
+		DB61BEF2224614C300073F21 /* YoutubeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61BEF02246037E00073F21 /* YoutubeChannel.swift */; };
+		DB61BEF3224614C400073F21 /* YoutubeChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB61BEF02246037E00073F21 /* YoutubeChannel.swift */; };
 		DD15225D1DBACFE4004B5762 /* CASTV2Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15225C1DBACFE4004B5762 /* CASTV2Protocol.swift */; };
 		DD15225F1DBAD013004B5762 /* CastStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15225E1DBAD013004B5762 /* CastStatus.swift */; };
 		DD1522611DBAD02D004B5762 /* CastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1522601DBAD02D004B5762 /* CastApp.swift */; };
@@ -504,6 +506,7 @@
 				02618DDD2008293B0074AD87 /* CastMediaStatus.swift in Sources */,
 				027E35CA200EA7D800A863E6 /* MediaControlChannel.swift in Sources */,
 				02618DDE2008293B0074AD87 /* CastMedia.swift in Sources */,
+				DB61BEF2224614C300073F21 /* YoutubeChannel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +519,7 @@
 				027E35BA200E8A1400A863E6 /* ReceiverControlChannel.swift in Sources */,
 				02618DFE20082EBD0074AD87 /* AppAvailability.swift in Sources */,
 				027E35C0200E8A1400A863E6 /* HeartbeatChannel.swift in Sources */,
+				DB61BEF3224614C400073F21 /* YoutubeChannel.swift in Sources */,
 				02618E0620082EDE0074AD87 /* CastClient.swift in Sources */,
 				02618DFC20082EBD0074AD87 /* CastStatus.swift in Sources */,
 				027E35D5200EAF8D00A863E6 /* DeviceDiscoveryChannel.swift in Sources */,
