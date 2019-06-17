@@ -58,7 +58,6 @@
 		027E35BE200E8A1400A863E6 /* HeartbeatChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E35B7200E8A1400A863E6 /* HeartbeatChannel.swift */; };
 		027E35BF200E8A1400A863E6 /* HeartbeatChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E35B7200E8A1400A863E6 /* HeartbeatChannel.swift */; };
 		027E35C0200E8A1400A863E6 /* HeartbeatChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E35B7200E8A1400A863E6 /* HeartbeatChannel.swift */; };
-		027E35C2200E8AEA00A863E6 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 027E35C1200E8AEA00A863E6 /* Result.framework */; };
 		027E35C5200E933800A863E6 /* CastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E35C4200E933800A863E6 /* CastMessage.swift */; };
 		027E35C6200E933800A863E6 /* CastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E35C4200E933800A863E6 /* CastMessage.swift */; };
 		027E35C7200E933800A863E6 /* CastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027E35C4200E933800A863E6 /* CastMessage.swift */; };
@@ -157,7 +156,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				027E35C2200E8AEA00A863E6 /* Result.framework in Frameworks */,
 				0289007D200551B90024D80F /* SwiftyJSON.framework in Frameworks */,
 				0289007920054B870024D80F /* SwiftProtobuf.framework in Frameworks */,
 			);
@@ -421,7 +419,7 @@
 					};
 					DD674A371DB7E83400E1FC24 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 7XLNECBC46;
+						DevelopmentTeam = 83S62JHMRL;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
@@ -432,6 +430,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -820,6 +819,7 @@
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 83S62JHMRL;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -849,6 +849,7 @@
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 83S62JHMRL;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
