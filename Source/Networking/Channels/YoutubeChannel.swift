@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Result
 import SwiftyJSON
 
 enum YoutubeAction: String {
@@ -377,7 +378,7 @@ public class YoutubeChannel: CastChannel {
 //        self.screenID = screenID
 //        completion(Result(success: screenID))
       case .failure(let error):
-        completion(.failure(CastError.load(error.localizedDescription)))
+        completion(Result(error: CastError.load(error.localizedDescription)))
       }
     }
   }

@@ -1,2 +1,3 @@
 github "apple/swift-protobuf" ~> 1.0
 github "SwiftyJSON/SwiftyJSON" ~> 4.0
+github "antitypical/Result" ~> 3.2

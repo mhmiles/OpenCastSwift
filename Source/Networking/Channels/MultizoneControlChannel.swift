@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Result
 import SwiftyJSON
 
 class MultizoneControlChannel: CastChannel {
@@ -66,10 +67,10 @@ class MultizoneControlChannel: CastChannel {
       send(request) { result in
         switch result {
         case .success(let json):
-          completion(.succes(CastStatus(json: json)))
+          completion(Result(value: CastStatus(json: json)))
           
         case .failure(let error):
-          completion(.failure(error))
+          completion(Result(error: error))
         }
       }
     } else {

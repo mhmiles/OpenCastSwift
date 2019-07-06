@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Result
 import SwiftyJSON
 
 class MediaControlChannel: CastChannel {
@@ -52,10 +53,10 @@ class MediaControlChannel: CastChannel {
       send(request) { result in
         switch result {
         case .success(let json):
-          completion(.success(CastMediaStatus(json: json)))
+          completion(Result(value: CastMediaStatus(json: json)))
           
         case .failure(let error):
-          completion(.failure(error))
+          completion(Result(error: error))
         }
       }
     } else {
@@ -117,10 +118,10 @@ class MediaControlChannel: CastChannel {
       case .success(let json):
         guard let status = json["status"].array?.first else { return }
         
-        completion(.success(CastMediaStatus(json: status)))
+        completion(Result(value: CastMediaStatus(json: status)))
         
       case .failure(let error):
-        completion(.failure(CastError.load(error.localizedDescription)))
+        completion(Result(error: CastError.load(error.localizedDescription)))
       }
     }
   }
