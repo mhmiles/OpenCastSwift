@@ -108,6 +108,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalInt32 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalInt32 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalInt32)
+        XCTAssertTrue(d.hasOptionalInt32)
+        d.clearOptionalInt32()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalInt32)
+        XCTAssertFalse(d.hasOptionalInt32)
     }
 
     func testEncoding_optionalInt64() {
@@ -137,6 +150,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalInt64 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalInt64 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalInt64)
+        XCTAssertTrue(d.hasOptionalInt64)
+        d.clearOptionalInt64()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalInt64)
+        XCTAssertFalse(d.hasOptionalInt64)
     }
 
     func testEncoding_optionalUint32() {
@@ -165,6 +191,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalUint32 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalUint32 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalUint32)
+        XCTAssertTrue(d.hasOptionalUint32)
+        d.clearOptionalUint32()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalUint32)
+        XCTAssertFalse(d.hasOptionalUint32)
     }
 
     func testEncoding_optionalUint64() {
@@ -208,6 +247,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalUint64 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalUint64 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalUint64)
+        XCTAssertTrue(d.hasOptionalUint64)
+        d.clearOptionalUint64()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalUint64)
+        XCTAssertFalse(d.hasOptionalUint64)
     }
 
     func testEncoding_optionalSint32() {
@@ -249,6 +301,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalSint32 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalSint32 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalSint32)
+        XCTAssertTrue(d.hasOptionalSint32)
+        d.clearOptionalSint32()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalSint32)
+        XCTAssertFalse(d.hasOptionalSint32)
     }
 
     func testEncoding_optionalSint64() {
@@ -284,6 +349,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalSint64 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalSint64 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalSint64)
+        XCTAssertTrue(d.hasOptionalSint64)
+        d.clearOptionalSint64()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalSint64)
+        XCTAssertFalse(d.hasOptionalSint64)
     }
 
     func testEncoding_optionalFixed32() {
@@ -328,6 +406,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalFixed32 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalFixed32 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalFixed32)
+        XCTAssertTrue(d.hasOptionalFixed32)
+        d.clearOptionalFixed32()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalFixed32)
+        XCTAssertFalse(d.hasOptionalFixed32)
     }
 
     func testEncoding_optionalFixed64() {
@@ -376,6 +467,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalFixed64 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalFixed64 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalFixed64)
+        XCTAssertTrue(d.hasOptionalFixed64)
+        d.clearOptionalFixed64()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalFixed64)
+        XCTAssertFalse(d.hasOptionalFixed64)
     }
 
     func testEncoding_optionalSfixed32() {
@@ -422,6 +526,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalSfixed32 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalSfixed32 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalSfixed32)
+        XCTAssertTrue(d.hasOptionalSfixed32)
+        d.clearOptionalSfixed32()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalSfixed32)
+        XCTAssertFalse(d.hasOptionalSfixed32)
     }
 
     func testEncoding_optionalSfixed64() {
@@ -468,6 +585,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalSfixed64 = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalSfixed64 = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalSfixed64)
+        XCTAssertTrue(d.hasOptionalSfixed64)
+        d.clearOptionalSfixed64()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalSfixed64)
+        XCTAssertFalse(d.hasOptionalSfixed64)
     }
 
     func testEncoding_optionalFloat() {
@@ -513,6 +643,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalFloat = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalFloat = 1.0
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalFloat)
+        XCTAssertTrue(d.hasOptionalFloat)
+        d.clearOptionalFloat()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalFloat)
+        XCTAssertFalse(d.hasOptionalFloat)
     }
 
     func testEncoding_optionalDouble() {
@@ -556,6 +699,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalDouble = 0
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalDouble = 1.0
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalDouble)
+        XCTAssertTrue(d.hasOptionalDouble)
+        d.clearOptionalDouble()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalDouble)
+        XCTAssertFalse(d.hasOptionalDouble)
     }
 
     func testEncoding_optionalBool() {
@@ -599,6 +755,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalBool = false
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalBool = true
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalBool)
+        XCTAssertTrue(d.hasOptionalBool)
+        d.clearOptionalBool()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalBool)
+        XCTAssertFalse(d.hasOptionalBool)
     }
 
     func testEncoding_optionalString() {
@@ -656,6 +825,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         XCTAssertNotEqual(a, b)
         b.optionalString = ""
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalString = "blah"
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalString)
+        XCTAssertTrue(d.hasOptionalString)
+        d.clearOptionalString()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalString)
+        XCTAssertFalse(d.hasOptionalString)
     }
 
     func testEncoding_optionalGroup() {
@@ -670,7 +852,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         // Extra field 1 (varint of zero) within group
         assertDecodeSucceeds([131, 1, 8, 0, 136, 1, 159, 141, 6, 132, 1]) {
             $0.optionalGroup.a == 99999
-              && $0.optionalGroup.unknownFields.data == Data(bytes:[8, 0])
+              && $0.optionalGroup.unknownFields.data == Data([8, 0])
         }
         // Empty group
         assertDecodeSucceeds([131, 1, 132, 1]) {
@@ -700,21 +882,34 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         assertDecodeFails([134, 1, 0]) // Bad wire type
         assertDecodeFails([135, 1]) // Bad wire type
         assertDecodeFails([135, 1, 0]) // Bad wire type
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalGroup.a = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalGroup)
+        XCTAssertTrue(d.hasOptionalGroup)
+        d.clearOptionalGroup()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalGroup)
+        XCTAssertFalse(d.hasOptionalGroup)
     }
 
     func testEncoding_optionalBytes() {
         assertEncode([122, 0]) {(o: inout MessageTestType) in o.optionalBytes = Data()}
-        assertEncode([122, 1, 1]) {(o: inout MessageTestType) in o.optionalBytes = Data(bytes: [1])}
-        assertEncode([122, 2, 1, 2]) {(o: inout MessageTestType) in o.optionalBytes = Data(bytes: [1, 2])}
+        assertEncode([122, 1, 1]) {(o: inout MessageTestType) in o.optionalBytes = Data([1])}
+        assertEncode([122, 2, 1, 2]) {(o: inout MessageTestType) in o.optionalBytes = Data([1, 2])}
         assertDecodeSucceeds([122, 4, 0, 1, 2, 255]) {
             if $0.hasOptionalBytes {
-                return $0.optionalBytes == Data(bytes: [0, 1, 2, 255])
+                return $0.optionalBytes == Data([0, 1, 2, 255])
             } else {
                 XCTFail("Nonexistent value")
                 return false
             }
         }
-        assertDebugDescription("SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noptional_bytes: \"\\001\\002\\003\"\n") {(o: inout MessageTestType) in o.optionalBytes = Data(bytes: [1, 2, 3])}
+        assertDebugDescription("SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noptional_bytes: \"\\001\\002\\003\"\n") {(o: inout MessageTestType) in o.optionalBytes = Data([1, 2, 3])}
         assertDecodeFails([122])
         assertDecodeFails([122, 1])
         assertDecodeFails([122, 2, 0])
@@ -739,12 +934,25 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         a.optionalBytes = Data()
         XCTAssertNotEqual(a, empty)
         var b = empty
-        b.optionalBytes = Data(bytes: [1])
+        b.optionalBytes = Data([1])
         XCTAssertNotEqual(a, b)
         b.clearOptionalBytes()
         XCTAssertNotEqual(a, b)
         b.optionalBytes = Data()
         XCTAssertEqual(a, b)
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalBytes = Data([1])
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalBytes)
+        XCTAssertTrue(d.hasOptionalBytes)
+        d.clearOptionalBytes()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalBytes)
+        XCTAssertFalse(d.hasOptionalBytes)
     }
 
     func testEncoding_optionalNestedMessage() {
@@ -763,6 +971,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
 
         assertDecodeFails([146, 1, 2, 8, 128])
         assertDecodeFails([146, 1, 1, 128])
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalNestedMessage.bb = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalNestedMessage)
+        XCTAssertTrue(d.hasOptionalNestedMessage)
+        d.clearOptionalNestedMessage()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalNestedMessage)
+        XCTAssertFalse(d.hasOptionalNestedMessage)
     }
 
     // Known message field followed by unknown field
@@ -770,11 +991,11 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         let bytes: [UInt8] = [146, 1, 2, 8, 1, // nested message with bb=1
                               208, 41, 0] // Unknown field 666 with varint 0
         do {
-            let m = try MessageTestType(serializedData: Data(bytes: bytes))
+            let m = try MessageTestType(serializedData: Data(bytes))
             XCTAssertEqual(m.optionalNestedMessage, MessageTestType.NestedMessage.with{$0.bb = 1})
             do {
                 let recoded = try m.serializedData()
-                XCTAssertEqual(recoded, Data(bytes: bytes))
+                XCTAssertEqual(recoded, Data(bytes))
             } catch let e {
                 XCTFail("Failed to recode: \(e)")
             }
@@ -788,13 +1009,13 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         let bytes: [UInt8] = [208, 41, 0, // Unknown 666 with varint 0
                               146, 1, 2, 8, 1] // Nested msg with bb=1
         do {
-            let m = try MessageTestType(serializedData: Data(bytes: bytes))
+            let m = try MessageTestType(serializedData: Data(bytes))
             XCTAssertEqual(m.optionalNestedMessage, MessageTestType.NestedMessage.with{$0.bb = 1})
             do {
                 let recoded = try m.serializedData()
                 // Unknown field gets reserialized at end
                 let expectedBytes: [UInt8] = [146, 1, 2, 8, 1, 208, 41, 0]
-                XCTAssertEqual(recoded, Data(bytes: expectedBytes))
+                XCTAssertEqual(recoded, Data(expectedBytes))
             } catch let e {
                 XCTFail("Failed to recode: \(e)")
             }
@@ -810,12 +1031,12 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         let bytes: [UInt8] = [146, 1, 5, 8, 1, 208, 41, 99,
                               208, 41, 0]
         do {
-            let m = try MessageTestType(serializedData: Data(bytes: bytes))
+            let m = try MessageTestType(serializedData: Data(bytes))
             XCTAssertNotEqual(m.optionalNestedMessage, MessageTestType.NestedMessage.with{$0.bb = 1})
             XCTAssertEqual(m.optionalNestedMessage.bb, 1)
             do {
                 let recoded = try m.serializedData()
-                XCTAssertEqual(recoded, Data(bytes: bytes))
+                XCTAssertEqual(recoded, Data(bytes))
             } catch let e {
                 XCTFail("Failed to recode: \(e)")
             }
@@ -830,14 +1051,14 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         // first in outer and inner message
         let bytes: [UInt8] = [208, 41, 0, 146, 1, 5, 208, 41, 99, 8, 1]
         do {
-            let m = try MessageTestType(serializedData: Data(bytes: bytes))
+            let m = try MessageTestType(serializedData: Data(bytes))
             XCTAssertNotEqual(m.optionalNestedMessage, MessageTestType.NestedMessage.with{$0.bb = 1})
             XCTAssertEqual(m.optionalNestedMessage.bb, 1)
             do {
                 let recoded = try m.serializedData()
                 // Reserializing moves unknown fields to end
                 let expectedBytes: [UInt8] = [146, 1, 5, 8, 1, 208, 41, 99, 208, 41, 0]
-                XCTAssertEqual(recoded, Data(bytes: expectedBytes))
+                XCTAssertEqual(recoded, Data(expectedBytes))
             } catch let e {
                 XCTFail("Failed to recode: \(e)")
             }
@@ -877,6 +1098,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         assertDecodeFails([159, 1]) // Wire type 7
         assertDecodeFails([159, 1, 0])
         assertDecodeFails([154, 1, 4, 8, 1]) // Truncated
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalForeignMessage.c = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalForeignMessage)
+        XCTAssertTrue(d.hasOptionalForeignMessage)
+        d.clearOptionalForeignMessage()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalForeignMessage)
+        XCTAssertFalse(d.hasOptionalForeignMessage)
     }
 
     func testEncoding_optionalImportMessage() {
@@ -887,6 +1121,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         }
         assertDecodeSucceeds([162, 1, 4, 8, 1, 8, 3]) {$0.optionalImportMessage.d == 3}
         assertDecodeSucceeds([162, 1, 2, 8, 1, 162, 1, 2, 8, 4]) {$0.optionalImportMessage.d == 4}
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalImportMessage.d = 1
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalImportMessage)
+        XCTAssertTrue(d.hasOptionalImportMessage)
+        d.clearOptionalImportMessage()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalImportMessage)
+        XCTAssertFalse(d.hasOptionalImportMessage)
     }
 
     func testEncoding_optionalNestedEnum() throws {
@@ -909,10 +1156,23 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         }
 
         // The out-of-range enum value should be preserved as an unknown field
-        let decoded = try ProtobufUnittest_TestAllTypes(serializedData: Data(bytes: [168, 1, 128, 1]))
+        let decoded = try ProtobufUnittest_TestAllTypes(serializedData: Data([168, 1, 128, 1]))
         XCTAssertFalse(decoded.hasOptionalNestedEnum)
         let recoded = try decoded.serializedBytes()
         XCTAssertEqual(recoded, [168, 1, 128, 1])
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalNestedEnum = .bar
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalNestedEnum)
+        XCTAssertTrue(d.hasOptionalNestedEnum)
+        d.clearOptionalNestedEnum()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalNestedEnum)
+        XCTAssertFalse(d.hasOptionalNestedEnum)
     }
 
     func testEncoding_optionalForeignEnum() {
@@ -922,6 +1182,19 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         assertDebugDescription("SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noptional_foreign_enum: FOREIGN_BAR\n") {(o: inout MessageTestType) in
             o.optionalForeignEnum = .foreignBar
         }
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalForeignEnum = .foreignBar
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalForeignEnum)
+        XCTAssertTrue(d.hasOptionalForeignEnum)
+        d.clearOptionalForeignEnum()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalForeignEnum)
+        XCTAssertFalse(d.hasOptionalForeignEnum)
     }
 
     func testEncoding_optionalImportEnum() {
@@ -931,18 +1204,57 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         assertDebugDescription("SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noptional_import_enum: IMPORT_BAR\n") {(o: inout MessageTestType) in
             o.optionalImportEnum = .importBar
         }
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalImportEnum = .importBar
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalImportEnum)
+        XCTAssertTrue(d.hasOptionalImportEnum)
+        d.clearOptionalImportEnum()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalImportEnum)
+        XCTAssertFalse(d.hasOptionalImportEnum)
     }
 
     func testEncoding_optionalStringPiece() {
         assertEncode([194, 1, 6, 97, 98, 99, 100, 101, 102]) {(o: inout MessageTestType) in
             o.optionalStringPiece = "abcdef"
         }
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalStringPiece = "mumble"
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalStringPiece)
+        XCTAssertTrue(d.hasOptionalStringPiece)
+        d.clearOptionalStringPiece()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalStringPiece)
+        XCTAssertFalse(d.hasOptionalStringPiece)
     }
 
     func testEncoding_optionalCord() {
         assertEncode([202, 1, 6, 102, 101, 100, 99, 98, 97]) {(o: inout MessageTestType) in
             o.optionalCord = "fedcba"
         }
+
+        // Ensure storage is uniqued for clear.
+        let c = MessageTestType.with {
+            $0.optionalCord = "mumble"
+        }
+        var d = c
+        XCTAssertEqual(c, d)
+        XCTAssertTrue(c.hasOptionalCord)
+        XCTAssertTrue(d.hasOptionalCord)
+        d.clearOptionalCord()
+        XCTAssertNotEqual(c, d)
+        XCTAssertTrue(c.hasOptionalCord)
+        XCTAssertFalse(d.hasOptionalCord)
     }
 
     func testEncoding_optionalPublicImportMessage() {
@@ -1332,9 +1644,9 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
     }
 
     func testEncoding_repeatedBytes() {
-        assertEncode([234, 2, 1, 1, 234, 2, 0, 234, 2, 1, 2]) {(o: inout MessageTestType) in o.repeatedBytes = [Data(bytes: [1]), Data(), Data(bytes: [2])]}
+        assertEncode([234, 2, 1, 1, 234, 2, 0, 234, 2, 1, 2]) {(o: inout MessageTestType) in o.repeatedBytes = [Data([1]), Data(), Data([2])]}
         assertDecodeSucceeds([234, 2, 4, 0, 1, 2, 255, 234, 2, 0]) {
-            let ref = [Data(bytes: [0, 1, 2, 255]), Data()]
+            let ref = [Data([0, 1, 2, 255]), Data()]
             for (a,b) in zip($0.repeatedBytes, ref) {
                 if a != b { return false }
             }
@@ -1432,7 +1744,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         ]
 
         do {
-            let m = try MessageTestType(serializedData: Data(bytes: bytes))
+            let m = try MessageTestType(serializedData: Data(bytes))
             XCTAssertEqual(m.repeatedNestedMessage.count, 2)
             XCTAssertNotEqual(m.repeatedNestedMessage[0], MessageTestType.NestedMessage.with{$0.bb = 1})
             XCTAssertEqual(m.repeatedNestedMessage[0].bb, 1)
@@ -1448,7 +1760,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
                     208, 41, 2
                 ]
                 let recoded = try m.serializedData()
-                XCTAssertEqual(recoded, Data(bytes: expectedBytes))
+                XCTAssertEqual(recoded, Data(expectedBytes))
             } catch let e {
                 XCTFail("Failed to recode: \(e)")
             }
@@ -1470,7 +1782,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
 
         // The out-of-range enum value should be preserved as an unknown field
         do {
-            let decoded1 = try ProtobufUnittest_TestAllTypes(serializedData: Data(bytes: [152, 3, 1, 152, 3, 128, 1]))
+            let decoded1 = try ProtobufUnittest_TestAllTypes(serializedData: Data([152, 3, 1, 152, 3, 128, 1]))
             XCTAssertEqual(decoded1.repeatedNestedEnum, [.foo])
             let recoded1 = try decoded1.serializedBytes()
             XCTAssertEqual(recoded1, [152, 3, 1, 152, 3, 128, 1])
@@ -1480,7 +1792,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
 
         // Unknown fields always get reserialized last, which trashes order here:
         do {
-            let decoded2 = try ProtobufUnittest_TestAllTypes(serializedData: Data(bytes: [152, 3, 128, 1, 152, 3, 2]))
+            let decoded2 = try ProtobufUnittest_TestAllTypes(serializedData: Data([152, 3, 128, 1, 152, 3, 2]))
             XCTAssertEqual(decoded2.repeatedNestedEnum, [.bar])
             let recoded2 = try decoded2.serializedBytes()
             XCTAssertEqual(recoded2, [152, 3, 2, 152, 3, 128, 1])
@@ -1490,7 +1802,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
 
         // Unknown enums within packed behave as if it were plain repeated
         do {
-            let decoded3 = try ProtobufUnittest_TestAllTypes(serializedData: Data(bytes: [154, 3, 3, 128, 1, 2]))
+            let decoded3 = try ProtobufUnittest_TestAllTypes(serializedData: Data([154, 3, 3, 128, 1, 2]))
             XCTAssertEqual(decoded3.repeatedNestedEnum, [.bar])
             let recoded3 = try decoded3.serializedBytes()
             XCTAssertEqual(recoded3, [152, 3, 2, 154, 3, 2, 128, 1])
@@ -1719,7 +2031,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         a.defaultSfixed32 = 49
         XCTAssertNotEqual(a, empty)
 
-        XCTAssertEqual(Data(bytes: [173, 4, 49, 0, 0, 0]), try a.serializedData())
+        XCTAssertEqual(Data([173, 4, 49, 0, 0, 0]), try a.serializedData())
         XCTAssertEqual("{\"defaultSfixed32\":49}", try a.jsonString())
 
         var b = MessageTestType()
@@ -1849,11 +2161,11 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
 
     func testEncoding_defaultBytes() throws {
         let empty = MessageTestType()
-        XCTAssertEqual(empty.defaultBytes, Data(bytes: [119, 111, 114, 108, 100]))
+        XCTAssertEqual(empty.defaultBytes, Data([119, 111, 114, 108, 100]))
 
         // Writing a value equal to the default compares as not equal to an unset field
         var a = MessageTestType()
-        a.defaultBytes = Data(bytes: [119, 111, 114, 108, 100])
+        a.defaultBytes = Data([119, 111, 114, 108, 100])
         XCTAssertNotEqual(a, empty)
 
         XCTAssertEqual([218, 4, 5, 119, 111, 114, 108, 100], try a.serializedBytes())
@@ -1864,8 +2176,8 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         a.optionalInt32 = 1
         XCTAssertNotEqual(a, b)
 
-        assertDecodeSucceeds([]) {$0.defaultBytes == Data(bytes: [119, 111, 114, 108, 100])}
-        assertDecodeSucceeds([218, 4, 1, 1]) {$0.defaultBytes == Data(bytes: [1])}
+        assertDecodeSucceeds([]) {$0.defaultBytes == Data([119, 111, 114, 108, 100])}
+        assertDecodeSucceeds([218, 4, 1, 1]) {$0.defaultBytes == Data([1])}
     }
 
     func testEncoding_defaultNestedEnum() throws {
@@ -1973,7 +2285,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
 
         var m = MessageTestType()
         m.oneofUint32 = 77
-        XCTAssertEqual(m.debugDescription, "SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noneof_uint32: 77\n");
+        XCTAssertEqual(m.debugDescription, "SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noneof_uint32: 77\n")
         var m2 = MessageTestType()
         m2.oneofUint32 = 78
         XCTAssertNotEqual(m.hashValue, m2.hashValue)
@@ -2022,7 +2334,7 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         nested1.bb = 1
         var m = MessageTestType()
         m.oneofNestedMessage = nested1
-        XCTAssertEqual(m.debugDescription, "SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noneof_nested_message {\n  bb: 1\n}\n");
+        XCTAssertEqual(m.debugDescription, "SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noneof_nested_message {\n  bb: 1\n}\n")
         var nested2 = MessageTestType.NestedMessage()
         nested2.bb = 2
         var m2 = MessageTestType()
@@ -2101,18 +2413,18 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
 
         var m = MessageTestType()
         m.oneofString = "abc"
-        XCTAssertEqual(m.debugDescription, "SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noneof_string: \"abc\"\n");
+        XCTAssertEqual(m.debugDescription, "SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noneof_string: \"abc\"\n")
         var m2 = MessageTestType()
         m2.oneofString = "def"
         XCTAssertNotEqual(m.hashValue, m2.hashValue)
     }
 
     func testEncoding_oneofBytes() {
-        assertEncode([146, 7, 1, 1]) {(o: inout MessageTestType) in o.oneofBytes = Data(bytes: [1])}
+        assertEncode([146, 7, 1, 1]) {(o: inout MessageTestType) in o.oneofBytes = Data([1])}
     }
     func testEncoding_oneofBytes2() {
         assertDecodeSucceeds([146, 7, 1, 1]) {(o: MessageTestType) in
-            let expectedB = Data(bytes: [1])
+            let expectedB = Data([1])
             if case .oneofBytes(let b)? = o.oneofField {
                 let s = o.oneofString
                 return b == expectedB && s == ""
@@ -2173,11 +2485,11 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
 
     func testEncoding_oneofBytes_debugDescription() {
         var m = MessageTestType()
-        m.oneofBytes = Data(bytes: [1, 2, 3])
+        m.oneofBytes = Data([1, 2, 3])
 
-        XCTAssertEqual(m.debugDescription, "SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noneof_bytes: \"\\001\\002\\003\"\n");
+        XCTAssertEqual(m.debugDescription, "SwiftProtobufTests.ProtobufUnittest_TestAllTypes:\noneof_bytes: \"\\001\\002\\003\"\n")
         var m2 = MessageTestType()
-        m2.oneofBytes = Data(bytes: [4, 5, 6])
+        m2.oneofBytes = Data([4, 5, 6])
         XCTAssertNotEqual(m.hashValue, m2.hashValue)
     }
 
@@ -2266,9 +2578,9 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
         for (bytes, expectedTextFormat) in testInputs {
             do {
                 let msg = try ProtobufUnittest_TestAllTypes(serializedBytes: bytes)
-                XCTAssertEqual(msg.unknownFields.data, Data(bytes: bytes), "Decoding \(bytes)")
+                XCTAssertEqual(msg.unknownFields.data, Data(bytes), "Decoding \(bytes)")
                 XCTAssertEqual(msg.textFormatString(), expectedTextFormat + "\n", "Decoding \(bytes)")
-                XCTAssertEqual(try msg.serializedData(), Data(bytes: bytes), "Decoding \(bytes)")
+                XCTAssertEqual(try msg.serializedData(), Data(bytes), "Decoding \(bytes)")
             } catch let e {
                 XCTFail("Decoding \(bytes) failed with error: \(e)")
             }
@@ -2287,9 +2599,9 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
             do {
                 let msg = try ProtobufUnittest_NestedTestAllTypes(serializedBytes: fullBytes)
                 XCTAssertTrue(msg.unknownFields.data.isEmpty)
-                XCTAssertEqual(msg.payload.unknownFields.data, Data(bytes: bytes), "Decoding \(bytes)")
+                XCTAssertEqual(msg.payload.unknownFields.data, Data(bytes), "Decoding \(bytes)")
                 XCTAssertEqual(msg.textFormatString(), fullExpectedTextFormat, "Decoding \(bytes)")
-                XCTAssertEqual(try msg.serializedData(), Data(bytes: fullBytes), "Decoding \(bytes)")
+                XCTAssertEqual(try msg.serializedData(), Data(fullBytes), "Decoding \(bytes)")
             } catch let e {
                 XCTFail("Decoding \(bytes) failed with error: \(e)")
             }
@@ -2307,9 +2619,9 @@ class Test_AllTypes: XCTestCase, PBTestHelpers {
             do {
                 let msg = try ProtobufUnittest_TestAllTypes(serializedBytes: fullBytes)
                 XCTAssertTrue(msg.unknownFields.data.isEmpty)
-                XCTAssertEqual(msg.optionalGroup.unknownFields.data, Data(bytes: bytes), "Decoding \(bytes)")
+                XCTAssertEqual(msg.optionalGroup.unknownFields.data, Data(bytes), "Decoding \(bytes)")
                 XCTAssertEqual(msg.textFormatString(), fullExpectedTextFormat, "Decoding \(bytes)")
-                XCTAssertEqual(try msg.serializedData(), Data(bytes: fullBytes), "Decoding \(bytes)")
+                XCTAssertEqual(try msg.serializedData(), Data(fullBytes), "Decoding \(bytes)")
             } catch let e {
                 XCTFail("Decoding \(bytes) failed with error: \(e)")
             }

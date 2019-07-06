@@ -9,7 +9,6 @@
 import Foundation
 import SwiftProtobuf
 import SwiftyJSON
-import Result
 
 public enum CastPayload {
   case json([String: Any])
@@ -269,7 +268,7 @@ public final class CastClient: NSObject, RequestDispatchable {
                                    sourceId: message.sourceID)
             
             if let requestId = json[CastJSONPayloadKeys.requestId].int {
-              callResponseHandler(for: requestId, with: Result(value: json))
+              callResponseHandler(for: requestId, with: .success(json))
             }
           } else {
             NSLog("Unable to get UTF8 JSON data from message")
@@ -371,7 +370,7 @@ public final class CastClient: NSObject, RequestDispatchable {
       
       try write(data: messageData)
     } catch {
-      callResponseHandler(for: request.id, with: Result(error: .request(error.localizedDescription)))
+      callResponseHandler(for: request.id, with: .failure(.request(error.localizedDescription)))
     }
   }
   
@@ -394,29 +393,29 @@ public final class CastClient: NSObject, RequestDispatchable {
   public func join(app: CastApp? = nil, completion: @escaping (Result<CastApp, CastError>) -> Void) {
     guard outputStream != nil,
       let target = app ?? currentStatus?.apps.first else {
-      completion(Result(error: CastError.session("No Apps Running")))
+      completion(.failure(CastError.session("No Apps Running")))
       return
     }
     
     if target == connectedApp {
-      completion(Result(value: target))
+      completion(.success(target))
     } else if let existing = currentStatus?.apps.first(where: { $0.id == target.id }) {
       connect(to: existing)
-      completion(Result(value: existing))
+      completion(.success(existing))
     } else {
       receiverControlChannel.requestStatus { [weak self] result in
         switch result {
         case .success(let status):
           guard let app = status.apps.first else {
-            completion(Result(error: CastError.launch("Unable to get launched app instance")))
+            completion(.failure(CastError.launch("Unable to get launched app instance")))
             return
           }
           
           self?.connect(to: app)
-          completion(Result(value: app))
+          completion(.success(app))
           
         case .failure(let error):
-          completion(Result(error: error))
+          completion(.failure(error))
         }
       }
     }

@@ -64,6 +64,14 @@ enum SDTTopLevelEnum: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension SDTTopLevelEnum: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 struct SDTTopLevelMessage {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -76,7 +84,7 @@ struct SDTTopLevelMessage {
   /// Returns true if `field1` has been explicitly set.
   var hasField1: Bool {return _storage._field1 != nil}
   /// Clears the value of `field1`. Subsequent reads from it will return its default value.
-  mutating func clearField1() {_storage._field1 = nil}
+  mutating func clearField1() {_uniqueStorage()._field1 = nil}
 
   var field2: Int32 {
     get {return _storage._field2 ?? 0}
@@ -85,7 +93,7 @@ struct SDTTopLevelMessage {
   /// Returns true if `field2` has been explicitly set.
   var hasField2: Bool {return _storage._field2 != nil}
   /// Clears the value of `field2`. Subsequent reads from it will return its default value.
-  mutating func clearField2() {_storage._field2 = nil}
+  mutating func clearField2() {_uniqueStorage()._field2 = nil}
 
   var o: OneOf_O? {
     get {return _storage._o}
@@ -132,6 +140,7 @@ struct SDTTopLevelMessage {
     case field5(SDTTopLevelMessage.SubMessage)
     case field6(SDTTopLevelMessage2)
 
+  #if !swift(>=4.1)
     static func ==(lhs: SDTTopLevelMessage.OneOf_O, rhs: SDTTopLevelMessage.OneOf_O) -> Bool {
       switch (lhs, rhs) {
       case (.field3(let l), .field3(let r)): return l == r
@@ -141,6 +150,7 @@ struct SDTTopLevelMessage {
       default: return false
       }
     }
+  #endif
   }
 
   enum SubEnum: SwiftProtobuf.Enum {
@@ -184,7 +194,7 @@ struct SDTTopLevelMessage {
     /// Returns true if `field1` has been explicitly set.
     var hasField1: Bool {return _storage._field1 != nil}
     /// Clears the value of `field1`. Subsequent reads from it will return its default value.
-    mutating func clearField1() {_storage._field1 = nil}
+    mutating func clearField1() {_uniqueStorage()._field1 = nil}
 
     var field2: String {
       get {return _storage._field2 ?? String()}
@@ -193,7 +203,7 @@ struct SDTTopLevelMessage {
     /// Returns true if `field2` has been explicitly set.
     var hasField2: Bool {return _storage._field2 != nil}
     /// Clears the value of `field2`. Subsequent reads from it will return its default value.
-    mutating func clearField2() {_storage._field2 = nil}
+    mutating func clearField2() {_uniqueStorage()._field2 = nil}
 
     var field3: SDTTopLevelMessage.SubMessage {
       get {return _storage._field3 ?? SDTTopLevelMessage.SubMessage()}
@@ -202,7 +212,7 @@ struct SDTTopLevelMessage {
     /// Returns true if `field3` has been explicitly set.
     var hasField3: Bool {return _storage._field3 != nil}
     /// Clears the value of `field3`. Subsequent reads from it will return its default value.
-    mutating func clearField3() {_storage._field3 = nil}
+    mutating func clearField3() {_uniqueStorage()._field3 = nil}
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -216,6 +226,14 @@ struct SDTTopLevelMessage {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+#if swift(>=4.2)
+
+extension SDTTopLevelMessage.SubEnum: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 struct SDTTopLevelMessage2 {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -228,7 +246,7 @@ struct SDTTopLevelMessage2 {
   /// Returns true if `left` has been explicitly set.
   var hasLeft: Bool {return _storage._left != nil}
   /// Clears the value of `left`. Subsequent reads from it will return its default value.
-  mutating func clearLeft() {_storage._left = nil}
+  mutating func clearLeft() {_uniqueStorage()._left = nil}
 
   var right: SDTTopLevelMessage2 {
     get {return _storage._right ?? SDTTopLevelMessage2()}
@@ -237,7 +255,7 @@ struct SDTTopLevelMessage2 {
   /// Returns true if `right` has been explicitly set.
   var hasRight: Bool {return _storage._right != nil}
   /// Clears the value of `right`. Subsequent reads from it will return its default value.
-  mutating func clearRight() {_storage._right = nil}
+  mutating func clearRight() {_uniqueStorage()._right = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -258,7 +276,7 @@ struct SDTExternalRefs {
   /// Returns true if `desc` has been explicitly set.
   var hasDesc: Bool {return _storage._desc != nil}
   /// Clears the value of `desc`. Subsequent reads from it will return its default value.
-  mutating func clearDesc() {_storage._desc = nil}
+  mutating func clearDesc() {_uniqueStorage()._desc = nil}
 
   var ver: Google_Protobuf_Compiler_Version {
     get {return _storage._ver ?? Google_Protobuf_Compiler_Version()}
@@ -267,7 +285,7 @@ struct SDTExternalRefs {
   /// Returns true if `ver` has been explicitly set.
   var hasVer: Bool {return _storage._ver != nil}
   /// Clears the value of `ver`. Subsequent reads from it will return its default value.
-  mutating func clearVer() {_storage._ver = nil}
+  mutating func clearVer() {_uniqueStorage()._ver = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -477,19 +495,19 @@ extension SDTTopLevelMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: SDTTopLevelMessage) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: SDTTopLevelMessage, rhs: SDTTopLevelMessage) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._field1 != other_storage._field1 {return false}
-        if _storage._field2 != other_storage._field2 {return false}
-        if _storage._o != other_storage._o {return false}
+        let rhs_storage = _args.1
+        if _storage._field1 != rhs_storage._field1 {return false}
+        if _storage._field2 != rhs_storage._field2 {return false}
+        if _storage._o != rhs_storage._o {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -562,19 +580,19 @@ extension SDTTopLevelMessage.SubMessage: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: SDTTopLevelMessage.SubMessage) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: SDTTopLevelMessage.SubMessage, rhs: SDTTopLevelMessage.SubMessage) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._field1 != other_storage._field1 {return false}
-        if _storage._field2 != other_storage._field2 {return false}
-        if _storage._field3 != other_storage._field3 {return false}
+        let rhs_storage = _args.1
+        if _storage._field1 != rhs_storage._field1 {return false}
+        if _storage._field2 != rhs_storage._field2 {return false}
+        if _storage._field3 != rhs_storage._field3 {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -632,18 +650,18 @@ extension SDTTopLevelMessage2: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: SDTTopLevelMessage2) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: SDTTopLevelMessage2, rhs: SDTTopLevelMessage2) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._left != other_storage._left {return false}
-        if _storage._right != other_storage._right {return false}
+        let rhs_storage = _args.1
+        if _storage._left != rhs_storage._left {return false}
+        if _storage._right != rhs_storage._right {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -708,18 +726,18 @@ extension SDTExternalRefs: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: SDTExternalRefs) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: SDTExternalRefs, rhs: SDTExternalRefs) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._desc != other_storage._desc {return false}
-        if _storage._ver != other_storage._ver {return false}
+        let rhs_storage = _args.1
+        if _storage._desc != rhs_storage._desc {return false}
+        if _storage._ver != rhs_storage._ver {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -737,8 +755,8 @@ extension SDTScoperForExt: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: SDTScoperForExt) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: SDTScoperForExt, rhs: SDTScoperForExt) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

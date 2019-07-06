@@ -19,8 +19,8 @@ behavior are always appreciated.
 
 The goal is to always support "one full major version”, which basically
 means if the current official release of Swift is `X.Y`, the library will
-support back to `X-1.Y`.  That is, when Swift 4.1 gets released, the minimum
-for support gets moved up to 3.1.
+support back to `X-1.Y`.  That is, when Swift 4.2 was released, the minimum
+for support got moved up to 3.2.
 
 When the minimum Swift version gets updated, update:
 - The `README.md` in the root of the project
@@ -375,9 +375,9 @@ use an additional type object at this point.
 
 Many other facilities - not just serialization - can be built on
 top of this same machinery.
-For example, the default `hashValue` implementation uses the same
-traversal machinery to iterate over all of the set fields and values
-in order to compute the hash.
+For example, the `hashValue` implementation uses the same traversal
+machinery to iterate over all of the set fields and values in order
+to compute the hash.
 
 You can look at the runtime library to see more details about the
 `Visitor` protocol and the various implementations in each encoder.
@@ -447,8 +447,6 @@ collected unknown field data onto the resulting message object.
 ## Miscellaneous support methods
 
 TODO: initializers
-
-TODO: isEqualTo
 
 TODO: _protobuf_generated methods
 

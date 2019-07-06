@@ -47,7 +47,7 @@ struct Swift_Protobuf_TestFieldOrderings: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `myString` has been explicitly set.
   var hasMyString: Bool {return _storage._myString != nil}
   /// Clears the value of `myString`. Subsequent reads from it will return its default value.
-  mutating func clearMyString() {_storage._myString = nil}
+  mutating func clearMyString() {_uniqueStorage()._myString = nil}
 
   var myInt: Int64 {
     get {return _storage._myInt ?? 0}
@@ -56,7 +56,7 @@ struct Swift_Protobuf_TestFieldOrderings: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `myInt` has been explicitly set.
   var hasMyInt: Bool {return _storage._myInt != nil}
   /// Clears the value of `myInt`. Subsequent reads from it will return its default value.
-  mutating func clearMyInt() {_storage._myInt = nil}
+  mutating func clearMyInt() {_uniqueStorage()._myInt = nil}
 
   var myFloat: Float {
     get {return _storage._myFloat ?? 0}
@@ -65,7 +65,7 @@ struct Swift_Protobuf_TestFieldOrderings: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `myFloat` has been explicitly set.
   var hasMyFloat: Bool {return _storage._myFloat != nil}
   /// Clears the value of `myFloat`. Subsequent reads from it will return its default value.
-  mutating func clearMyFloat() {_storage._myFloat = nil}
+  mutating func clearMyFloat() {_uniqueStorage()._myFloat = nil}
 
   var options: OneOf_Options? {
     get {return _storage._options}
@@ -111,7 +111,7 @@ struct Swift_Protobuf_TestFieldOrderings: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `optionalNestedMessage` has been explicitly set.
   var hasOptionalNestedMessage: Bool {return _storage._optionalNestedMessage != nil}
   /// Clears the value of `optionalNestedMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalNestedMessage() {_storage._optionalNestedMessage = nil}
+  mutating func clearOptionalNestedMessage() {_uniqueStorage()._optionalNestedMessage = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -121,6 +121,7 @@ struct Swift_Protobuf_TestFieldOrderings: SwiftProtobuf.ExtensibleMessage {
     case oneofString(String)
     case oneofInt32(Int32)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Swift_Protobuf_TestFieldOrderings.OneOf_Options, rhs: Swift_Protobuf_TestFieldOrderings.OneOf_Options) -> Bool {
       switch (lhs, rhs) {
       case (.oneofInt64(let l), .oneofInt64(let r)): return l == r
@@ -130,6 +131,7 @@ struct Swift_Protobuf_TestFieldOrderings: SwiftProtobuf.ExtensibleMessage {
       default: return false
       }
     }
+  #endif
   }
 
   struct NestedMessage {
@@ -269,6 +271,7 @@ struct Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.ExtensibleMessage 
     case a(Int32)
     case b(Int32)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Swift_Protobuf_OneofTraversalGeneration.OneOf_OGood, rhs: Swift_Protobuf_OneofTraversalGeneration.OneOf_OGood) -> Bool {
       switch (lhs, rhs) {
       case (.a(let l), .a(let r)): return l == r
@@ -276,6 +279,7 @@ struct Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.ExtensibleMessage 
       default: return false
       }
     }
+  #endif
   }
 
   /// Gaps with a field in the middle of the range.
@@ -283,6 +287,7 @@ struct Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.ExtensibleMessage 
     case a2(Int32)
     case b2(Int32)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Swift_Protobuf_OneofTraversalGeneration.OneOf_OConflictField, rhs: Swift_Protobuf_OneofTraversalGeneration.OneOf_OConflictField) -> Bool {
       switch (lhs, rhs) {
       case (.a2(let l), .a2(let r)): return l == r
@@ -290,6 +295,7 @@ struct Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.ExtensibleMessage 
       default: return false
       }
     }
+  #endif
   }
 
   /// Gaps with an extension range in the middle of the range.
@@ -297,6 +303,7 @@ struct Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.ExtensibleMessage 
     case a3(Int32)
     case b3(Int32)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Swift_Protobuf_OneofTraversalGeneration.OneOf_OConflictExtensionsStart, rhs: Swift_Protobuf_OneofTraversalGeneration.OneOf_OConflictExtensionsStart) -> Bool {
       switch (lhs, rhs) {
       case (.a3(let l), .a3(let r)): return l == r
@@ -304,6 +311,7 @@ struct Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.ExtensibleMessage 
       default: return false
       }
     }
+  #endif
   }
 
   /// Gaps with an extension range in the middle of the range.
@@ -311,6 +319,7 @@ struct Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.ExtensibleMessage 
     case a4(Int32)
     case b4(Int32)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Swift_Protobuf_OneofTraversalGeneration.OneOf_OConflictExtensionsEnd, rhs: Swift_Protobuf_OneofTraversalGeneration.OneOf_OConflictExtensionsEnd) -> Bool {
       switch (lhs, rhs) {
       case (.a4(let l), .a4(let r)): return l == r
@@ -318,6 +327,7 @@ struct Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.ExtensibleMessage 
       default: return false
       }
     }
+  #endif
   }
 
   init() {}
@@ -501,22 +511,22 @@ extension Swift_Protobuf_TestFieldOrderings: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Swift_Protobuf_TestFieldOrderings) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Swift_Protobuf_TestFieldOrderings, rhs: Swift_Protobuf_TestFieldOrderings) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._myString != other_storage._myString {return false}
-        if _storage._myInt != other_storage._myInt {return false}
-        if _storage._myFloat != other_storage._myFloat {return false}
-        if _storage._options != other_storage._options {return false}
-        if _storage._optionalNestedMessage != other_storage._optionalNestedMessage {return false}
+        let rhs_storage = _args.1
+        if _storage._myString != rhs_storage._myString {return false}
+        if _storage._myInt != rhs_storage._myInt {return false}
+        if _storage._myFloat != rhs_storage._myFloat {return false}
+        if _storage._options != rhs_storage._options {return false}
+        if _storage._optionalNestedMessage != rhs_storage._optionalNestedMessage {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -548,10 +558,10 @@ extension Swift_Protobuf_TestFieldOrderings.NestedMessage: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Swift_Protobuf_TestFieldOrderings.NestedMessage) -> Bool {
-    if self._oo != other._oo {return false}
-    if self._bb != other._bb {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Swift_Protobuf_TestFieldOrderings.NestedMessage, rhs: Swift_Protobuf_TestFieldOrderings.NestedMessage) -> Bool {
+    if lhs._oo != rhs._oo {return false}
+    if lhs._bb != rhs._bb {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -660,14 +670,14 @@ extension Swift_Protobuf_OneofTraversalGeneration: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Swift_Protobuf_OneofTraversalGeneration) -> Bool {
-    if self.oGood != other.oGood {return false}
-    if self.oConflictField != other.oConflictField {return false}
-    if self._m != other._m {return false}
-    if self.oConflictExtensionsStart != other.oConflictExtensionsStart {return false}
-    if self.oConflictExtensionsEnd != other.oConflictExtensionsEnd {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  static func ==(lhs: Swift_Protobuf_OneofTraversalGeneration, rhs: Swift_Protobuf_OneofTraversalGeneration) -> Bool {
+    if lhs.oGood != rhs.oGood {return false}
+    if lhs.oConflictField != rhs.oConflictField {return false}
+    if lhs._m != rhs._m {return false}
+    if lhs.oConflictExtensionsStart != rhs.oConflictExtensionsStart {return false}
+    if lhs.oConflictExtensionsEnd != rhs.oConflictExtensionsEnd {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }

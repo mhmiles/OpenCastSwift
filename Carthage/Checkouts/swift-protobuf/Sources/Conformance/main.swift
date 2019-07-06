@@ -36,7 +36,7 @@ func readRequest() -> Data? {
     if read2 < count {
         return nil
     }
-    return Data(bytes: buff)
+    return Data(buff)
 }
 
 func writeResponse(data: Data) {
@@ -57,6 +57,30 @@ func buildResponse(serializedData: Data) -> Conformance_ConformanceResponse {
         request = try Conformance_ConformanceRequest(serializedData: serializedData)
     } catch {
         response.runtimeError = "Failed to parse conformance request"
+        return response
+    }
+
+    // Detect when something gets added to the conformance request that isn't
+    // supported yet.
+    guard request.unknownFields.data.isEmpty else {
+        response.runtimeError =
+            "ConformanceRequest had unknown fields; regenerate conformance.pb.swift and"
+            + " see what support needs to be added."
+        return response
+    }
+
+    switch request.testCategory {
+    case .unspecifiedTest, .binaryTest, .jsonTest, .jsonIgnoreUnknownParsingTest, .textFormatTest:
+        break  // known, nothing to do.
+    case .jspbTest:
+        response.skipped =
+            "ConformanceRequest had a JSPB_TEST TestCategory; those aren't supposed to"
+            + " happen with opensource."
+        return response
+    case .UNRECOGNIZED(let x):
+        response.runtimeError =
+          "ConformanceRequest had a new testCategory (\(x)); regenerate conformance.pb.swift"
+          + " and see what support needs to be added."
         return response
     }
 
@@ -85,10 +109,24 @@ func buildResponse(serializedData: Data) -> Conformance_ConformanceResponse {
             return response
         }
     case .jsonPayload(let json)?:
+        var options = JSONDecodingOptions()
+        options.ignoreUnknownFields = (request.testCategory == .jsonIgnoreUnknownParsingTest)
         do {
-            testMessage = try msgType.init(jsonString: json)
+            testMessage = try msgType.init(jsonString: json, options: options)
         } catch let e {
             response.parseError = "JSON failed to parse: \(e)"
+            return response
+        }
+    case .jspbPayload(_)?:
+        response.skipped =
+            "ConformanceRequest had a jspb_payload ConformanceRequest payload; those aren't"
+            + " supposed to happen with opensource."
+        return response
+    case .textPayload(let textFormat)?:
+        do {
+            testMessage = try msgType.init(textFormatString: textFormat)
+        } catch let e {
+            response.parseError = "Protobuf failed to parse: \(e)"
             return response
         }
     case nil:
@@ -109,6 +147,14 @@ func buildResponse(serializedData: Data) -> Conformance_ConformanceResponse {
         } catch let e {
             response.serializeError = "Failed to serialize: \(e)"
         }
+    case .jspb:
+        response.skipped =
+            "ConformanceRequest had a requested_output_format of JSPB WireFormat; that"
+            + " isn't supposed to happen with opensource."
+    case .textFormat:
+        var textFormatOptions = TextFormatEncodingOptions()
+        textFormatOptions.printUnknownFields = request.printUnknownFields
+        response.textPayload = testMessage.textFormatString(options: textFormatOptions)
     case .unspecified:
         response.runtimeError = "Request asked for the 'unspecified' result, that isn't valid."
     case .UNRECOGNIZED(let v):

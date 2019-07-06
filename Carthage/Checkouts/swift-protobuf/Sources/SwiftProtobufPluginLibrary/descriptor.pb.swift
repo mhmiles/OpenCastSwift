@@ -85,7 +85,7 @@ public struct Google_Protobuf_FileDescriptorProto {
   /// Returns true if `name` has been explicitly set.
   public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_uniqueStorage()._name = nil}
 
   /// e.g. "foo", "foo.bar", etc.
   public var package: String {
@@ -95,7 +95,7 @@ public struct Google_Protobuf_FileDescriptorProto {
   /// Returns true if `package` has been explicitly set.
   public var hasPackage: Bool {return _storage._package != nil}
   /// Clears the value of `package`. Subsequent reads from it will return its default value.
-  public mutating func clearPackage() {_storage._package = nil}
+  public mutating func clearPackage() {_uniqueStorage()._package = nil}
 
   /// Names of files imported by this file.
   public var dependency: [String] {
@@ -144,7 +144,7 @@ public struct Google_Protobuf_FileDescriptorProto {
   /// Returns true if `options` has been explicitly set.
   public var hasOptions: Bool {return _storage._options != nil}
   /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {_storage._options = nil}
+  public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
   /// This field contains optional information about the original source code.
   /// You may safely remove this entire field without harming runtime
@@ -157,7 +157,7 @@ public struct Google_Protobuf_FileDescriptorProto {
   /// Returns true if `sourceCodeInfo` has been explicitly set.
   public var hasSourceCodeInfo: Bool {return _storage._sourceCodeInfo != nil}
   /// Clears the value of `sourceCodeInfo`. Subsequent reads from it will return its default value.
-  public mutating func clearSourceCodeInfo() {_storage._sourceCodeInfo = nil}
+  public mutating func clearSourceCodeInfo() {_uniqueStorage()._sourceCodeInfo = nil}
 
   /// The syntax of the proto file.
   /// The supported values are "proto2" and "proto3".
@@ -168,7 +168,7 @@ public struct Google_Protobuf_FileDescriptorProto {
   /// Returns true if `syntax` has been explicitly set.
   public var hasSyntax: Bool {return _storage._syntax != nil}
   /// Clears the value of `syntax`. Subsequent reads from it will return its default value.
-  public mutating func clearSyntax() {_storage._syntax = nil}
+  public mutating func clearSyntax() {_uniqueStorage()._syntax = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -190,7 +190,7 @@ public struct Google_Protobuf_DescriptorProto {
   /// Returns true if `name` has been explicitly set.
   public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_uniqueStorage()._name = nil}
 
   public var field: [Google_Protobuf_FieldDescriptorProto] {
     get {return _storage._field}
@@ -229,7 +229,7 @@ public struct Google_Protobuf_DescriptorProto {
   /// Returns true if `options` has been explicitly set.
   public var hasOptions: Bool {return _storage._options != nil}
   /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {_storage._options = nil}
+  public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
   public var reservedRange: [Google_Protobuf_DescriptorProto.ReservedRange] {
     get {return _storage._reservedRange}
@@ -257,7 +257,7 @@ public struct Google_Protobuf_DescriptorProto {
     /// Returns true if `start` has been explicitly set.
     public var hasStart: Bool {return _storage._start != nil}
     /// Clears the value of `start`. Subsequent reads from it will return its default value.
-    public mutating func clearStart() {_storage._start = nil}
+    public mutating func clearStart() {_uniqueStorage()._start = nil}
 
     public var end: Int32 {
       get {return _storage._end ?? 0}
@@ -266,7 +266,7 @@ public struct Google_Protobuf_DescriptorProto {
     /// Returns true if `end` has been explicitly set.
     public var hasEnd: Bool {return _storage._end != nil}
     /// Clears the value of `end`. Subsequent reads from it will return its default value.
-    public mutating func clearEnd() {_storage._end = nil}
+    public mutating func clearEnd() {_uniqueStorage()._end = nil}
 
     public var options: Google_Protobuf_ExtensionRangeOptions {
       get {return _storage._options ?? Google_Protobuf_ExtensionRangeOptions()}
@@ -275,7 +275,7 @@ public struct Google_Protobuf_DescriptorProto {
     /// Returns true if `options` has been explicitly set.
     public var hasOptions: Bool {return _storage._options != nil}
     /// Clears the value of `options`. Subsequent reads from it will return its default value.
-    public mutating func clearOptions() {_storage._options = nil}
+    public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -353,7 +353,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `name` has been explicitly set.
   public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_uniqueStorage()._name = nil}
 
   public var number: Int32 {
     get {return _storage._number ?? 0}
@@ -362,7 +362,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `number` has been explicitly set.
   public var hasNumber: Bool {return _storage._number != nil}
   /// Clears the value of `number`. Subsequent reads from it will return its default value.
-  public mutating func clearNumber() {_storage._number = nil}
+  public mutating func clearNumber() {_uniqueStorage()._number = nil}
 
   public var label: Google_Protobuf_FieldDescriptorProto.Label {
     get {return _storage._label ?? .optional}
@@ -371,7 +371,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `label` has been explicitly set.
   public var hasLabel: Bool {return _storage._label != nil}
   /// Clears the value of `label`. Subsequent reads from it will return its default value.
-  public mutating func clearLabel() {_storage._label = nil}
+  public mutating func clearLabel() {_uniqueStorage()._label = nil}
 
   /// If type_name is set, this need not be set.  If both this and type_name
   /// are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.
@@ -382,7 +382,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `type` has been explicitly set.
   public var hasType: Bool {return _storage._type != nil}
   /// Clears the value of `type`. Subsequent reads from it will return its default value.
-  public mutating func clearType() {_storage._type = nil}
+  public mutating func clearType() {_uniqueStorage()._type = nil}
 
   /// For message and enum types, this is the name of the type.  If the name
   /// starts with a '.', it is fully-qualified.  Otherwise, C++-like scoping
@@ -396,7 +396,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `typeName` has been explicitly set.
   public var hasTypeName: Bool {return _storage._typeName != nil}
   /// Clears the value of `typeName`. Subsequent reads from it will return its default value.
-  public mutating func clearTypeName() {_storage._typeName = nil}
+  public mutating func clearTypeName() {_uniqueStorage()._typeName = nil}
 
   /// For extensions, this is the name of the type being extended.  It is
   /// resolved in the same manner as type_name.
@@ -407,7 +407,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `extendee` has been explicitly set.
   public var hasExtendee: Bool {return _storage._extendee != nil}
   /// Clears the value of `extendee`. Subsequent reads from it will return its default value.
-  public mutating func clearExtendee() {_storage._extendee = nil}
+  public mutating func clearExtendee() {_uniqueStorage()._extendee = nil}
 
   /// For numeric types, contains the original text representation of the value.
   /// For booleans, "true" or "false".
@@ -421,7 +421,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `defaultValue` has been explicitly set.
   public var hasDefaultValue: Bool {return _storage._defaultValue != nil}
   /// Clears the value of `defaultValue`. Subsequent reads from it will return its default value.
-  public mutating func clearDefaultValue() {_storage._defaultValue = nil}
+  public mutating func clearDefaultValue() {_uniqueStorage()._defaultValue = nil}
 
   /// If set, gives the index of a oneof in the containing type's oneof_decl
   /// list.  This field is a member of that oneof.
@@ -432,7 +432,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `oneofIndex` has been explicitly set.
   public var hasOneofIndex: Bool {return _storage._oneofIndex != nil}
   /// Clears the value of `oneofIndex`. Subsequent reads from it will return its default value.
-  public mutating func clearOneofIndex() {_storage._oneofIndex = nil}
+  public mutating func clearOneofIndex() {_uniqueStorage()._oneofIndex = nil}
 
   /// JSON name of this field. The value is set by protocol compiler. If the
   /// user has set a "json_name" option on this field, that option's value
@@ -445,7 +445,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `jsonName` has been explicitly set.
   public var hasJsonName: Bool {return _storage._jsonName != nil}
   /// Clears the value of `jsonName`. Subsequent reads from it will return its default value.
-  public mutating func clearJsonName() {_storage._jsonName = nil}
+  public mutating func clearJsonName() {_uniqueStorage()._jsonName = nil}
 
   public var options: Google_Protobuf_FieldOptions {
     get {return _storage._options ?? Google_Protobuf_FieldOptions()}
@@ -454,7 +454,7 @@ public struct Google_Protobuf_FieldDescriptorProto {
   /// Returns true if `options` has been explicitly set.
   public var hasOptions: Bool {return _storage._options != nil}
   /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {_storage._options = nil}
+  public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -590,6 +590,18 @@ public struct Google_Protobuf_FieldDescriptorProto {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+#if swift(>=4.2)
+
+extension Google_Protobuf_FieldDescriptorProto.TypeEnum: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+extension Google_Protobuf_FieldDescriptorProto.Label: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 /// Describes a oneof.
 public struct Google_Protobuf_OneofDescriptorProto {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -603,7 +615,7 @@ public struct Google_Protobuf_OneofDescriptorProto {
   /// Returns true if `name` has been explicitly set.
   public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_uniqueStorage()._name = nil}
 
   public var options: Google_Protobuf_OneofOptions {
     get {return _storage._options ?? Google_Protobuf_OneofOptions()}
@@ -612,7 +624,7 @@ public struct Google_Protobuf_OneofDescriptorProto {
   /// Returns true if `options` has been explicitly set.
   public var hasOptions: Bool {return _storage._options != nil}
   /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {_storage._options = nil}
+  public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -634,7 +646,7 @@ public struct Google_Protobuf_EnumDescriptorProto {
   /// Returns true if `name` has been explicitly set.
   public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_uniqueStorage()._name = nil}
 
   public var value: [Google_Protobuf_EnumValueDescriptorProto] {
     get {return _storage._value}
@@ -648,7 +660,7 @@ public struct Google_Protobuf_EnumDescriptorProto {
   /// Returns true if `options` has been explicitly set.
   public var hasOptions: Bool {return _storage._options != nil}
   /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {_storage._options = nil}
+  public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
   /// Range of reserved numeric values. Reserved numeric values may not be used
   /// by enum values in the same enum declaration. Reserved ranges may not
@@ -724,7 +736,7 @@ public struct Google_Protobuf_EnumValueDescriptorProto {
   /// Returns true if `name` has been explicitly set.
   public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_uniqueStorage()._name = nil}
 
   public var number: Int32 {
     get {return _storage._number ?? 0}
@@ -733,7 +745,7 @@ public struct Google_Protobuf_EnumValueDescriptorProto {
   /// Returns true if `number` has been explicitly set.
   public var hasNumber: Bool {return _storage._number != nil}
   /// Clears the value of `number`. Subsequent reads from it will return its default value.
-  public mutating func clearNumber() {_storage._number = nil}
+  public mutating func clearNumber() {_uniqueStorage()._number = nil}
 
   public var options: Google_Protobuf_EnumValueOptions {
     get {return _storage._options ?? Google_Protobuf_EnumValueOptions()}
@@ -742,7 +754,7 @@ public struct Google_Protobuf_EnumValueDescriptorProto {
   /// Returns true if `options` has been explicitly set.
   public var hasOptions: Bool {return _storage._options != nil}
   /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {_storage._options = nil}
+  public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -764,7 +776,7 @@ public struct Google_Protobuf_ServiceDescriptorProto {
   /// Returns true if `name` has been explicitly set.
   public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_uniqueStorage()._name = nil}
 
   public var method: [Google_Protobuf_MethodDescriptorProto] {
     get {return _storage._method}
@@ -778,7 +790,7 @@ public struct Google_Protobuf_ServiceDescriptorProto {
   /// Returns true if `options` has been explicitly set.
   public var hasOptions: Bool {return _storage._options != nil}
   /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {_storage._options = nil}
+  public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -800,7 +812,7 @@ public struct Google_Protobuf_MethodDescriptorProto {
   /// Returns true if `name` has been explicitly set.
   public var hasName: Bool {return _storage._name != nil}
   /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {_storage._name = nil}
+  public mutating func clearName() {_uniqueStorage()._name = nil}
 
   /// Input and output type names.  These are resolved in the same way as
   /// FieldDescriptorProto.type_name, but must refer to a message type.
@@ -811,7 +823,7 @@ public struct Google_Protobuf_MethodDescriptorProto {
   /// Returns true if `inputType` has been explicitly set.
   public var hasInputType: Bool {return _storage._inputType != nil}
   /// Clears the value of `inputType`. Subsequent reads from it will return its default value.
-  public mutating func clearInputType() {_storage._inputType = nil}
+  public mutating func clearInputType() {_uniqueStorage()._inputType = nil}
 
   public var outputType: String {
     get {return _storage._outputType ?? String()}
@@ -820,7 +832,7 @@ public struct Google_Protobuf_MethodDescriptorProto {
   /// Returns true if `outputType` has been explicitly set.
   public var hasOutputType: Bool {return _storage._outputType != nil}
   /// Clears the value of `outputType`. Subsequent reads from it will return its default value.
-  public mutating func clearOutputType() {_storage._outputType = nil}
+  public mutating func clearOutputType() {_uniqueStorage()._outputType = nil}
 
   public var options: Google_Protobuf_MethodOptions {
     get {return _storage._options ?? Google_Protobuf_MethodOptions()}
@@ -829,7 +841,7 @@ public struct Google_Protobuf_MethodDescriptorProto {
   /// Returns true if `options` has been explicitly set.
   public var hasOptions: Bool {return _storage._options != nil}
   /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {_storage._options = nil}
+  public mutating func clearOptions() {_uniqueStorage()._options = nil}
 
   /// Identifies if client streams multiple client messages
   public var clientStreaming: Bool {
@@ -839,7 +851,7 @@ public struct Google_Protobuf_MethodDescriptorProto {
   /// Returns true if `clientStreaming` has been explicitly set.
   public var hasClientStreaming: Bool {return _storage._clientStreaming != nil}
   /// Clears the value of `clientStreaming`. Subsequent reads from it will return its default value.
-  public mutating func clearClientStreaming() {_storage._clientStreaming = nil}
+  public mutating func clearClientStreaming() {_uniqueStorage()._clientStreaming = nil}
 
   /// Identifies if server streams multiple server messages
   public var serverStreaming: Bool {
@@ -849,7 +861,7 @@ public struct Google_Protobuf_MethodDescriptorProto {
   /// Returns true if `serverStreaming` has been explicitly set.
   public var hasServerStreaming: Bool {return _storage._serverStreaming != nil}
   /// Clears the value of `serverStreaming`. Subsequent reads from it will return its default value.
-  public mutating func clearServerStreaming() {_storage._serverStreaming = nil}
+  public mutating func clearServerStreaming() {_uniqueStorage()._serverStreaming = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -874,7 +886,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `javaPackage` has been explicitly set.
   public var hasJavaPackage: Bool {return _storage._javaPackage != nil}
   /// Clears the value of `javaPackage`. Subsequent reads from it will return its default value.
-  public mutating func clearJavaPackage() {_storage._javaPackage = nil}
+  public mutating func clearJavaPackage() {_uniqueStorage()._javaPackage = nil}
 
   /// If set, all the classes from the .proto file are wrapped in a single
   /// outer class with the given name.  This applies to both Proto1
@@ -888,7 +900,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `javaOuterClassname` has been explicitly set.
   public var hasJavaOuterClassname: Bool {return _storage._javaOuterClassname != nil}
   /// Clears the value of `javaOuterClassname`. Subsequent reads from it will return its default value.
-  public mutating func clearJavaOuterClassname() {_storage._javaOuterClassname = nil}
+  public mutating func clearJavaOuterClassname() {_uniqueStorage()._javaOuterClassname = nil}
 
   /// If set true, then the Java code generator will generate a separate .java
   /// file for each top-level message, enum, and service defined in the .proto
@@ -903,7 +915,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `javaMultipleFiles` has been explicitly set.
   public var hasJavaMultipleFiles: Bool {return _storage._javaMultipleFiles != nil}
   /// Clears the value of `javaMultipleFiles`. Subsequent reads from it will return its default value.
-  public mutating func clearJavaMultipleFiles() {_storage._javaMultipleFiles = nil}
+  public mutating func clearJavaMultipleFiles() {_uniqueStorage()._javaMultipleFiles = nil}
 
   /// This option does nothing.
   public var javaGenerateEqualsAndHash: Bool {
@@ -913,7 +925,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `javaGenerateEqualsAndHash` has been explicitly set.
   public var hasJavaGenerateEqualsAndHash: Bool {return _storage._javaGenerateEqualsAndHash != nil}
   /// Clears the value of `javaGenerateEqualsAndHash`. Subsequent reads from it will return its default value.
-  public mutating func clearJavaGenerateEqualsAndHash() {_storage._javaGenerateEqualsAndHash = nil}
+  public mutating func clearJavaGenerateEqualsAndHash() {_uniqueStorage()._javaGenerateEqualsAndHash = nil}
 
   /// If set true, then the Java2 code generator will generate code that
   /// throws an exception whenever an attempt is made to assign a non-UTF-8
@@ -928,7 +940,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `javaStringCheckUtf8` has been explicitly set.
   public var hasJavaStringCheckUtf8: Bool {return _storage._javaStringCheckUtf8 != nil}
   /// Clears the value of `javaStringCheckUtf8`. Subsequent reads from it will return its default value.
-  public mutating func clearJavaStringCheckUtf8() {_storage._javaStringCheckUtf8 = nil}
+  public mutating func clearJavaStringCheckUtf8() {_uniqueStorage()._javaStringCheckUtf8 = nil}
 
   public var optimizeFor: Google_Protobuf_FileOptions.OptimizeMode {
     get {return _storage._optimizeFor ?? .speed}
@@ -937,7 +949,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `optimizeFor` has been explicitly set.
   public var hasOptimizeFor: Bool {return _storage._optimizeFor != nil}
   /// Clears the value of `optimizeFor`. Subsequent reads from it will return its default value.
-  public mutating func clearOptimizeFor() {_storage._optimizeFor = nil}
+  public mutating func clearOptimizeFor() {_uniqueStorage()._optimizeFor = nil}
 
   /// Sets the Go package where structs generated from this .proto will be
   /// placed. If omitted, the Go package will be derived from the following:
@@ -951,7 +963,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `goPackage` has been explicitly set.
   public var hasGoPackage: Bool {return _storage._goPackage != nil}
   /// Clears the value of `goPackage`. Subsequent reads from it will return its default value.
-  public mutating func clearGoPackage() {_storage._goPackage = nil}
+  public mutating func clearGoPackage() {_uniqueStorage()._goPackage = nil}
 
   /// Should generic services be generated in each language?  "Generic" services
   /// are not specific to any particular RPC system.  They are generated by the
@@ -970,7 +982,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `ccGenericServices` has been explicitly set.
   public var hasCcGenericServices: Bool {return _storage._ccGenericServices != nil}
   /// Clears the value of `ccGenericServices`. Subsequent reads from it will return its default value.
-  public mutating func clearCcGenericServices() {_storage._ccGenericServices = nil}
+  public mutating func clearCcGenericServices() {_uniqueStorage()._ccGenericServices = nil}
 
   public var javaGenericServices: Bool {
     get {return _storage._javaGenericServices ?? false}
@@ -979,7 +991,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `javaGenericServices` has been explicitly set.
   public var hasJavaGenericServices: Bool {return _storage._javaGenericServices != nil}
   /// Clears the value of `javaGenericServices`. Subsequent reads from it will return its default value.
-  public mutating func clearJavaGenericServices() {_storage._javaGenericServices = nil}
+  public mutating func clearJavaGenericServices() {_uniqueStorage()._javaGenericServices = nil}
 
   public var pyGenericServices: Bool {
     get {return _storage._pyGenericServices ?? false}
@@ -988,7 +1000,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `pyGenericServices` has been explicitly set.
   public var hasPyGenericServices: Bool {return _storage._pyGenericServices != nil}
   /// Clears the value of `pyGenericServices`. Subsequent reads from it will return its default value.
-  public mutating func clearPyGenericServices() {_storage._pyGenericServices = nil}
+  public mutating func clearPyGenericServices() {_uniqueStorage()._pyGenericServices = nil}
 
   public var phpGenericServices: Bool {
     get {return _storage._phpGenericServices ?? false}
@@ -997,7 +1009,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `phpGenericServices` has been explicitly set.
   public var hasPhpGenericServices: Bool {return _storage._phpGenericServices != nil}
   /// Clears the value of `phpGenericServices`. Subsequent reads from it will return its default value.
-  public mutating func clearPhpGenericServices() {_storage._phpGenericServices = nil}
+  public mutating func clearPhpGenericServices() {_uniqueStorage()._phpGenericServices = nil}
 
   /// Is this file deprecated?
   /// Depending on the target platform, this can emit Deprecated annotations
@@ -1010,7 +1022,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `deprecated` has been explicitly set.
   public var hasDeprecated: Bool {return _storage._deprecated != nil}
   /// Clears the value of `deprecated`. Subsequent reads from it will return its default value.
-  public mutating func clearDeprecated() {_storage._deprecated = nil}
+  public mutating func clearDeprecated() {_uniqueStorage()._deprecated = nil}
 
   /// Enables the use of arenas for the proto messages in this file. This applies
   /// only to generated classes for C++.
@@ -1021,7 +1033,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `ccEnableArenas` has been explicitly set.
   public var hasCcEnableArenas: Bool {return _storage._ccEnableArenas != nil}
   /// Clears the value of `ccEnableArenas`. Subsequent reads from it will return its default value.
-  public mutating func clearCcEnableArenas() {_storage._ccEnableArenas = nil}
+  public mutating func clearCcEnableArenas() {_uniqueStorage()._ccEnableArenas = nil}
 
   /// Sets the objective c class prefix which is prepended to all objective c
   /// generated classes from this .proto. There is no default.
@@ -1032,7 +1044,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `objcClassPrefix` has been explicitly set.
   public var hasObjcClassPrefix: Bool {return _storage._objcClassPrefix != nil}
   /// Clears the value of `objcClassPrefix`. Subsequent reads from it will return its default value.
-  public mutating func clearObjcClassPrefix() {_storage._objcClassPrefix = nil}
+  public mutating func clearObjcClassPrefix() {_uniqueStorage()._objcClassPrefix = nil}
 
   /// Namespace for generated classes; defaults to the package.
   public var csharpNamespace: String {
@@ -1042,7 +1054,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `csharpNamespace` has been explicitly set.
   public var hasCsharpNamespace: Bool {return _storage._csharpNamespace != nil}
   /// Clears the value of `csharpNamespace`. Subsequent reads from it will return its default value.
-  public mutating func clearCsharpNamespace() {_storage._csharpNamespace = nil}
+  public mutating func clearCsharpNamespace() {_uniqueStorage()._csharpNamespace = nil}
 
   /// By default Swift generators will take the proto package and CamelCase it
   /// replacing '.' with underscore and use that to prefix the types/symbols
@@ -1055,7 +1067,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `swiftPrefix` has been explicitly set.
   public var hasSwiftPrefix: Bool {return _storage._swiftPrefix != nil}
   /// Clears the value of `swiftPrefix`. Subsequent reads from it will return its default value.
-  public mutating func clearSwiftPrefix() {_storage._swiftPrefix = nil}
+  public mutating func clearSwiftPrefix() {_uniqueStorage()._swiftPrefix = nil}
 
   /// Sets the php class prefix which is prepended to all php generated classes
   /// from this .proto. Default is empty.
@@ -1066,7 +1078,7 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `phpClassPrefix` has been explicitly set.
   public var hasPhpClassPrefix: Bool {return _storage._phpClassPrefix != nil}
   /// Clears the value of `phpClassPrefix`. Subsequent reads from it will return its default value.
-  public mutating func clearPhpClassPrefix() {_storage._phpClassPrefix = nil}
+  public mutating func clearPhpClassPrefix() {_uniqueStorage()._phpClassPrefix = nil}
 
   /// Use this option to change the namespace of php generated classes. Default
   /// is empty. When this option is empty, the package name will be used for
@@ -1078,7 +1090,31 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `phpNamespace` has been explicitly set.
   public var hasPhpNamespace: Bool {return _storage._phpNamespace != nil}
   /// Clears the value of `phpNamespace`. Subsequent reads from it will return its default value.
-  public mutating func clearPhpNamespace() {_storage._phpNamespace = nil}
+  public mutating func clearPhpNamespace() {_uniqueStorage()._phpNamespace = nil}
+
+  /// Use this option to change the namespace of php generated metadata classes.
+  /// Default is empty. When this option is empty, the proto file name will be used
+  /// for determining the namespace.
+  public var phpMetadataNamespace: String {
+    get {return _storage._phpMetadataNamespace ?? String()}
+    set {_uniqueStorage()._phpMetadataNamespace = newValue}
+  }
+  /// Returns true if `phpMetadataNamespace` has been explicitly set.
+  public var hasPhpMetadataNamespace: Bool {return _storage._phpMetadataNamespace != nil}
+  /// Clears the value of `phpMetadataNamespace`. Subsequent reads from it will return its default value.
+  public mutating func clearPhpMetadataNamespace() {_uniqueStorage()._phpMetadataNamespace = nil}
+
+  /// Use this option to change the package of ruby generated classes. Default
+  /// is empty. When this option is not set, the package name will be used for
+  /// determining the ruby package.
+  public var rubyPackage: String {
+    get {return _storage._rubyPackage ?? String()}
+    set {_uniqueStorage()._rubyPackage = newValue}
+  }
+  /// Returns true if `rubyPackage` has been explicitly set.
+  public var hasRubyPackage: Bool {return _storage._rubyPackage != nil}
+  /// Clears the value of `rubyPackage`. Subsequent reads from it will return its default value.
+  public mutating func clearRubyPackage() {_uniqueStorage()._rubyPackage = nil}
 
   /// The parser stores options it doesn't recognize here.
   /// See the documentation for the "Options" section above.
@@ -1130,6 +1166,14 @@ public struct Google_Protobuf_FileOptions: SwiftProtobuf.ExtensibleMessage {
   public var _protobuf_extensionFieldValues = SwiftProtobuf.ExtensionFieldValueSet()
   fileprivate var _storage = _StorageClass.defaultInstance
 }
+
+#if swift(>=4.2)
+
+extension Google_Protobuf_FileOptions.OptimizeMode: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
 
 public struct Google_Protobuf_MessageOptions: SwiftProtobuf.ExtensibleMessage {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1203,7 +1247,7 @@ public struct Google_Protobuf_MessageOptions: SwiftProtobuf.ExtensibleMessage {
   ///
   /// Implementations may choose not to generate the map_entry=true message, but
   /// use a native map in the target language to hold the keys and values.
-  /// The reflection APIs in such implementions still need to work as
+  /// The reflection APIs in such implementations still need to work as
   /// if the field is a repeated message field.
   ///
   /// NOTE: Do not set the option in .proto files. Always use the maps syntax
@@ -1426,6 +1470,18 @@ public struct Google_Protobuf_FieldOptions: SwiftProtobuf.ExtensibleMessage {
   fileprivate var _weak: Bool? = nil
 }
 
+#if swift(>=4.2)
+
+extension Google_Protobuf_FieldOptions.CType: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+extension Google_Protobuf_FieldOptions.JSType: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 public struct Google_Protobuf_OneofOptions: SwiftProtobuf.ExtensibleMessage {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1615,6 +1671,14 @@ public struct Google_Protobuf_MethodOptions: SwiftProtobuf.ExtensibleMessage {
   fileprivate var _idempotencyLevel: Google_Protobuf_MethodOptions.IdempotencyLevel? = nil
 }
 
+#if swift(>=4.2)
+
+extension Google_Protobuf_MethodOptions.IdempotencyLevel: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 /// A message representing a option the parser does not recognize. This only
 /// appears in options protos created by the compiler::Parser class.
 /// DescriptorPool resolves these when building Descriptor objects. Therefore,
@@ -1776,7 +1840,7 @@ public struct Google_Protobuf_SourceCodeInfo {
   ///   beginning of the "extend" block and is shared by all extensions within
   ///   the block.
   /// - Just because a location's span is a subset of some other location's span
-  ///   does not mean that it is a descendent.  For example, a "group" defines
+  ///   does not mean that it is a descendant.  For example, a "group" defines
   ///   both a type and a field in a single declaration.  Thus, the locations
   ///   corresponding to the type and field and their components will overlap.
   /// - Code which tries to interpret locations should probably be designed to
@@ -2000,9 +2064,9 @@ extension Google_Protobuf_FileDescriptorSet: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_FileDescriptorSet) -> Bool {
-    if self.file != other.file {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_FileDescriptorSet, rhs: Google_Protobuf_FileDescriptorSet) -> Bool {
+    if lhs.file != rhs.file {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2141,28 +2205,28 @@ extension Google_Protobuf_FileDescriptorProto: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_FileDescriptorProto) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_FileDescriptorProto, rhs: Google_Protobuf_FileDescriptorProto) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._name != other_storage._name {return false}
-        if _storage._package != other_storage._package {return false}
-        if _storage._dependency != other_storage._dependency {return false}
-        if _storage._publicDependency != other_storage._publicDependency {return false}
-        if _storage._weakDependency != other_storage._weakDependency {return false}
-        if _storage._messageType != other_storage._messageType {return false}
-        if _storage._enumType != other_storage._enumType {return false}
-        if _storage._service != other_storage._service {return false}
-        if _storage._extension != other_storage._extension {return false}
-        if _storage._options != other_storage._options {return false}
-        if _storage._sourceCodeInfo != other_storage._sourceCodeInfo {return false}
-        if _storage._syntax != other_storage._syntax {return false}
+        let rhs_storage = _args.1
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._package != rhs_storage._package {return false}
+        if _storage._dependency != rhs_storage._dependency {return false}
+        if _storage._publicDependency != rhs_storage._publicDependency {return false}
+        if _storage._weakDependency != rhs_storage._weakDependency {return false}
+        if _storage._messageType != rhs_storage._messageType {return false}
+        if _storage._enumType != rhs_storage._enumType {return false}
+        if _storage._service != rhs_storage._service {return false}
+        if _storage._extension != rhs_storage._extension {return false}
+        if _storage._options != rhs_storage._options {return false}
+        if _storage._sourceCodeInfo != rhs_storage._sourceCodeInfo {return false}
+        if _storage._syntax != rhs_storage._syntax {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2289,26 +2353,26 @@ extension Google_Protobuf_DescriptorProto: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_DescriptorProto) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_DescriptorProto, rhs: Google_Protobuf_DescriptorProto) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._name != other_storage._name {return false}
-        if _storage._field != other_storage._field {return false}
-        if _storage._extension != other_storage._extension {return false}
-        if _storage._nestedType != other_storage._nestedType {return false}
-        if _storage._enumType != other_storage._enumType {return false}
-        if _storage._extensionRange != other_storage._extensionRange {return false}
-        if _storage._oneofDecl != other_storage._oneofDecl {return false}
-        if _storage._options != other_storage._options {return false}
-        if _storage._reservedRange != other_storage._reservedRange {return false}
-        if _storage._reservedName != other_storage._reservedName {return false}
+        let rhs_storage = _args.1
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._field != rhs_storage._field {return false}
+        if _storage._extension != rhs_storage._extension {return false}
+        if _storage._nestedType != rhs_storage._nestedType {return false}
+        if _storage._enumType != rhs_storage._enumType {return false}
+        if _storage._extensionRange != rhs_storage._extensionRange {return false}
+        if _storage._oneofDecl != rhs_storage._oneofDecl {return false}
+        if _storage._options != rhs_storage._options {return false}
+        if _storage._reservedRange != rhs_storage._reservedRange {return false}
+        if _storage._reservedName != rhs_storage._reservedName {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2380,19 +2444,19 @@ extension Google_Protobuf_DescriptorProto.ExtensionRange: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_DescriptorProto.ExtensionRange) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_DescriptorProto.ExtensionRange, rhs: Google_Protobuf_DescriptorProto.ExtensionRange) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._start != other_storage._start {return false}
-        if _storage._end != other_storage._end {return false}
-        if _storage._options != other_storage._options {return false}
+        let rhs_storage = _args.1
+        if _storage._start != rhs_storage._start {return false}
+        if _storage._end != rhs_storage._end {return false}
+        if _storage._options != rhs_storage._options {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2424,10 +2488,10 @@ extension Google_Protobuf_DescriptorProto.ReservedRange: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_DescriptorProto.ReservedRange) -> Bool {
-    if self._start != other._start {return false}
-    if self._end != other._end {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_DescriptorProto.ReservedRange, rhs: Google_Protobuf_DescriptorProto.ReservedRange) -> Bool {
+    if lhs._start != rhs._start {return false}
+    if lhs._end != rhs._end {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2463,10 +2527,10 @@ extension Google_Protobuf_ExtensionRangeOptions: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_ExtensionRangeOptions) -> Bool {
-    if self.uninterpretedOption != other.uninterpretedOption {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  public static func ==(lhs: Google_Protobuf_ExtensionRangeOptions, rhs: Google_Protobuf_ExtensionRangeOptions) -> Bool {
+    if lhs.uninterpretedOption != rhs.uninterpretedOption {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -2587,26 +2651,26 @@ extension Google_Protobuf_FieldDescriptorProto: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_FieldDescriptorProto) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_FieldDescriptorProto, rhs: Google_Protobuf_FieldDescriptorProto) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._name != other_storage._name {return false}
-        if _storage._number != other_storage._number {return false}
-        if _storage._label != other_storage._label {return false}
-        if _storage._type != other_storage._type {return false}
-        if _storage._typeName != other_storage._typeName {return false}
-        if _storage._extendee != other_storage._extendee {return false}
-        if _storage._defaultValue != other_storage._defaultValue {return false}
-        if _storage._oneofIndex != other_storage._oneofIndex {return false}
-        if _storage._jsonName != other_storage._jsonName {return false}
-        if _storage._options != other_storage._options {return false}
+        let rhs_storage = _args.1
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._number != rhs_storage._number {return false}
+        if _storage._label != rhs_storage._label {return false}
+        if _storage._type != rhs_storage._type {return false}
+        if _storage._typeName != rhs_storage._typeName {return false}
+        if _storage._extendee != rhs_storage._extendee {return false}
+        if _storage._defaultValue != rhs_storage._defaultValue {return false}
+        if _storage._oneofIndex != rhs_storage._oneofIndex {return false}
+        if _storage._jsonName != rhs_storage._jsonName {return false}
+        if _storage._options != rhs_storage._options {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2702,18 +2766,18 @@ extension Google_Protobuf_OneofDescriptorProto: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_OneofDescriptorProto) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_OneofDescriptorProto, rhs: Google_Protobuf_OneofDescriptorProto) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._name != other_storage._name {return false}
-        if _storage._options != other_storage._options {return false}
+        let rhs_storage = _args.1
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._options != rhs_storage._options {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2800,21 +2864,21 @@ extension Google_Protobuf_EnumDescriptorProto: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_EnumDescriptorProto) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_EnumDescriptorProto, rhs: Google_Protobuf_EnumDescriptorProto) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._name != other_storage._name {return false}
-        if _storage._value != other_storage._value {return false}
-        if _storage._options != other_storage._options {return false}
-        if _storage._reservedRange != other_storage._reservedRange {return false}
-        if _storage._reservedName != other_storage._reservedName {return false}
+        let rhs_storage = _args.1
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._value != rhs_storage._value {return false}
+        if _storage._options != rhs_storage._options {return false}
+        if _storage._reservedRange != rhs_storage._reservedRange {return false}
+        if _storage._reservedName != rhs_storage._reservedName {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2846,10 +2910,10 @@ extension Google_Protobuf_EnumDescriptorProto.EnumReservedRange: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_EnumDescriptorProto.EnumReservedRange) -> Bool {
-    if self._start != other._start {return false}
-    if self._end != other._end {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_EnumDescriptorProto.EnumReservedRange, rhs: Google_Protobuf_EnumDescriptorProto.EnumReservedRange) -> Bool {
+    if lhs._start != rhs._start {return false}
+    if lhs._end != rhs._end {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2921,19 +2985,19 @@ extension Google_Protobuf_EnumValueDescriptorProto: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_EnumValueDescriptorProto) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_EnumValueDescriptorProto, rhs: Google_Protobuf_EnumValueDescriptorProto) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._name != other_storage._name {return false}
-        if _storage._number != other_storage._number {return false}
-        if _storage._options != other_storage._options {return false}
+        let rhs_storage = _args.1
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._number != rhs_storage._number {return false}
+        if _storage._options != rhs_storage._options {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3006,19 +3070,19 @@ extension Google_Protobuf_ServiceDescriptorProto: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_ServiceDescriptorProto) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_ServiceDescriptorProto, rhs: Google_Protobuf_ServiceDescriptorProto) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._name != other_storage._name {return false}
-        if _storage._method != other_storage._method {return false}
-        if _storage._options != other_storage._options {return false}
+        let rhs_storage = _args.1
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._method != rhs_storage._method {return false}
+        if _storage._options != rhs_storage._options {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3111,22 +3175,22 @@ extension Google_Protobuf_MethodDescriptorProto: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_MethodDescriptorProto) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_MethodDescriptorProto, rhs: Google_Protobuf_MethodDescriptorProto) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._name != other_storage._name {return false}
-        if _storage._inputType != other_storage._inputType {return false}
-        if _storage._outputType != other_storage._outputType {return false}
-        if _storage._options != other_storage._options {return false}
-        if _storage._clientStreaming != other_storage._clientStreaming {return false}
-        if _storage._serverStreaming != other_storage._serverStreaming {return false}
+        let rhs_storage = _args.1
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._inputType != rhs_storage._inputType {return false}
+        if _storage._outputType != rhs_storage._outputType {return false}
+        if _storage._options != rhs_storage._options {return false}
+        if _storage._clientStreaming != rhs_storage._clientStreaming {return false}
+        if _storage._serverStreaming != rhs_storage._serverStreaming {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3152,6 +3216,8 @@ extension Google_Protobuf_FileOptions: SwiftProtobuf.Message, SwiftProtobuf._Mes
     39: .standard(proto: "swift_prefix"),
     40: .standard(proto: "php_class_prefix"),
     41: .standard(proto: "php_namespace"),
+    44: .standard(proto: "php_metadata_namespace"),
+    45: .standard(proto: "ruby_package"),
     999: .standard(proto: "uninterpreted_option"),
   ]
 
@@ -3174,6 +3240,8 @@ extension Google_Protobuf_FileOptions: SwiftProtobuf.Message, SwiftProtobuf._Mes
     var _swiftPrefix: String? = nil
     var _phpClassPrefix: String? = nil
     var _phpNamespace: String? = nil
+    var _phpMetadataNamespace: String? = nil
+    var _rubyPackage: String? = nil
     var _uninterpretedOption: [Google_Protobuf_UninterpretedOption] = []
 
     static let defaultInstance = _StorageClass()
@@ -3199,6 +3267,8 @@ extension Google_Protobuf_FileOptions: SwiftProtobuf.Message, SwiftProtobuf._Mes
       _swiftPrefix = source._swiftPrefix
       _phpClassPrefix = source._phpClassPrefix
       _phpNamespace = source._phpNamespace
+      _phpMetadataNamespace = source._phpMetadataNamespace
+      _rubyPackage = source._rubyPackage
       _uninterpretedOption = source._uninterpretedOption
     }
   }
@@ -3241,6 +3311,8 @@ extension Google_Protobuf_FileOptions: SwiftProtobuf.Message, SwiftProtobuf._Mes
         case 40: try decoder.decodeSingularStringField(value: &_storage._phpClassPrefix)
         case 41: try decoder.decodeSingularStringField(value: &_storage._phpNamespace)
         case 42: try decoder.decodeSingularBoolField(value: &_storage._phpGenericServices)
+        case 44: try decoder.decodeSingularStringField(value: &_storage._phpMetadataNamespace)
+        case 45: try decoder.decodeSingularStringField(value: &_storage._rubyPackage)
         case 999: try decoder.decodeRepeatedMessageField(value: &_storage._uninterpretedOption)
         case 1000..<536870912:
           try decoder.decodeExtensionField(values: &_protobuf_extensionFieldValues, messageType: Google_Protobuf_FileOptions.self, fieldNumber: fieldNumber)
@@ -3306,6 +3378,12 @@ extension Google_Protobuf_FileOptions: SwiftProtobuf.Message, SwiftProtobuf._Mes
       if let v = _storage._phpGenericServices {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 42)
       }
+      if let v = _storage._phpMetadataNamespace {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 44)
+      }
+      if let v = _storage._rubyPackage {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 45)
+      }
       if !_storage._uninterpretedOption.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._uninterpretedOption, fieldNumber: 999)
       }
@@ -3314,36 +3392,38 @@ extension Google_Protobuf_FileOptions: SwiftProtobuf.Message, SwiftProtobuf._Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_FileOptions) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  public static func ==(lhs: Google_Protobuf_FileOptions, rhs: Google_Protobuf_FileOptions) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._javaPackage != other_storage._javaPackage {return false}
-        if _storage._javaOuterClassname != other_storage._javaOuterClassname {return false}
-        if _storage._javaMultipleFiles != other_storage._javaMultipleFiles {return false}
-        if _storage._javaGenerateEqualsAndHash != other_storage._javaGenerateEqualsAndHash {return false}
-        if _storage._javaStringCheckUtf8 != other_storage._javaStringCheckUtf8 {return false}
-        if _storage._optimizeFor != other_storage._optimizeFor {return false}
-        if _storage._goPackage != other_storage._goPackage {return false}
-        if _storage._ccGenericServices != other_storage._ccGenericServices {return false}
-        if _storage._javaGenericServices != other_storage._javaGenericServices {return false}
-        if _storage._pyGenericServices != other_storage._pyGenericServices {return false}
-        if _storage._phpGenericServices != other_storage._phpGenericServices {return false}
-        if _storage._deprecated != other_storage._deprecated {return false}
-        if _storage._ccEnableArenas != other_storage._ccEnableArenas {return false}
-        if _storage._objcClassPrefix != other_storage._objcClassPrefix {return false}
-        if _storage._csharpNamespace != other_storage._csharpNamespace {return false}
-        if _storage._swiftPrefix != other_storage._swiftPrefix {return false}
-        if _storage._phpClassPrefix != other_storage._phpClassPrefix {return false}
-        if _storage._phpNamespace != other_storage._phpNamespace {return false}
-        if _storage._uninterpretedOption != other_storage._uninterpretedOption {return false}
+        let rhs_storage = _args.1
+        if _storage._javaPackage != rhs_storage._javaPackage {return false}
+        if _storage._javaOuterClassname != rhs_storage._javaOuterClassname {return false}
+        if _storage._javaMultipleFiles != rhs_storage._javaMultipleFiles {return false}
+        if _storage._javaGenerateEqualsAndHash != rhs_storage._javaGenerateEqualsAndHash {return false}
+        if _storage._javaStringCheckUtf8 != rhs_storage._javaStringCheckUtf8 {return false}
+        if _storage._optimizeFor != rhs_storage._optimizeFor {return false}
+        if _storage._goPackage != rhs_storage._goPackage {return false}
+        if _storage._ccGenericServices != rhs_storage._ccGenericServices {return false}
+        if _storage._javaGenericServices != rhs_storage._javaGenericServices {return false}
+        if _storage._pyGenericServices != rhs_storage._pyGenericServices {return false}
+        if _storage._phpGenericServices != rhs_storage._phpGenericServices {return false}
+        if _storage._deprecated != rhs_storage._deprecated {return false}
+        if _storage._ccEnableArenas != rhs_storage._ccEnableArenas {return false}
+        if _storage._objcClassPrefix != rhs_storage._objcClassPrefix {return false}
+        if _storage._csharpNamespace != rhs_storage._csharpNamespace {return false}
+        if _storage._swiftPrefix != rhs_storage._swiftPrefix {return false}
+        if _storage._phpClassPrefix != rhs_storage._phpClassPrefix {return false}
+        if _storage._phpNamespace != rhs_storage._phpNamespace {return false}
+        if _storage._phpMetadataNamespace != rhs_storage._phpMetadataNamespace {return false}
+        if _storage._rubyPackage != rhs_storage._rubyPackage {return false}
+        if _storage._uninterpretedOption != rhs_storage._uninterpretedOption {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -3407,14 +3487,14 @@ extension Google_Protobuf_MessageOptions: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_MessageOptions) -> Bool {
-    if self._messageSetWireFormat != other._messageSetWireFormat {return false}
-    if self._noStandardDescriptorAccessor != other._noStandardDescriptorAccessor {return false}
-    if self._deprecated != other._deprecated {return false}
-    if self._mapEntry != other._mapEntry {return false}
-    if self.uninterpretedOption != other.uninterpretedOption {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  public static func ==(lhs: Google_Protobuf_MessageOptions, rhs: Google_Protobuf_MessageOptions) -> Bool {
+    if lhs._messageSetWireFormat != rhs._messageSetWireFormat {return false}
+    if lhs._noStandardDescriptorAccessor != rhs._noStandardDescriptorAccessor {return false}
+    if lhs._deprecated != rhs._deprecated {return false}
+    if lhs._mapEntry != rhs._mapEntry {return false}
+    if lhs.uninterpretedOption != rhs.uninterpretedOption {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -3480,16 +3560,16 @@ extension Google_Protobuf_FieldOptions: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_FieldOptions) -> Bool {
-    if self._ctype != other._ctype {return false}
-    if self._packed != other._packed {return false}
-    if self._jstype != other._jstype {return false}
-    if self._lazy != other._lazy {return false}
-    if self._deprecated != other._deprecated {return false}
-    if self._weak != other._weak {return false}
-    if self.uninterpretedOption != other.uninterpretedOption {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  public static func ==(lhs: Google_Protobuf_FieldOptions, rhs: Google_Protobuf_FieldOptions) -> Bool {
+    if lhs._ctype != rhs._ctype {return false}
+    if lhs._packed != rhs._packed {return false}
+    if lhs._jstype != rhs._jstype {return false}
+    if lhs._lazy != rhs._lazy {return false}
+    if lhs._deprecated != rhs._deprecated {return false}
+    if lhs._weak != rhs._weak {return false}
+    if lhs.uninterpretedOption != rhs.uninterpretedOption {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -3541,10 +3621,10 @@ extension Google_Protobuf_OneofOptions: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_OneofOptions) -> Bool {
-    if self.uninterpretedOption != other.uninterpretedOption {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  public static func ==(lhs: Google_Protobuf_OneofOptions, rhs: Google_Protobuf_OneofOptions) -> Bool {
+    if lhs.uninterpretedOption != rhs.uninterpretedOption {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -3590,12 +3670,12 @@ extension Google_Protobuf_EnumOptions: SwiftProtobuf.Message, SwiftProtobuf._Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_EnumOptions) -> Bool {
-    if self._allowAlias != other._allowAlias {return false}
-    if self._deprecated != other._deprecated {return false}
-    if self.uninterpretedOption != other.uninterpretedOption {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  public static func ==(lhs: Google_Protobuf_EnumOptions, rhs: Google_Protobuf_EnumOptions) -> Bool {
+    if lhs._allowAlias != rhs._allowAlias {return false}
+    if lhs._deprecated != rhs._deprecated {return false}
+    if lhs.uninterpretedOption != rhs.uninterpretedOption {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -3636,11 +3716,11 @@ extension Google_Protobuf_EnumValueOptions: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_EnumValueOptions) -> Bool {
-    if self._deprecated != other._deprecated {return false}
-    if self.uninterpretedOption != other.uninterpretedOption {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  public static func ==(lhs: Google_Protobuf_EnumValueOptions, rhs: Google_Protobuf_EnumValueOptions) -> Bool {
+    if lhs._deprecated != rhs._deprecated {return false}
+    if lhs.uninterpretedOption != rhs.uninterpretedOption {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -3681,11 +3761,11 @@ extension Google_Protobuf_ServiceOptions: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_ServiceOptions) -> Bool {
-    if self._deprecated != other._deprecated {return false}
-    if self.uninterpretedOption != other.uninterpretedOption {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  public static func ==(lhs: Google_Protobuf_ServiceOptions, rhs: Google_Protobuf_ServiceOptions) -> Bool {
+    if lhs._deprecated != rhs._deprecated {return false}
+    if lhs.uninterpretedOption != rhs.uninterpretedOption {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -3731,12 +3811,12 @@ extension Google_Protobuf_MethodOptions: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_MethodOptions) -> Bool {
-    if self._deprecated != other._deprecated {return false}
-    if self._idempotencyLevel != other._idempotencyLevel {return false}
-    if self.uninterpretedOption != other.uninterpretedOption {return false}
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  public static func ==(lhs: Google_Protobuf_MethodOptions, rhs: Google_Protobuf_MethodOptions) -> Bool {
+    if lhs._deprecated != rhs._deprecated {return false}
+    if lhs._idempotencyLevel != rhs._idempotencyLevel {return false}
+    if lhs.uninterpretedOption != rhs.uninterpretedOption {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -3806,15 +3886,15 @@ extension Google_Protobuf_UninterpretedOption: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_UninterpretedOption) -> Bool {
-    if self.name != other.name {return false}
-    if self._identifierValue != other._identifierValue {return false}
-    if self._positiveIntValue != other._positiveIntValue {return false}
-    if self._negativeIntValue != other._negativeIntValue {return false}
-    if self._doubleValue != other._doubleValue {return false}
-    if self._stringValue != other._stringValue {return false}
-    if self._aggregateValue != other._aggregateValue {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_UninterpretedOption, rhs: Google_Protobuf_UninterpretedOption) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs._identifierValue != rhs._identifierValue {return false}
+    if lhs._positiveIntValue != rhs._positiveIntValue {return false}
+    if lhs._negativeIntValue != rhs._negativeIntValue {return false}
+    if lhs._doubleValue != rhs._doubleValue {return false}
+    if lhs._stringValue != rhs._stringValue {return false}
+    if lhs._aggregateValue != rhs._aggregateValue {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3852,10 +3932,10 @@ extension Google_Protobuf_UninterpretedOption.NamePart: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_UninterpretedOption.NamePart) -> Bool {
-    if self._namePart != other._namePart {return false}
-    if self._isExtension != other._isExtension {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_UninterpretedOption.NamePart, rhs: Google_Protobuf_UninterpretedOption.NamePart) -> Bool {
+    if lhs._namePart != rhs._namePart {return false}
+    if lhs._isExtension != rhs._isExtension {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3882,9 +3962,9 @@ extension Google_Protobuf_SourceCodeInfo: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_SourceCodeInfo) -> Bool {
-    if self.location != other.location {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_SourceCodeInfo, rhs: Google_Protobuf_SourceCodeInfo) -> Bool {
+    if lhs.location != rhs.location {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3931,13 +4011,13 @@ extension Google_Protobuf_SourceCodeInfo.Location: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_SourceCodeInfo.Location) -> Bool {
-    if self.path != other.path {return false}
-    if self.span != other.span {return false}
-    if self._leadingComments != other._leadingComments {return false}
-    if self._trailingComments != other._trailingComments {return false}
-    if self.leadingDetachedComments != other.leadingDetachedComments {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_SourceCodeInfo.Location, rhs: Google_Protobuf_SourceCodeInfo.Location) -> Bool {
+    if lhs.path != rhs.path {return false}
+    if lhs.span != rhs.span {return false}
+    if lhs._leadingComments != rhs._leadingComments {return false}
+    if lhs._trailingComments != rhs._trailingComments {return false}
+    if lhs.leadingDetachedComments != rhs.leadingDetachedComments {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -3964,9 +4044,9 @@ extension Google_Protobuf_GeneratedCodeInfo: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_GeneratedCodeInfo) -> Bool {
-    if self.annotation != other.annotation {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_GeneratedCodeInfo, rhs: Google_Protobuf_GeneratedCodeInfo) -> Bool {
+    if lhs.annotation != rhs.annotation {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4008,12 +4088,12 @@ extension Google_Protobuf_GeneratedCodeInfo.Annotation: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public func _protobuf_generated_isEqualTo(other: Google_Protobuf_GeneratedCodeInfo.Annotation) -> Bool {
-    if self.path != other.path {return false}
-    if self._sourceFile != other._sourceFile {return false}
-    if self._begin != other._begin {return false}
-    if self._end != other._end {return false}
-    if unknownFields != other.unknownFields {return false}
+  public static func ==(lhs: Google_Protobuf_GeneratedCodeInfo.Annotation, rhs: Google_Protobuf_GeneratedCodeInfo.Annotation) -> Bool {
+    if lhs.path != rhs.path {return false}
+    if lhs._sourceFile != rhs._sourceFile {return false}
+    if lhs._begin != rhs._begin {return false}
+    if lhs._end != rhs._end {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

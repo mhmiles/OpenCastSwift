@@ -15,15 +15,21 @@
 
 import Foundation
 
+#if !swift(>=4.2)
 private let i_2166136261 = Int(bitPattern: 2166136261)
 private let i_16777619 = Int(16777619)
+#endif
 
-fileprivate func serializeAnyJSON(for message: Message, typeURL: String) throws -> String {
-  var visitor = try JSONEncodingVisitor(message: message)
+fileprivate func serializeAnyJSON(
+  for message: Message,
+  typeURL: String,
+  options: JSONEncodingOptions
+) throws -> String {
+  var visitor = try JSONEncodingVisitor(message: message, options: options)
   visitor.startObject()
   visitor.encodeField(name: "@type", stringValue: typeURL)
   if let m = message as? _CustomJSONCodable {
-    let value = try m.encodedJSONString()
+    let value = try m.encodedJSONString(options: options)
     visitor.encodeField(name: "value", jsonText: value)
   } else {
     try message.traverse(visitor: &visitor)
@@ -45,7 +51,7 @@ fileprivate func emitVerboseTextForm(visitor: inout TextFormatEncodingVisitor, m
 fileprivate func asJSONObject(body: Data) -> Data {
   let asciiOpenCurlyBracket = UInt8(ascii: "{")
   let asciiCloseCurlyBracket = UInt8(ascii: "}")
-  var result = Data(bytes: [asciiOpenCurlyBracket])
+  var result = Data([asciiOpenCurlyBracket])
   result.append(body)
   result.append(asciiCloseCurlyBracket)
   return result
@@ -56,24 +62,30 @@ fileprivate func unpack(contentJSON: Data,
                         as messageType: Message.Type) throws -> Message {
   guard messageType is _CustomJSONCodable.Type else {
     let contentJSONAsObject = asJSONObject(body: contentJSON)
-    return try messageType.init(jsonUTF8Data: contentJSONAsObject)
+    return try messageType.init(jsonUTF8Data: contentJSONAsObject, options: options)
   }
 
   var value = String()
-  try contentJSON.withUnsafeBytes { (bytes:UnsafePointer<UInt8>) in
-    let buffer = UnsafeBufferPointer(start: bytes, count: contentJSON.count)
-    var scanner = JSONScanner(source: buffer, messageDepthLimit: options.messageDepthLimit)
-    let key = try scanner.nextQuotedString()
-    if key != "value" {
-      // The only thing within a WKT should be "value".
-      throw AnyUnpackError.malformedWellKnownTypeJSON
-    }
-    try scanner.skipRequiredColon()  // Can't fail
-    value = try scanner.skip()
-    if !scanner.complete {
-      // If that wasn't the end, then there was another key,
-      // and WKTs should only have the one.
-      throw AnyUnpackError.malformedWellKnownTypeJSON
+  try contentJSON.withUnsafeBytes { (body: UnsafeRawBufferPointer) in
+    if let baseAddress = body.baseAddress, body.count > 0 {
+      let bytes = baseAddress.assumingMemoryBound(to: UInt8.self)
+
+      let buffer = UnsafeBufferPointer(start: bytes, count: body.count)
+      var scanner = JSONScanner(source: buffer,
+                                messageDepthLimit: options.messageDepthLimit,
+                                ignoreUnknownFields: options.ignoreUnknownFields)
+      let key = try scanner.nextQuotedString()
+      if key != "value" {
+        // The only thing within a WKT should be "value".
+        throw AnyUnpackError.malformedWellKnownTypeJSON
+      }
+      try scanner.skipRequiredColon()  // Can't fail
+      value = try scanner.skip()
+      if !scanner.complete {
+        // If that wasn't the end, then there was another key,
+        // and WKTs should only have the one.
+        throw AnyUnpackError.malformedWellKnownTypeJSON
+      }
     }
   }
   return try messageType.init(jsonString: value, options: options)
@@ -293,21 +305,30 @@ extension AnyMessageStorage {
 /// test.  Of course, regardless of the above, we must guarantee that
 /// hashValue is compatible with equality.
 extension AnyMessageStorage {
+#if swift(>=4.2)
+  // Can't use _valueData for a few reasons:
+  // 1. Since decode is done on demand, two objects could be equal
+  //    but created differently (one from JSON, one for Message, etc.),
+  //    and the hash values have to be equal even if we don't have data
+  //    yet.
+  // 2. map<> serialization order is undefined. At the time of writing
+  //    the Swift, Objective-C, and Go runtimes all tend to have random
+  //    orders, so the messages could be identical, but in binary form
+  //    they could differ.
+  public func hash(into hasher: inout Hasher) {
+    if !_typeURL.isEmpty {
+      hasher.combine(_typeURL)
+    }
+  }
+#else  // swift(>=4.2)
   var hashValue: Int {
     var hash: Int = i_2166136261
     if !_typeURL.isEmpty {
       hash = (hash &* i_16777619) ^ _typeURL.hashValue
     }
-    // Can't use _valueData for a few reasons:
-    // 1. Since decode is done on demand, two objects could be equal
-    //    but created differently (one from JSON, one for Message, etc.),
-    //    and the hashes have to be equal even if we don't have data yet.
-    // 2. map<> serialization order is undefined. At the time of writing
-    //    the Swift, Objective-C, and Go runtimes all tend to have random
-    //    orders, so the messages could be identical, but in binary form
-    //    they could differ.
     return hash
   }
+#endif  // swift(>=4.2)
 
   func isEqualTo(other: AnyMessageStorage) -> Bool {
     if (_typeURL != other._typeURL) {
@@ -368,7 +389,7 @@ extension AnyMessageStorage {
   //  * The protobuf field we were deserialized from.
   // The last case requires locating the type, deserializing
   // into an object, then reserializing back to JSON.
-  func encodedJSONString() throws -> String {
+  func encodedJSONString(options: JSONEncodingOptions) throws -> String {
     switch state {
     case .binary(let valueData):
       // Transcode by decoding the binary data to a message object
@@ -381,13 +402,13 @@ extension AnyMessageStorage {
         throw JSONEncodingError.anyTranscodeFailure
       }
       let m = try messageType.init(serializedData: valueData, partial: true)
-      return try serializeAnyJSON(for: m, typeURL: _typeURL)
+      return try serializeAnyJSON(for: m, typeURL: _typeURL, options: options)
 
     case .message(let msg):
       // We should have been initialized with a typeURL, but
       // ensure it wasn't cleared.
       let url = !_typeURL.isEmpty ? _typeURL : buildTypeURL(forMessage: msg, typePrefix: defaultAnyTypeURLPrefix)
-      return try serializeAnyJSON(for: msg, typeURL: url)
+      return try serializeAnyJSON(for: msg, typeURL: url, options: options)
 
     case .contentJSON(let contentJSON, _):
       var jsonEncoder = JSONEncoder()
@@ -396,6 +417,8 @@ extension AnyMessageStorage {
       jsonEncoder.putStringValue(value: _typeURL)
       if !contentJSON.isEmpty {
         jsonEncoder.append(staticText: ",")
+        // NOTE: This doesn't really take `options` into account since it is
+        // just reflecting out what was taken in originally.
         jsonEncoder.append(utf8Data: contentJSON)
       }
       jsonEncoder.endObject()

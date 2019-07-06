@@ -78,6 +78,14 @@ enum Proto2PreserveUnknownEnumUnittest_MyEnum: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension Proto2PreserveUnknownEnumUnittest_MyEnum: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 struct Proto2PreserveUnknownEnumUnittest_MyMessage {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -123,6 +131,7 @@ struct Proto2PreserveUnknownEnumUnittest_MyMessage {
     case oneofE1(Proto2PreserveUnknownEnumUnittest_MyEnum)
     case oneofE2(Proto2PreserveUnknownEnumUnittest_MyEnum)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Proto2PreserveUnknownEnumUnittest_MyMessage.OneOf_O, rhs: Proto2PreserveUnknownEnumUnittest_MyMessage.OneOf_O) -> Bool {
       switch (lhs, rhs) {
       case (.oneofE1(let l), .oneofE1(let r)): return l == r
@@ -130,6 +139,7 @@ struct Proto2PreserveUnknownEnumUnittest_MyMessage {
       default: return false
       }
     }
+  #endif
   }
 
   init() {}
@@ -205,13 +215,13 @@ extension Proto2PreserveUnknownEnumUnittest_MyMessage: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto2PreserveUnknownEnumUnittest_MyMessage) -> Bool {
-    if self._e != other._e {return false}
-    if self.repeatedE != other.repeatedE {return false}
-    if self.repeatedPackedE != other.repeatedPackedE {return false}
-    if self.repeatedPackedUnexpectedE != other.repeatedPackedUnexpectedE {return false}
-    if self.o != other.o {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto2PreserveUnknownEnumUnittest_MyMessage, rhs: Proto2PreserveUnknownEnumUnittest_MyMessage) -> Bool {
+    if lhs._e != rhs._e {return false}
+    if lhs.repeatedE != rhs.repeatedE {return false}
+    if lhs.repeatedPackedE != rhs.repeatedPackedE {return false}
+    if lhs.repeatedPackedUnexpectedE != rhs.repeatedPackedUnexpectedE {return false}
+    if lhs.o != rhs.o {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

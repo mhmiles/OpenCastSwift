@@ -53,7 +53,8 @@ extension Test_SwiftProtobufNamer {
     static var allTests = [
         ("testEnumValueHandling_AliasNameMatches", testEnumValueHandling_AliasNameMatches),
         ("testEnumValueHandling_NameCollisions", testEnumValueHandling_NameCollisions),
-        ("testEnumValueHandling_NameCollisionsAndAliasMatches", testEnumValueHandling_NameCollisionsAndAliasMatches)
+        ("testEnumValueHandling_NameCollisionsAndAliasMatches", testEnumValueHandling_NameCollisionsAndAliasMatches),
+        ("testEnumValueHandling_UniqueAliasNameCollisions", testEnumValueHandling_UniqueAliasNameCollisions)
     ]
 }
 
@@ -432,7 +433,8 @@ extension Test_Enum {
         ("testUnknownValues", testUnknownValues),
         ("testEnumPrefixStripping", testEnumPrefixStripping),
         ("testEnumPrefixStripping_TextFormat", testEnumPrefixStripping_TextFormat),
-        ("testEnumPrefixStripping_JSON", testEnumPrefixStripping_JSON)
+        ("testEnumPrefixStripping_JSON", testEnumPrefixStripping_JSON),
+        ("testCaseIterable", testCaseIterable)
     ]
 }
 
@@ -454,7 +456,8 @@ extension Test_Enum_Proto2 {
         ("testUnknownValues", testUnknownValues),
         ("testEnumPrefixStripping", testEnumPrefixStripping),
         ("testEnumPrefixStripping_TextFormat", testEnumPrefixStripping_TextFormat),
-        ("testEnumPrefixStripping_JSON", testEnumPrefixStripping_JSON)
+        ("testEnumPrefixStripping_JSON", testEnumPrefixStripping_JSON),
+        ("testCaseIterable", testCaseIterable)
     ]
 }
 
@@ -546,7 +549,7 @@ extension Test_JSON {
         ("testOptionalString", testOptionalString),
         ("testOptionalString_controlCharacters", testOptionalString_controlCharacters),
         ("testOptionalBytes", testOptionalBytes),
-        ("testOptionalBytes2", testOptionalBytes2),
+        ("testOptionalBytes_escapes", testOptionalBytes_escapes),
         ("testOptionalBytes_roundtrip", testOptionalBytes_roundtrip),
         ("testOptionalNestedMessage", testOptionalNestedMessage),
         ("testOptionalNestedEnum", testOptionalNestedEnum),
@@ -583,7 +586,15 @@ extension Test_JSONrepeated {
 
 extension Test_JSONDecodingOptions {
     static var allTests = [
-        ("testMessageDepthLimit", testMessageDepthLimit)
+        ("testMessageDepthLimit", testMessageDepthLimit),
+        ("testIgnoreUnknownFields", testIgnoreUnknownFields)
+    ]
+}
+
+extension Test_JSONEncodingOptions {
+    static var allTests = [
+        ("testAlwaysPrintEnumsAsInts", testAlwaysPrintEnumsAsInts),
+        ("testPreserveProtoFieldNames", testPreserveProtoFieldNames)
     ]
 }
 
@@ -690,11 +701,22 @@ extension Test_MapFields_Access_Proto3 {
 extension Test_Map_JSON {
     static var allTests = [
         ("testMapInt32Int32", testMapInt32Int32),
+        ("testMapInt64Int64", testMapInt64Int64),
+        ("testMapUInt32UInt32", testMapUInt32UInt32),
+        ("testMapUInt64UInt64", testMapUInt64UInt64),
+        ("testMapSInt32SInt32", testMapSInt32SInt32),
+        ("testMapSInt64SInt64", testMapSInt64SInt64),
+        ("testFixed32Fixed32", testFixed32Fixed32),
+        ("testFixed64Fixed64", testFixed64Fixed64),
+        ("testSFixed32SFixed32", testSFixed32SFixed32),
+        ("testSFixed64SFixed64", testSFixed64SFixed64),
+        ("test_mapInt32Float", test_mapInt32Float),
+        ("test_mapInt32Double", test_mapInt32Double),
+        ("test_mapBoolBool", test_mapBoolBool),
         ("testMapStringString", testMapStringString),
         ("testMapInt32Bytes", testMapInt32Bytes),
         ("testMapInt32Enum", testMapInt32Enum),
-        ("testMapInt32Message", testMapInt32Message),
-        ("test_mapBoolBool", test_mapBoolBool)
+        ("testMapInt32Message", testMapInt32Message)
     ]
 }
 
@@ -1119,6 +1141,7 @@ XCTMain(
         testCase(Test_JSONPacked.allTests),
         testCase(Test_JSONrepeated.allTests),
         testCase(Test_JSONDecodingOptions.allTests),
+        testCase(Test_JSONEncodingOptions.allTests),
         testCase(Test_JSON_Array.allTests),
         testCase(Test_JSON_Conformance.allTests),
         testCase(Test_JSON_Group.allTests),

@@ -94,6 +94,19 @@ struct UnittestDropUnknownFields_Foo {
   init() {}
 }
 
+#if swift(>=4.2)
+
+extension UnittestDropUnknownFields_Foo.NestedEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [UnittestDropUnknownFields_Foo.NestedEnum] = [
+    .foo,
+    .bar,
+    .baz,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct UnittestDropUnknownFields_FooWithExtraFields {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -144,6 +157,20 @@ struct UnittestDropUnknownFields_FooWithExtraFields {
   init() {}
 }
 
+#if swift(>=4.2)
+
+extension UnittestDropUnknownFields_FooWithExtraFields.NestedEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [UnittestDropUnknownFields_FooWithExtraFields.NestedEnum] = [
+    .foo,
+    .bar,
+    .baz,
+    .qux,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "unittest_drop_unknown_fields"
@@ -175,10 +202,10 @@ extension UnittestDropUnknownFields_Foo: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: UnittestDropUnknownFields_Foo) -> Bool {
-    if self.int32Value != other.int32Value {return false}
-    if self.enumValue != other.enumValue {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: UnittestDropUnknownFields_Foo, rhs: UnittestDropUnknownFields_Foo) -> Bool {
+    if lhs.int32Value != rhs.int32Value {return false}
+    if lhs.enumValue != rhs.enumValue {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -223,11 +250,11 @@ extension UnittestDropUnknownFields_FooWithExtraFields: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: UnittestDropUnknownFields_FooWithExtraFields) -> Bool {
-    if self.int32Value != other.int32Value {return false}
-    if self.enumValue != other.enumValue {return false}
-    if self.extraInt32Value != other.extraInt32Value {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: UnittestDropUnknownFields_FooWithExtraFields, rhs: UnittestDropUnknownFields_FooWithExtraFields) -> Bool {
+    if lhs.int32Value != rhs.int32Value {return false}
+    if lhs.enumValue != rhs.enumValue {return false}
+    if lhs.extraInt32Value != rhs.extraInt32Value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

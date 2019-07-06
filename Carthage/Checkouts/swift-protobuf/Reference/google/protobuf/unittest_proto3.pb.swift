@@ -83,6 +83,20 @@ enum Proto3Unittest_ForeignEnum: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension Proto3Unittest_ForeignEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Proto3Unittest_ForeignEnum] = [
+    .foreignZero,
+    .foreignFoo,
+    .foreignBar,
+    .foreignBaz,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// This proto includes every type of field in both singular and repeated
 /// forms.
 struct Proto3Unittest_TestAllTypes {
@@ -173,7 +187,7 @@ struct Proto3Unittest_TestAllTypes {
   /// Returns true if `optionalNestedMessage` has been explicitly set.
   var hasOptionalNestedMessage: Bool {return _storage._optionalNestedMessage != nil}
   /// Clears the value of `optionalNestedMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalNestedMessage() {_storage._optionalNestedMessage = nil}
+  mutating func clearOptionalNestedMessage() {_uniqueStorage()._optionalNestedMessage = nil}
 
   var optionalForeignMessage: Proto3Unittest_ForeignMessage {
     get {return _storage._optionalForeignMessage ?? Proto3Unittest_ForeignMessage()}
@@ -182,7 +196,7 @@ struct Proto3Unittest_TestAllTypes {
   /// Returns true if `optionalForeignMessage` has been explicitly set.
   var hasOptionalForeignMessage: Bool {return _storage._optionalForeignMessage != nil}
   /// Clears the value of `optionalForeignMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalForeignMessage() {_storage._optionalForeignMessage = nil}
+  mutating func clearOptionalForeignMessage() {_uniqueStorage()._optionalForeignMessage = nil}
 
   var optionalImportMessage: ProtobufUnittestImport_ImportMessage {
     get {return _storage._optionalImportMessage ?? ProtobufUnittestImport_ImportMessage()}
@@ -191,7 +205,7 @@ struct Proto3Unittest_TestAllTypes {
   /// Returns true if `optionalImportMessage` has been explicitly set.
   var hasOptionalImportMessage: Bool {return _storage._optionalImportMessage != nil}
   /// Clears the value of `optionalImportMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalImportMessage() {_storage._optionalImportMessage = nil}
+  mutating func clearOptionalImportMessage() {_uniqueStorage()._optionalImportMessage = nil}
 
   var optionalNestedEnum: Proto3Unittest_TestAllTypes.NestedEnum {
     get {return _storage._optionalNestedEnum}
@@ -221,7 +235,7 @@ struct Proto3Unittest_TestAllTypes {
   /// Returns true if `optionalPublicImportMessage` has been explicitly set.
   var hasOptionalPublicImportMessage: Bool {return _storage._optionalPublicImportMessage != nil}
   /// Clears the value of `optionalPublicImportMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalPublicImportMessage() {_storage._optionalPublicImportMessage = nil}
+  mutating func clearOptionalPublicImportMessage() {_uniqueStorage()._optionalPublicImportMessage = nil}
 
   var optionalLazyMessage: Proto3Unittest_TestAllTypes.NestedMessage {
     get {return _storage._optionalLazyMessage ?? Proto3Unittest_TestAllTypes.NestedMessage()}
@@ -230,7 +244,7 @@ struct Proto3Unittest_TestAllTypes {
   /// Returns true if `optionalLazyMessage` has been explicitly set.
   var hasOptionalLazyMessage: Bool {return _storage._optionalLazyMessage != nil}
   /// Clears the value of `optionalLazyMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalLazyMessage() {_storage._optionalLazyMessage = nil}
+  mutating func clearOptionalLazyMessage() {_uniqueStorage()._optionalLazyMessage = nil}
 
   var optionalLazyImportMessage: ProtobufUnittestImport_ImportMessage {
     get {return _storage._optionalLazyImportMessage ?? ProtobufUnittestImport_ImportMessage()}
@@ -239,7 +253,7 @@ struct Proto3Unittest_TestAllTypes {
   /// Returns true if `optionalLazyImportMessage` has been explicitly set.
   var hasOptionalLazyImportMessage: Bool {return _storage._optionalLazyImportMessage != nil}
   /// Clears the value of `optionalLazyImportMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalLazyImportMessage() {_storage._optionalLazyImportMessage = nil}
+  mutating func clearOptionalLazyImportMessage() {_uniqueStorage()._optionalLazyImportMessage = nil}
 
   /// Repeated
   var repeatedInt32: [Int32] {
@@ -402,6 +416,7 @@ struct Proto3Unittest_TestAllTypes {
     case oneofString(String)
     case oneofBytes(Data)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Proto3Unittest_TestAllTypes.OneOf_OneofField, rhs: Proto3Unittest_TestAllTypes.OneOf_OneofField) -> Bool {
       switch (lhs, rhs) {
       case (.oneofUint32(let l), .oneofUint32(let r)): return l == r
@@ -411,6 +426,7 @@ struct Proto3Unittest_TestAllTypes {
       default: return false
       }
     }
+  #endif
   }
 
   enum NestedEnum: SwiftProtobuf.Enum {
@@ -471,6 +487,21 @@ struct Proto3Unittest_TestAllTypes {
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
+
+#if swift(>=4.2)
+
+extension Proto3Unittest_TestAllTypes.NestedEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Proto3Unittest_TestAllTypes.NestedEnum] = [
+    .zero,
+    .foo,
+    .bar,
+    .baz,
+    .neg,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 struct Proto3Unittest_TestPackedTypes {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -562,7 +593,7 @@ struct Proto3Unittest_NestedTestAllTypes {
   /// Returns true if `child` has been explicitly set.
   var hasChild: Bool {return _storage._child != nil}
   /// Clears the value of `child`. Subsequent reads from it will return its default value.
-  mutating func clearChild() {_storage._child = nil}
+  mutating func clearChild() {_uniqueStorage()._child = nil}
 
   var payload: Proto3Unittest_TestAllTypes {
     get {return _storage._payload ?? Proto3Unittest_TestAllTypes()}
@@ -571,7 +602,7 @@ struct Proto3Unittest_NestedTestAllTypes {
   /// Returns true if `payload` has been explicitly set.
   var hasPayload: Bool {return _storage._payload != nil}
   /// Clears the value of `payload`. Subsequent reads from it will return its default value.
-  mutating func clearPayload() {_storage._payload = nil}
+  mutating func clearPayload() {_uniqueStorage()._payload = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -604,6 +635,88 @@ struct Proto3Unittest_TestEmptyMessage {
 
   init() {}
 }
+
+/// Same layout as TestOneof2 in unittest.proto to test unknown enum value
+/// parsing behavior in oneof.
+struct Proto3Unittest_TestOneof2 {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var foo: Proto3Unittest_TestOneof2.OneOf_Foo? = nil
+
+  var fooEnum: Proto3Unittest_TestOneof2.NestedEnum {
+    get {
+      if case .fooEnum(let v)? = foo {return v}
+      return .unknown
+    }
+    set {foo = .fooEnum(newValue)}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum OneOf_Foo: Equatable {
+    case fooEnum(Proto3Unittest_TestOneof2.NestedEnum)
+
+  #if !swift(>=4.1)
+    static func ==(lhs: Proto3Unittest_TestOneof2.OneOf_Foo, rhs: Proto3Unittest_TestOneof2.OneOf_Foo) -> Bool {
+      switch (lhs, rhs) {
+      case (.fooEnum(let l), .fooEnum(let r)): return l == r
+      }
+    }
+  #endif
+  }
+
+  enum NestedEnum: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case unknown // = 0
+    case foo // = 1
+    case bar // = 2
+    case baz // = 3
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .unknown
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknown
+      case 1: self = .foo
+      case 2: self = .bar
+      case 3: self = .baz
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknown: return 0
+      case .foo: return 1
+      case .bar: return 2
+      case .baz: return 3
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  init() {}
+}
+
+#if swift(>=4.2)
+
+extension Proto3Unittest_TestOneof2.NestedEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Proto3Unittest_TestOneof2.NestedEnum] = [
+    .unknown,
+    .foo,
+    .bar,
+    .baz,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -1033,65 +1146,65 @@ extension Proto3Unittest_TestAllTypes: SwiftProtobuf.Message, SwiftProtobuf._Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3Unittest_TestAllTypes) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Proto3Unittest_TestAllTypes, rhs: Proto3Unittest_TestAllTypes) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._optionalInt32 != other_storage._optionalInt32 {return false}
-        if _storage._optionalInt64 != other_storage._optionalInt64 {return false}
-        if _storage._optionalUint32 != other_storage._optionalUint32 {return false}
-        if _storage._optionalUint64 != other_storage._optionalUint64 {return false}
-        if _storage._optionalSint32 != other_storage._optionalSint32 {return false}
-        if _storage._optionalSint64 != other_storage._optionalSint64 {return false}
-        if _storage._optionalFixed32 != other_storage._optionalFixed32 {return false}
-        if _storage._optionalFixed64 != other_storage._optionalFixed64 {return false}
-        if _storage._optionalSfixed32 != other_storage._optionalSfixed32 {return false}
-        if _storage._optionalSfixed64 != other_storage._optionalSfixed64 {return false}
-        if _storage._optionalFloat != other_storage._optionalFloat {return false}
-        if _storage._optionalDouble != other_storage._optionalDouble {return false}
-        if _storage._optionalBool != other_storage._optionalBool {return false}
-        if _storage._optionalString != other_storage._optionalString {return false}
-        if _storage._optionalBytes != other_storage._optionalBytes {return false}
-        if _storage._optionalNestedMessage != other_storage._optionalNestedMessage {return false}
-        if _storage._optionalForeignMessage != other_storage._optionalForeignMessage {return false}
-        if _storage._optionalImportMessage != other_storage._optionalImportMessage {return false}
-        if _storage._optionalNestedEnum != other_storage._optionalNestedEnum {return false}
-        if _storage._optionalForeignEnum != other_storage._optionalForeignEnum {return false}
-        if _storage._optionalStringPiece != other_storage._optionalStringPiece {return false}
-        if _storage._optionalCord != other_storage._optionalCord {return false}
-        if _storage._optionalPublicImportMessage != other_storage._optionalPublicImportMessage {return false}
-        if _storage._optionalLazyMessage != other_storage._optionalLazyMessage {return false}
-        if _storage._optionalLazyImportMessage != other_storage._optionalLazyImportMessage {return false}
-        if _storage._repeatedInt32 != other_storage._repeatedInt32 {return false}
-        if _storage._repeatedInt64 != other_storage._repeatedInt64 {return false}
-        if _storage._repeatedUint32 != other_storage._repeatedUint32 {return false}
-        if _storage._repeatedUint64 != other_storage._repeatedUint64 {return false}
-        if _storage._repeatedSint32 != other_storage._repeatedSint32 {return false}
-        if _storage._repeatedSint64 != other_storage._repeatedSint64 {return false}
-        if _storage._repeatedFixed32 != other_storage._repeatedFixed32 {return false}
-        if _storage._repeatedFixed64 != other_storage._repeatedFixed64 {return false}
-        if _storage._repeatedSfixed32 != other_storage._repeatedSfixed32 {return false}
-        if _storage._repeatedSfixed64 != other_storage._repeatedSfixed64 {return false}
-        if _storage._repeatedFloat != other_storage._repeatedFloat {return false}
-        if _storage._repeatedDouble != other_storage._repeatedDouble {return false}
-        if _storage._repeatedBool != other_storage._repeatedBool {return false}
-        if _storage._repeatedString != other_storage._repeatedString {return false}
-        if _storage._repeatedBytes != other_storage._repeatedBytes {return false}
-        if _storage._repeatedNestedMessage != other_storage._repeatedNestedMessage {return false}
-        if _storage._repeatedForeignMessage != other_storage._repeatedForeignMessage {return false}
-        if _storage._repeatedImportMessage != other_storage._repeatedImportMessage {return false}
-        if _storage._repeatedNestedEnum != other_storage._repeatedNestedEnum {return false}
-        if _storage._repeatedForeignEnum != other_storage._repeatedForeignEnum {return false}
-        if _storage._repeatedStringPiece != other_storage._repeatedStringPiece {return false}
-        if _storage._repeatedCord != other_storage._repeatedCord {return false}
-        if _storage._repeatedLazyMessage != other_storage._repeatedLazyMessage {return false}
-        if _storage._oneofField != other_storage._oneofField {return false}
+        let rhs_storage = _args.1
+        if _storage._optionalInt32 != rhs_storage._optionalInt32 {return false}
+        if _storage._optionalInt64 != rhs_storage._optionalInt64 {return false}
+        if _storage._optionalUint32 != rhs_storage._optionalUint32 {return false}
+        if _storage._optionalUint64 != rhs_storage._optionalUint64 {return false}
+        if _storage._optionalSint32 != rhs_storage._optionalSint32 {return false}
+        if _storage._optionalSint64 != rhs_storage._optionalSint64 {return false}
+        if _storage._optionalFixed32 != rhs_storage._optionalFixed32 {return false}
+        if _storage._optionalFixed64 != rhs_storage._optionalFixed64 {return false}
+        if _storage._optionalSfixed32 != rhs_storage._optionalSfixed32 {return false}
+        if _storage._optionalSfixed64 != rhs_storage._optionalSfixed64 {return false}
+        if _storage._optionalFloat != rhs_storage._optionalFloat {return false}
+        if _storage._optionalDouble != rhs_storage._optionalDouble {return false}
+        if _storage._optionalBool != rhs_storage._optionalBool {return false}
+        if _storage._optionalString != rhs_storage._optionalString {return false}
+        if _storage._optionalBytes != rhs_storage._optionalBytes {return false}
+        if _storage._optionalNestedMessage != rhs_storage._optionalNestedMessage {return false}
+        if _storage._optionalForeignMessage != rhs_storage._optionalForeignMessage {return false}
+        if _storage._optionalImportMessage != rhs_storage._optionalImportMessage {return false}
+        if _storage._optionalNestedEnum != rhs_storage._optionalNestedEnum {return false}
+        if _storage._optionalForeignEnum != rhs_storage._optionalForeignEnum {return false}
+        if _storage._optionalStringPiece != rhs_storage._optionalStringPiece {return false}
+        if _storage._optionalCord != rhs_storage._optionalCord {return false}
+        if _storage._optionalPublicImportMessage != rhs_storage._optionalPublicImportMessage {return false}
+        if _storage._optionalLazyMessage != rhs_storage._optionalLazyMessage {return false}
+        if _storage._optionalLazyImportMessage != rhs_storage._optionalLazyImportMessage {return false}
+        if _storage._repeatedInt32 != rhs_storage._repeatedInt32 {return false}
+        if _storage._repeatedInt64 != rhs_storage._repeatedInt64 {return false}
+        if _storage._repeatedUint32 != rhs_storage._repeatedUint32 {return false}
+        if _storage._repeatedUint64 != rhs_storage._repeatedUint64 {return false}
+        if _storage._repeatedSint32 != rhs_storage._repeatedSint32 {return false}
+        if _storage._repeatedSint64 != rhs_storage._repeatedSint64 {return false}
+        if _storage._repeatedFixed32 != rhs_storage._repeatedFixed32 {return false}
+        if _storage._repeatedFixed64 != rhs_storage._repeatedFixed64 {return false}
+        if _storage._repeatedSfixed32 != rhs_storage._repeatedSfixed32 {return false}
+        if _storage._repeatedSfixed64 != rhs_storage._repeatedSfixed64 {return false}
+        if _storage._repeatedFloat != rhs_storage._repeatedFloat {return false}
+        if _storage._repeatedDouble != rhs_storage._repeatedDouble {return false}
+        if _storage._repeatedBool != rhs_storage._repeatedBool {return false}
+        if _storage._repeatedString != rhs_storage._repeatedString {return false}
+        if _storage._repeatedBytes != rhs_storage._repeatedBytes {return false}
+        if _storage._repeatedNestedMessage != rhs_storage._repeatedNestedMessage {return false}
+        if _storage._repeatedForeignMessage != rhs_storage._repeatedForeignMessage {return false}
+        if _storage._repeatedImportMessage != rhs_storage._repeatedImportMessage {return false}
+        if _storage._repeatedNestedEnum != rhs_storage._repeatedNestedEnum {return false}
+        if _storage._repeatedForeignEnum != rhs_storage._repeatedForeignEnum {return false}
+        if _storage._repeatedStringPiece != rhs_storage._repeatedStringPiece {return false}
+        if _storage._repeatedCord != rhs_storage._repeatedCord {return false}
+        if _storage._repeatedLazyMessage != rhs_storage._repeatedLazyMessage {return false}
+        if _storage._oneofField != rhs_storage._oneofField {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1128,9 +1241,9 @@ extension Proto3Unittest_TestAllTypes.NestedMessage: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3Unittest_TestAllTypes.NestedMessage) -> Bool {
-    if self.bb != other.bb {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto3Unittest_TestAllTypes.NestedMessage, rhs: Proto3Unittest_TestAllTypes.NestedMessage) -> Bool {
+    if lhs.bb != rhs.bb {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1222,22 +1335,22 @@ extension Proto3Unittest_TestPackedTypes: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3Unittest_TestPackedTypes) -> Bool {
-    if self.packedInt32 != other.packedInt32 {return false}
-    if self.packedInt64 != other.packedInt64 {return false}
-    if self.packedUint32 != other.packedUint32 {return false}
-    if self.packedUint64 != other.packedUint64 {return false}
-    if self.packedSint32 != other.packedSint32 {return false}
-    if self.packedSint64 != other.packedSint64 {return false}
-    if self.packedFixed32 != other.packedFixed32 {return false}
-    if self.packedFixed64 != other.packedFixed64 {return false}
-    if self.packedSfixed32 != other.packedSfixed32 {return false}
-    if self.packedSfixed64 != other.packedSfixed64 {return false}
-    if self.packedFloat != other.packedFloat {return false}
-    if self.packedDouble != other.packedDouble {return false}
-    if self.packedBool != other.packedBool {return false}
-    if self.packedEnum != other.packedEnum {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto3Unittest_TestPackedTypes, rhs: Proto3Unittest_TestPackedTypes) -> Bool {
+    if lhs.packedInt32 != rhs.packedInt32 {return false}
+    if lhs.packedInt64 != rhs.packedInt64 {return false}
+    if lhs.packedUint32 != rhs.packedUint32 {return false}
+    if lhs.packedUint64 != rhs.packedUint64 {return false}
+    if lhs.packedSint32 != rhs.packedSint32 {return false}
+    if lhs.packedSint64 != rhs.packedSint64 {return false}
+    if lhs.packedFixed32 != rhs.packedFixed32 {return false}
+    if lhs.packedFixed64 != rhs.packedFixed64 {return false}
+    if lhs.packedSfixed32 != rhs.packedSfixed32 {return false}
+    if lhs.packedSfixed64 != rhs.packedSfixed64 {return false}
+    if lhs.packedFloat != rhs.packedFloat {return false}
+    if lhs.packedDouble != rhs.packedDouble {return false}
+    if lhs.packedBool != rhs.packedBool {return false}
+    if lhs.packedEnum != rhs.packedEnum {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1329,22 +1442,22 @@ extension Proto3Unittest_TestUnpackedTypes: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3Unittest_TestUnpackedTypes) -> Bool {
-    if self.repeatedInt32 != other.repeatedInt32 {return false}
-    if self.repeatedInt64 != other.repeatedInt64 {return false}
-    if self.repeatedUint32 != other.repeatedUint32 {return false}
-    if self.repeatedUint64 != other.repeatedUint64 {return false}
-    if self.repeatedSint32 != other.repeatedSint32 {return false}
-    if self.repeatedSint64 != other.repeatedSint64 {return false}
-    if self.repeatedFixed32 != other.repeatedFixed32 {return false}
-    if self.repeatedFixed64 != other.repeatedFixed64 {return false}
-    if self.repeatedSfixed32 != other.repeatedSfixed32 {return false}
-    if self.repeatedSfixed64 != other.repeatedSfixed64 {return false}
-    if self.repeatedFloat != other.repeatedFloat {return false}
-    if self.repeatedDouble != other.repeatedDouble {return false}
-    if self.repeatedBool != other.repeatedBool {return false}
-    if self.repeatedNestedEnum != other.repeatedNestedEnum {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto3Unittest_TestUnpackedTypes, rhs: Proto3Unittest_TestUnpackedTypes) -> Bool {
+    if lhs.repeatedInt32 != rhs.repeatedInt32 {return false}
+    if lhs.repeatedInt64 != rhs.repeatedInt64 {return false}
+    if lhs.repeatedUint32 != rhs.repeatedUint32 {return false}
+    if lhs.repeatedUint64 != rhs.repeatedUint64 {return false}
+    if lhs.repeatedSint32 != rhs.repeatedSint32 {return false}
+    if lhs.repeatedSint64 != rhs.repeatedSint64 {return false}
+    if lhs.repeatedFixed32 != rhs.repeatedFixed32 {return false}
+    if lhs.repeatedFixed64 != rhs.repeatedFixed64 {return false}
+    if lhs.repeatedSfixed32 != rhs.repeatedSfixed32 {return false}
+    if lhs.repeatedSfixed64 != rhs.repeatedSfixed64 {return false}
+    if lhs.repeatedFloat != rhs.repeatedFloat {return false}
+    if lhs.repeatedDouble != rhs.repeatedDouble {return false}
+    if lhs.repeatedBool != rhs.repeatedBool {return false}
+    if lhs.repeatedNestedEnum != rhs.repeatedNestedEnum {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1402,18 +1515,18 @@ extension Proto3Unittest_NestedTestAllTypes: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3Unittest_NestedTestAllTypes) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Proto3Unittest_NestedTestAllTypes, rhs: Proto3Unittest_NestedTestAllTypes) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._child != other_storage._child {return false}
-        if _storage._payload != other_storage._payload {return false}
+        let rhs_storage = _args.1
+        if _storage._child != rhs_storage._child {return false}
+        if _storage._payload != rhs_storage._payload {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1440,9 +1553,9 @@ extension Proto3Unittest_ForeignMessage: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3Unittest_ForeignMessage) -> Bool {
-    if self.c != other.c {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto3Unittest_ForeignMessage, rhs: Proto3Unittest_ForeignMessage) -> Bool {
+    if lhs.c != rhs.c {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1460,8 +1573,50 @@ extension Proto3Unittest_TestEmptyMessage: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3Unittest_TestEmptyMessage) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto3Unittest_TestEmptyMessage, rhs: Proto3Unittest_TestEmptyMessage) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Proto3Unittest_TestOneof2: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TestOneof2"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    6: .standard(proto: "foo_enum"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 6:
+        if self.foo != nil {try decoder.handleConflictingOneOf()}
+        var v: Proto3Unittest_TestOneof2.NestedEnum?
+        try decoder.decodeSingularEnumField(value: &v)
+        if let v = v {self.foo = .fooEnum(v)}
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if case .fooEnum(let v)? = self.foo {
+      try visitor.visitSingularEnumField(value: v, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Proto3Unittest_TestOneof2, rhs: Proto3Unittest_TestOneof2) -> Bool {
+    if lhs.foo != rhs.foo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Proto3Unittest_TestOneof2.NestedEnum: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "UNKNOWN"),
+    1: .same(proto: "FOO"),
+    2: .same(proto: "BAR"),
+    3: .same(proto: "BAZ"),
+  ]
 }

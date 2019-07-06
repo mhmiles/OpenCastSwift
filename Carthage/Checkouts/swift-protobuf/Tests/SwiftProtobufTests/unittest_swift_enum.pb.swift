@@ -171,6 +171,26 @@ struct ProtobufUnittest_SwiftEnumTest {
   init() {}
 }
 
+#if swift(>=4.2)
+
+extension ProtobufUnittest_SwiftEnumTest.EnumTest1: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+extension ProtobufUnittest_SwiftEnumTest.EnumTest2: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+extension ProtobufUnittest_SwiftEnumTest.EnumTestNoStem: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+extension ProtobufUnittest_SwiftEnumTest.EnumTestReservedWord: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 struct ProtobufUnittest_SwiftEnumWithAliasTest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -184,6 +204,9 @@ struct ProtobufUnittest_SwiftEnumWithAliasTest {
     typealias RawValue = Int
     case foo1 // = 1
     static let foo2 = foo1
+
+    /// out of value order to test allCases
+    case baz1 // = 3
     case bar1 // = 2
     static let bar2 = bar1
 
@@ -195,6 +218,7 @@ struct ProtobufUnittest_SwiftEnumWithAliasTest {
       switch rawValue {
       case 1: self = .foo1
       case 2: self = .bar1
+      case 3: self = .baz1
       default: return nil
       }
     }
@@ -203,6 +227,7 @@ struct ProtobufUnittest_SwiftEnumWithAliasTest {
       switch self {
       case .foo1: return 1
       case .bar1: return 2
+      case .baz1: return 3
       }
     }
 
@@ -210,6 +235,14 @@ struct ProtobufUnittest_SwiftEnumWithAliasTest {
 
   init() {}
 }
+
+#if swift(>=4.2)
+
+extension ProtobufUnittest_SwiftEnumWithAliasTest.EnumWithAlias: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -252,12 +285,12 @@ extension ProtobufUnittest_SwiftEnumTest: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_SwiftEnumTest) -> Bool {
-    if self.values1 != other.values1 {return false}
-    if self.values2 != other.values2 {return false}
-    if self.values3 != other.values3 {return false}
-    if self.values4 != other.values4 {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_SwiftEnumTest, rhs: ProtobufUnittest_SwiftEnumTest) -> Bool {
+    if lhs.values1 != rhs.values1 {return false}
+    if lhs.values2 != rhs.values2 {return false}
+    if lhs.values3 != rhs.values3 {return false}
+    if lhs.values4 != rhs.values4 {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -312,9 +345,9 @@ extension ProtobufUnittest_SwiftEnumWithAliasTest: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_SwiftEnumWithAliasTest) -> Bool {
-    if self.values != other.values {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_SwiftEnumWithAliasTest, rhs: ProtobufUnittest_SwiftEnumWithAliasTest) -> Bool {
+    if lhs.values != rhs.values {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -323,5 +356,6 @@ extension ProtobufUnittest_SwiftEnumWithAliasTest.EnumWithAlias: SwiftProtobuf._
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .aliased(proto: "FOO1", aliases: ["FOO2"]),
     2: .aliased(proto: "BAR1", aliases: ["BAR2"]),
+    3: .same(proto: "BAZ1"),
   ]
 }
