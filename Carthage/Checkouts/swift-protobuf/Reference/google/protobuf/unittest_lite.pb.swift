@@ -82,6 +82,14 @@ enum ProtobufUnittest_ForeignEnumLite: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension ProtobufUnittest_ForeignEnumLite: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 enum ProtobufUnittest_V1EnumLite: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case v1First // = 1
@@ -104,6 +112,14 @@ enum ProtobufUnittest_V1EnumLite: SwiftProtobuf.Enum {
   }
 
 }
+
+#if swift(>=4.2)
+
+extension ProtobufUnittest_V1EnumLite: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
 
 enum ProtobufUnittest_V2EnumLite: SwiftProtobuf.Enum {
   typealias RawValue = Int
@@ -131,6 +147,14 @@ enum ProtobufUnittest_V2EnumLite: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension ProtobufUnittest_V2EnumLite: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 /// Same as TestAllTypes but with the lite runtime.
 struct ProtobufUnittest_TestAllTypesLite {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -145,7 +169,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalInt32` has been explicitly set.
   var hasOptionalInt32: Bool {return _storage._optionalInt32 != nil}
   /// Clears the value of `optionalInt32`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalInt32() {_storage._optionalInt32 = nil}
+  mutating func clearOptionalInt32() {_uniqueStorage()._optionalInt32 = nil}
 
   var optionalInt64: Int64 {
     get {return _storage._optionalInt64 ?? 0}
@@ -154,7 +178,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalInt64` has been explicitly set.
   var hasOptionalInt64: Bool {return _storage._optionalInt64 != nil}
   /// Clears the value of `optionalInt64`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalInt64() {_storage._optionalInt64 = nil}
+  mutating func clearOptionalInt64() {_uniqueStorage()._optionalInt64 = nil}
 
   var optionalUint32: UInt32 {
     get {return _storage._optionalUint32 ?? 0}
@@ -163,7 +187,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalUint32` has been explicitly set.
   var hasOptionalUint32: Bool {return _storage._optionalUint32 != nil}
   /// Clears the value of `optionalUint32`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalUint32() {_storage._optionalUint32 = nil}
+  mutating func clearOptionalUint32() {_uniqueStorage()._optionalUint32 = nil}
 
   var optionalUint64: UInt64 {
     get {return _storage._optionalUint64 ?? 0}
@@ -172,7 +196,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalUint64` has been explicitly set.
   var hasOptionalUint64: Bool {return _storage._optionalUint64 != nil}
   /// Clears the value of `optionalUint64`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalUint64() {_storage._optionalUint64 = nil}
+  mutating func clearOptionalUint64() {_uniqueStorage()._optionalUint64 = nil}
 
   var optionalSint32: Int32 {
     get {return _storage._optionalSint32 ?? 0}
@@ -181,7 +205,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalSint32` has been explicitly set.
   var hasOptionalSint32: Bool {return _storage._optionalSint32 != nil}
   /// Clears the value of `optionalSint32`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalSint32() {_storage._optionalSint32 = nil}
+  mutating func clearOptionalSint32() {_uniqueStorage()._optionalSint32 = nil}
 
   var optionalSint64: Int64 {
     get {return _storage._optionalSint64 ?? 0}
@@ -190,7 +214,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalSint64` has been explicitly set.
   var hasOptionalSint64: Bool {return _storage._optionalSint64 != nil}
   /// Clears the value of `optionalSint64`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalSint64() {_storage._optionalSint64 = nil}
+  mutating func clearOptionalSint64() {_uniqueStorage()._optionalSint64 = nil}
 
   var optionalFixed32: UInt32 {
     get {return _storage._optionalFixed32 ?? 0}
@@ -199,7 +223,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalFixed32` has been explicitly set.
   var hasOptionalFixed32: Bool {return _storage._optionalFixed32 != nil}
   /// Clears the value of `optionalFixed32`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalFixed32() {_storage._optionalFixed32 = nil}
+  mutating func clearOptionalFixed32() {_uniqueStorage()._optionalFixed32 = nil}
 
   var optionalFixed64: UInt64 {
     get {return _storage._optionalFixed64 ?? 0}
@@ -208,7 +232,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalFixed64` has been explicitly set.
   var hasOptionalFixed64: Bool {return _storage._optionalFixed64 != nil}
   /// Clears the value of `optionalFixed64`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalFixed64() {_storage._optionalFixed64 = nil}
+  mutating func clearOptionalFixed64() {_uniqueStorage()._optionalFixed64 = nil}
 
   var optionalSfixed32: Int32 {
     get {return _storage._optionalSfixed32 ?? 0}
@@ -217,7 +241,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalSfixed32` has been explicitly set.
   var hasOptionalSfixed32: Bool {return _storage._optionalSfixed32 != nil}
   /// Clears the value of `optionalSfixed32`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalSfixed32() {_storage._optionalSfixed32 = nil}
+  mutating func clearOptionalSfixed32() {_uniqueStorage()._optionalSfixed32 = nil}
 
   var optionalSfixed64: Int64 {
     get {return _storage._optionalSfixed64 ?? 0}
@@ -226,7 +250,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalSfixed64` has been explicitly set.
   var hasOptionalSfixed64: Bool {return _storage._optionalSfixed64 != nil}
   /// Clears the value of `optionalSfixed64`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalSfixed64() {_storage._optionalSfixed64 = nil}
+  mutating func clearOptionalSfixed64() {_uniqueStorage()._optionalSfixed64 = nil}
 
   var optionalFloat: Float {
     get {return _storage._optionalFloat ?? 0}
@@ -235,7 +259,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalFloat` has been explicitly set.
   var hasOptionalFloat: Bool {return _storage._optionalFloat != nil}
   /// Clears the value of `optionalFloat`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalFloat() {_storage._optionalFloat = nil}
+  mutating func clearOptionalFloat() {_uniqueStorage()._optionalFloat = nil}
 
   var optionalDouble: Double {
     get {return _storage._optionalDouble ?? 0}
@@ -244,7 +268,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalDouble` has been explicitly set.
   var hasOptionalDouble: Bool {return _storage._optionalDouble != nil}
   /// Clears the value of `optionalDouble`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalDouble() {_storage._optionalDouble = nil}
+  mutating func clearOptionalDouble() {_uniqueStorage()._optionalDouble = nil}
 
   var optionalBool: Bool {
     get {return _storage._optionalBool ?? false}
@@ -253,7 +277,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalBool` has been explicitly set.
   var hasOptionalBool: Bool {return _storage._optionalBool != nil}
   /// Clears the value of `optionalBool`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalBool() {_storage._optionalBool = nil}
+  mutating func clearOptionalBool() {_uniqueStorage()._optionalBool = nil}
 
   var optionalString: String {
     get {return _storage._optionalString ?? String()}
@@ -262,7 +286,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalString` has been explicitly set.
   var hasOptionalString: Bool {return _storage._optionalString != nil}
   /// Clears the value of `optionalString`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalString() {_storage._optionalString = nil}
+  mutating func clearOptionalString() {_uniqueStorage()._optionalString = nil}
 
   var optionalBytes: Data {
     get {return _storage._optionalBytes ?? SwiftProtobuf.Internal.emptyData}
@@ -271,7 +295,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalBytes` has been explicitly set.
   var hasOptionalBytes: Bool {return _storage._optionalBytes != nil}
   /// Clears the value of `optionalBytes`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalBytes() {_storage._optionalBytes = nil}
+  mutating func clearOptionalBytes() {_uniqueStorage()._optionalBytes = nil}
 
   var optionalGroup: ProtobufUnittest_TestAllTypesLite.OptionalGroup {
     get {return _storage._optionalGroup ?? ProtobufUnittest_TestAllTypesLite.OptionalGroup()}
@@ -280,7 +304,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalGroup` has been explicitly set.
   var hasOptionalGroup: Bool {return _storage._optionalGroup != nil}
   /// Clears the value of `optionalGroup`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalGroup() {_storage._optionalGroup = nil}
+  mutating func clearOptionalGroup() {_uniqueStorage()._optionalGroup = nil}
 
   var optionalNestedMessage: ProtobufUnittest_TestAllTypesLite.NestedMessage {
     get {return _storage._optionalNestedMessage ?? ProtobufUnittest_TestAllTypesLite.NestedMessage()}
@@ -289,7 +313,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalNestedMessage` has been explicitly set.
   var hasOptionalNestedMessage: Bool {return _storage._optionalNestedMessage != nil}
   /// Clears the value of `optionalNestedMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalNestedMessage() {_storage._optionalNestedMessage = nil}
+  mutating func clearOptionalNestedMessage() {_uniqueStorage()._optionalNestedMessage = nil}
 
   var optionalForeignMessage: ProtobufUnittest_ForeignMessageLite {
     get {return _storage._optionalForeignMessage ?? ProtobufUnittest_ForeignMessageLite()}
@@ -298,7 +322,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalForeignMessage` has been explicitly set.
   var hasOptionalForeignMessage: Bool {return _storage._optionalForeignMessage != nil}
   /// Clears the value of `optionalForeignMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalForeignMessage() {_storage._optionalForeignMessage = nil}
+  mutating func clearOptionalForeignMessage() {_uniqueStorage()._optionalForeignMessage = nil}
 
   var optionalImportMessage: ProtobufUnittestImport_ImportMessageLite {
     get {return _storage._optionalImportMessage ?? ProtobufUnittestImport_ImportMessageLite()}
@@ -307,7 +331,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalImportMessage` has been explicitly set.
   var hasOptionalImportMessage: Bool {return _storage._optionalImportMessage != nil}
   /// Clears the value of `optionalImportMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalImportMessage() {_storage._optionalImportMessage = nil}
+  mutating func clearOptionalImportMessage() {_uniqueStorage()._optionalImportMessage = nil}
 
   var optionalNestedEnum: ProtobufUnittest_TestAllTypesLite.NestedEnum {
     get {return _storage._optionalNestedEnum ?? .foo}
@@ -316,7 +340,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalNestedEnum` has been explicitly set.
   var hasOptionalNestedEnum: Bool {return _storage._optionalNestedEnum != nil}
   /// Clears the value of `optionalNestedEnum`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalNestedEnum() {_storage._optionalNestedEnum = nil}
+  mutating func clearOptionalNestedEnum() {_uniqueStorage()._optionalNestedEnum = nil}
 
   var optionalForeignEnum: ProtobufUnittest_ForeignEnumLite {
     get {return _storage._optionalForeignEnum ?? .foreignLiteFoo}
@@ -325,7 +349,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalForeignEnum` has been explicitly set.
   var hasOptionalForeignEnum: Bool {return _storage._optionalForeignEnum != nil}
   /// Clears the value of `optionalForeignEnum`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalForeignEnum() {_storage._optionalForeignEnum = nil}
+  mutating func clearOptionalForeignEnum() {_uniqueStorage()._optionalForeignEnum = nil}
 
   var optionalImportEnum: ProtobufUnittestImport_ImportEnumLite {
     get {return _storage._optionalImportEnum ?? .importLiteFoo}
@@ -334,7 +358,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalImportEnum` has been explicitly set.
   var hasOptionalImportEnum: Bool {return _storage._optionalImportEnum != nil}
   /// Clears the value of `optionalImportEnum`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalImportEnum() {_storage._optionalImportEnum = nil}
+  mutating func clearOptionalImportEnum() {_uniqueStorage()._optionalImportEnum = nil}
 
   var optionalStringPiece: String {
     get {return _storage._optionalStringPiece ?? String()}
@@ -343,7 +367,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalStringPiece` has been explicitly set.
   var hasOptionalStringPiece: Bool {return _storage._optionalStringPiece != nil}
   /// Clears the value of `optionalStringPiece`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalStringPiece() {_storage._optionalStringPiece = nil}
+  mutating func clearOptionalStringPiece() {_uniqueStorage()._optionalStringPiece = nil}
 
   var optionalCord: String {
     get {return _storage._optionalCord ?? String()}
@@ -352,7 +376,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalCord` has been explicitly set.
   var hasOptionalCord: Bool {return _storage._optionalCord != nil}
   /// Clears the value of `optionalCord`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalCord() {_storage._optionalCord = nil}
+  mutating func clearOptionalCord() {_uniqueStorage()._optionalCord = nil}
 
   /// Defined in unittest_import_public.proto
   var optionalPublicImportMessage: ProtobufUnittestImport_PublicImportMessageLite {
@@ -362,7 +386,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalPublicImportMessage` has been explicitly set.
   var hasOptionalPublicImportMessage: Bool {return _storage._optionalPublicImportMessage != nil}
   /// Clears the value of `optionalPublicImportMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalPublicImportMessage() {_storage._optionalPublicImportMessage = nil}
+  mutating func clearOptionalPublicImportMessage() {_uniqueStorage()._optionalPublicImportMessage = nil}
 
   var optionalLazyMessage: ProtobufUnittest_TestAllTypesLite.NestedMessage {
     get {return _storage._optionalLazyMessage ?? ProtobufUnittest_TestAllTypesLite.NestedMessage()}
@@ -371,7 +395,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `optionalLazyMessage` has been explicitly set.
   var hasOptionalLazyMessage: Bool {return _storage._optionalLazyMessage != nil}
   /// Clears the value of `optionalLazyMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalLazyMessage() {_storage._optionalLazyMessage = nil}
+  mutating func clearOptionalLazyMessage() {_uniqueStorage()._optionalLazyMessage = nil}
 
   /// Repeated
   var repeatedInt32: [Int32] {
@@ -507,7 +531,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultInt32` has been explicitly set.
   var hasDefaultInt32: Bool {return _storage._defaultInt32 != nil}
   /// Clears the value of `defaultInt32`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultInt32() {_storage._defaultInt32 = nil}
+  mutating func clearDefaultInt32() {_uniqueStorage()._defaultInt32 = nil}
 
   var defaultInt64: Int64 {
     get {return _storage._defaultInt64 ?? 42}
@@ -516,7 +540,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultInt64` has been explicitly set.
   var hasDefaultInt64: Bool {return _storage._defaultInt64 != nil}
   /// Clears the value of `defaultInt64`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultInt64() {_storage._defaultInt64 = nil}
+  mutating func clearDefaultInt64() {_uniqueStorage()._defaultInt64 = nil}
 
   var defaultUint32: UInt32 {
     get {return _storage._defaultUint32 ?? 43}
@@ -525,7 +549,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultUint32` has been explicitly set.
   var hasDefaultUint32: Bool {return _storage._defaultUint32 != nil}
   /// Clears the value of `defaultUint32`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultUint32() {_storage._defaultUint32 = nil}
+  mutating func clearDefaultUint32() {_uniqueStorage()._defaultUint32 = nil}
 
   var defaultUint64: UInt64 {
     get {return _storage._defaultUint64 ?? 44}
@@ -534,7 +558,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultUint64` has been explicitly set.
   var hasDefaultUint64: Bool {return _storage._defaultUint64 != nil}
   /// Clears the value of `defaultUint64`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultUint64() {_storage._defaultUint64 = nil}
+  mutating func clearDefaultUint64() {_uniqueStorage()._defaultUint64 = nil}
 
   var defaultSint32: Int32 {
     get {return _storage._defaultSint32 ?? -45}
@@ -543,7 +567,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultSint32` has been explicitly set.
   var hasDefaultSint32: Bool {return _storage._defaultSint32 != nil}
   /// Clears the value of `defaultSint32`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultSint32() {_storage._defaultSint32 = nil}
+  mutating func clearDefaultSint32() {_uniqueStorage()._defaultSint32 = nil}
 
   var defaultSint64: Int64 {
     get {return _storage._defaultSint64 ?? 46}
@@ -552,7 +576,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultSint64` has been explicitly set.
   var hasDefaultSint64: Bool {return _storage._defaultSint64 != nil}
   /// Clears the value of `defaultSint64`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultSint64() {_storage._defaultSint64 = nil}
+  mutating func clearDefaultSint64() {_uniqueStorage()._defaultSint64 = nil}
 
   var defaultFixed32: UInt32 {
     get {return _storage._defaultFixed32 ?? 47}
@@ -561,7 +585,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultFixed32` has been explicitly set.
   var hasDefaultFixed32: Bool {return _storage._defaultFixed32 != nil}
   /// Clears the value of `defaultFixed32`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultFixed32() {_storage._defaultFixed32 = nil}
+  mutating func clearDefaultFixed32() {_uniqueStorage()._defaultFixed32 = nil}
 
   var defaultFixed64: UInt64 {
     get {return _storage._defaultFixed64 ?? 48}
@@ -570,7 +594,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultFixed64` has been explicitly set.
   var hasDefaultFixed64: Bool {return _storage._defaultFixed64 != nil}
   /// Clears the value of `defaultFixed64`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultFixed64() {_storage._defaultFixed64 = nil}
+  mutating func clearDefaultFixed64() {_uniqueStorage()._defaultFixed64 = nil}
 
   var defaultSfixed32: Int32 {
     get {return _storage._defaultSfixed32 ?? 49}
@@ -579,7 +603,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultSfixed32` has been explicitly set.
   var hasDefaultSfixed32: Bool {return _storage._defaultSfixed32 != nil}
   /// Clears the value of `defaultSfixed32`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultSfixed32() {_storage._defaultSfixed32 = nil}
+  mutating func clearDefaultSfixed32() {_uniqueStorage()._defaultSfixed32 = nil}
 
   var defaultSfixed64: Int64 {
     get {return _storage._defaultSfixed64 ?? -50}
@@ -588,7 +612,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultSfixed64` has been explicitly set.
   var hasDefaultSfixed64: Bool {return _storage._defaultSfixed64 != nil}
   /// Clears the value of `defaultSfixed64`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultSfixed64() {_storage._defaultSfixed64 = nil}
+  mutating func clearDefaultSfixed64() {_uniqueStorage()._defaultSfixed64 = nil}
 
   var defaultFloat: Float {
     get {return _storage._defaultFloat ?? 51.5}
@@ -597,7 +621,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultFloat` has been explicitly set.
   var hasDefaultFloat: Bool {return _storage._defaultFloat != nil}
   /// Clears the value of `defaultFloat`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultFloat() {_storage._defaultFloat = nil}
+  mutating func clearDefaultFloat() {_uniqueStorage()._defaultFloat = nil}
 
   var defaultDouble: Double {
     get {return _storage._defaultDouble ?? 52000}
@@ -606,7 +630,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultDouble` has been explicitly set.
   var hasDefaultDouble: Bool {return _storage._defaultDouble != nil}
   /// Clears the value of `defaultDouble`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultDouble() {_storage._defaultDouble = nil}
+  mutating func clearDefaultDouble() {_uniqueStorage()._defaultDouble = nil}
 
   var defaultBool: Bool {
     get {return _storage._defaultBool ?? true}
@@ -615,7 +639,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultBool` has been explicitly set.
   var hasDefaultBool: Bool {return _storage._defaultBool != nil}
   /// Clears the value of `defaultBool`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultBool() {_storage._defaultBool = nil}
+  mutating func clearDefaultBool() {_uniqueStorage()._defaultBool = nil}
 
   var defaultString: String {
     get {return _storage._defaultString ?? "hello"}
@@ -624,16 +648,16 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultString` has been explicitly set.
   var hasDefaultString: Bool {return _storage._defaultString != nil}
   /// Clears the value of `defaultString`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultString() {_storage._defaultString = nil}
+  mutating func clearDefaultString() {_uniqueStorage()._defaultString = nil}
 
   var defaultBytes: Data {
-    get {return _storage._defaultBytes ?? Data(bytes: [119, 111, 114, 108, 100])}
+    get {return _storage._defaultBytes ?? Data([119, 111, 114, 108, 100])}
     set {_uniqueStorage()._defaultBytes = newValue}
   }
   /// Returns true if `defaultBytes` has been explicitly set.
   var hasDefaultBytes: Bool {return _storage._defaultBytes != nil}
   /// Clears the value of `defaultBytes`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultBytes() {_storage._defaultBytes = nil}
+  mutating func clearDefaultBytes() {_uniqueStorage()._defaultBytes = nil}
 
   var defaultNestedEnum: ProtobufUnittest_TestAllTypesLite.NestedEnum {
     get {return _storage._defaultNestedEnum ?? .bar}
@@ -642,7 +666,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultNestedEnum` has been explicitly set.
   var hasDefaultNestedEnum: Bool {return _storage._defaultNestedEnum != nil}
   /// Clears the value of `defaultNestedEnum`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultNestedEnum() {_storage._defaultNestedEnum = nil}
+  mutating func clearDefaultNestedEnum() {_uniqueStorage()._defaultNestedEnum = nil}
 
   var defaultForeignEnum: ProtobufUnittest_ForeignEnumLite {
     get {return _storage._defaultForeignEnum ?? .foreignLiteBar}
@@ -651,7 +675,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultForeignEnum` has been explicitly set.
   var hasDefaultForeignEnum: Bool {return _storage._defaultForeignEnum != nil}
   /// Clears the value of `defaultForeignEnum`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultForeignEnum() {_storage._defaultForeignEnum = nil}
+  mutating func clearDefaultForeignEnum() {_uniqueStorage()._defaultForeignEnum = nil}
 
   var defaultImportEnum: ProtobufUnittestImport_ImportEnumLite {
     get {return _storage._defaultImportEnum ?? .importLiteBar}
@@ -660,7 +684,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultImportEnum` has been explicitly set.
   var hasDefaultImportEnum: Bool {return _storage._defaultImportEnum != nil}
   /// Clears the value of `defaultImportEnum`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultImportEnum() {_storage._defaultImportEnum = nil}
+  mutating func clearDefaultImportEnum() {_uniqueStorage()._defaultImportEnum = nil}
 
   var defaultStringPiece: String {
     get {return _storage._defaultStringPiece ?? "abc"}
@@ -669,7 +693,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultStringPiece` has been explicitly set.
   var hasDefaultStringPiece: Bool {return _storage._defaultStringPiece != nil}
   /// Clears the value of `defaultStringPiece`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultStringPiece() {_storage._defaultStringPiece = nil}
+  mutating func clearDefaultStringPiece() {_uniqueStorage()._defaultStringPiece = nil}
 
   var defaultCord: String {
     get {return _storage._defaultCord ?? "123"}
@@ -678,7 +702,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `defaultCord` has been explicitly set.
   var hasDefaultCord: Bool {return _storage._defaultCord != nil}
   /// Clears the value of `defaultCord`. Subsequent reads from it will return its default value.
-  mutating func clearDefaultCord() {_storage._defaultCord = nil}
+  mutating func clearDefaultCord() {_uniqueStorage()._defaultCord = nil}
 
   /// For oneof test
   var oneofField: OneOf_OneofField? {
@@ -734,7 +758,7 @@ struct ProtobufUnittest_TestAllTypesLite {
   /// Returns true if `deceptivelyNamedList` has been explicitly set.
   var hasDeceptivelyNamedList: Bool {return _storage._deceptivelyNamedList != nil}
   /// Clears the value of `deceptivelyNamedList`. Subsequent reads from it will return its default value.
-  mutating func clearDeceptivelyNamedList() {_storage._deceptivelyNamedList = nil}
+  mutating func clearDeceptivelyNamedList() {_uniqueStorage()._deceptivelyNamedList = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -746,6 +770,7 @@ struct ProtobufUnittest_TestAllTypesLite {
     case oneofBytes(Data)
     case oneofLazyNestedMessage(ProtobufUnittest_TestAllTypesLite.NestedMessage)
 
+  #if !swift(>=4.1)
     static func ==(lhs: ProtobufUnittest_TestAllTypesLite.OneOf_OneofField, rhs: ProtobufUnittest_TestAllTypesLite.OneOf_OneofField) -> Bool {
       switch (lhs, rhs) {
       case (.oneofUint32(let l), .oneofUint32(let r)): return l == r
@@ -756,6 +781,7 @@ struct ProtobufUnittest_TestAllTypesLite {
       default: return false
       }
     }
+  #endif
   }
 
   enum NestedEnum: SwiftProtobuf.Enum {
@@ -864,6 +890,14 @@ struct ProtobufUnittest_TestAllTypesLite {
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
+
+#if swift(>=4.2)
+
+extension ProtobufUnittest_TestAllTypesLite.NestedEnum: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
 
 struct ProtobufUnittest_ForeignMessageLite {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1036,7 +1070,7 @@ struct ProtobufUnittest_TestParsingMergeLite: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `requiredAllTypes` has been explicitly set.
   var hasRequiredAllTypes: Bool {return _storage._requiredAllTypes != nil}
   /// Clears the value of `requiredAllTypes`. Subsequent reads from it will return its default value.
-  mutating func clearRequiredAllTypes() {_storage._requiredAllTypes = nil}
+  mutating func clearRequiredAllTypes() {_uniqueStorage()._requiredAllTypes = nil}
 
   var optionalAllTypes: ProtobufUnittest_TestAllTypesLite {
     get {return _storage._optionalAllTypes ?? ProtobufUnittest_TestAllTypesLite()}
@@ -1045,7 +1079,7 @@ struct ProtobufUnittest_TestParsingMergeLite: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `optionalAllTypes` has been explicitly set.
   var hasOptionalAllTypes: Bool {return _storage._optionalAllTypes != nil}
   /// Clears the value of `optionalAllTypes`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalAllTypes() {_storage._optionalAllTypes = nil}
+  mutating func clearOptionalAllTypes() {_uniqueStorage()._optionalAllTypes = nil}
 
   var repeatedAllTypes: [ProtobufUnittest_TestAllTypesLite] {
     get {return _storage._repeatedAllTypes}
@@ -1059,7 +1093,7 @@ struct ProtobufUnittest_TestParsingMergeLite: SwiftProtobuf.ExtensibleMessage {
   /// Returns true if `optionalGroup` has been explicitly set.
   var hasOptionalGroup: Bool {return _storage._optionalGroup != nil}
   /// Clears the value of `optionalGroup`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalGroup() {_storage._optionalGroup = nil}
+  mutating func clearOptionalGroup() {_uniqueStorage()._optionalGroup = nil}
 
   var repeatedGroup: [ProtobufUnittest_TestParsingMergeLite.RepeatedGroup] {
     get {return _storage._repeatedGroup}
@@ -1101,7 +1135,7 @@ struct ProtobufUnittest_TestParsingMergeLite: SwiftProtobuf.ExtensibleMessage {
       /// Returns true if `field1` has been explicitly set.
       var hasField1: Bool {return _storage._field1 != nil}
       /// Clears the value of `field1`. Subsequent reads from it will return its default value.
-      mutating func clearField1() {_storage._field1 = nil}
+      mutating func clearField1() {_uniqueStorage()._field1 = nil}
 
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1122,7 +1156,7 @@ struct ProtobufUnittest_TestParsingMergeLite: SwiftProtobuf.ExtensibleMessage {
       /// Returns true if `field1` has been explicitly set.
       var hasField1: Bool {return _storage._field1 != nil}
       /// Clears the value of `field1`. Subsequent reads from it will return its default value.
-      mutating func clearField1() {_storage._field1 = nil}
+      mutating func clearField1() {_uniqueStorage()._field1 = nil}
 
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1146,7 +1180,7 @@ struct ProtobufUnittest_TestParsingMergeLite: SwiftProtobuf.ExtensibleMessage {
     /// Returns true if `optionalGroupAllTypes` has been explicitly set.
     var hasOptionalGroupAllTypes: Bool {return _storage._optionalGroupAllTypes != nil}
     /// Clears the value of `optionalGroupAllTypes`. Subsequent reads from it will return its default value.
-    mutating func clearOptionalGroupAllTypes() {_storage._optionalGroupAllTypes = nil}
+    mutating func clearOptionalGroupAllTypes() {_uniqueStorage()._optionalGroupAllTypes = nil}
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1167,7 +1201,7 @@ struct ProtobufUnittest_TestParsingMergeLite: SwiftProtobuf.ExtensibleMessage {
     /// Returns true if `repeatedGroupAllTypes` has been explicitly set.
     var hasRepeatedGroupAllTypes: Bool {return _storage._repeatedGroupAllTypes != nil}
     /// Clears the value of `repeatedGroupAllTypes`. Subsequent reads from it will return its default value.
-    mutating func clearRepeatedGroupAllTypes() {_storage._repeatedGroupAllTypes = nil}
+    mutating func clearRepeatedGroupAllTypes() {_uniqueStorage()._repeatedGroupAllTypes = nil}
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1281,7 +1315,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
   /// Returns true if `optionalInt32` has been explicitly set.
   var hasOptionalInt32: Bool {return _storage._optionalInt32 != nil}
   /// Clears the value of `optionalInt32`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalInt32() {_storage._optionalInt32 = nil}
+  mutating func clearOptionalInt32() {_uniqueStorage()._optionalInt32 = nil}
 
   var fixed32: Int32 {
     get {return _storage._fixed32 ?? 0}
@@ -1290,7 +1324,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
   /// Returns true if `fixed32` has been explicitly set.
   var hasFixed32: Bool {return _storage._fixed32 != nil}
   /// Clears the value of `fixed32`. Subsequent reads from it will return its default value.
-  mutating func clearFixed32() {_storage._fixed32 = nil}
+  mutating func clearFixed32() {_uniqueStorage()._fixed32 = nil}
 
   var repeatedInt32: [Int32] {
     get {return _storage._repeatedInt32}
@@ -1309,7 +1343,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
   /// Returns true if `optionalEnum` has been explicitly set.
   var hasOptionalEnum: Bool {return _storage._optionalEnum != nil}
   /// Clears the value of `optionalEnum`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalEnum() {_storage._optionalEnum = nil}
+  mutating func clearOptionalEnum() {_uniqueStorage()._optionalEnum = nil}
 
   var optionalString: String {
     get {return _storage._optionalString ?? String()}
@@ -1318,7 +1352,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
   /// Returns true if `optionalString` has been explicitly set.
   var hasOptionalString: Bool {return _storage._optionalString != nil}
   /// Clears the value of `optionalString`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalString() {_storage._optionalString = nil}
+  mutating func clearOptionalString() {_uniqueStorage()._optionalString = nil}
 
   var optionalBytes: Data {
     get {return _storage._optionalBytes ?? SwiftProtobuf.Internal.emptyData}
@@ -1327,7 +1361,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
   /// Returns true if `optionalBytes` has been explicitly set.
   var hasOptionalBytes: Bool {return _storage._optionalBytes != nil}
   /// Clears the value of `optionalBytes`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalBytes() {_storage._optionalBytes = nil}
+  mutating func clearOptionalBytes() {_uniqueStorage()._optionalBytes = nil}
 
   var optionalMessage: ProtobufUnittest_ForeignMessageLite {
     get {return _storage._optionalMessage ?? ProtobufUnittest_ForeignMessageLite()}
@@ -1336,7 +1370,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
   /// Returns true if `optionalMessage` has been explicitly set.
   var hasOptionalMessage: Bool {return _storage._optionalMessage != nil}
   /// Clears the value of `optionalMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalMessage() {_storage._optionalMessage = nil}
+  mutating func clearOptionalMessage() {_uniqueStorage()._optionalMessage = nil}
 
   var optionalGroup: ProtobufUnittest_TestHugeFieldNumbersLite.OptionalGroup {
     get {return _storage._optionalGroup ?? ProtobufUnittest_TestHugeFieldNumbersLite.OptionalGroup()}
@@ -1345,7 +1379,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
   /// Returns true if `optionalGroup` has been explicitly set.
   var hasOptionalGroup: Bool {return _storage._optionalGroup != nil}
   /// Clears the value of `optionalGroup`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalGroup() {_storage._optionalGroup = nil}
+  mutating func clearOptionalGroup() {_uniqueStorage()._optionalGroup = nil}
 
   var stringStringMap: Dictionary<String,String> {
     get {return _storage._stringStringMap}
@@ -1397,6 +1431,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
     case oneofString(String)
     case oneofBytes(Data)
 
+  #if !swift(>=4.1)
     static func ==(lhs: ProtobufUnittest_TestHugeFieldNumbersLite.OneOf_OneofField, rhs: ProtobufUnittest_TestHugeFieldNumbersLite.OneOf_OneofField) -> Bool {
       switch (lhs, rhs) {
       case (.oneofUint32(let l), .oneofUint32(let r)): return l == r
@@ -1406,6 +1441,7 @@ struct ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.ExtensibleMessag
       default: return false
       }
     }
+  #endif
   }
 
   struct OptionalGroup {
@@ -1472,7 +1508,7 @@ struct ProtobufUnittest_TestOneofParsingLite {
   var oneofBytes: Data {
     get {
       if case .oneofBytes(let v)? = _storage._oneofField {return v}
-      return Data(bytes: [100, 101, 102, 97, 117, 108, 116, 32, 98, 121, 116, 101, 115])
+      return Data([100, 101, 102, 97, 117, 108, 116, 32, 98, 121, 116, 101, 115])
     }
     set {_uniqueStorage()._oneofField = .oneofBytes(newValue)}
   }
@@ -1504,7 +1540,7 @@ struct ProtobufUnittest_TestOneofParsingLite {
   var oneofBytesStringPiece: Data {
     get {
       if case .oneofBytesStringPiece(let v)? = _storage._oneofField {return v}
-      return Data(bytes: [100, 101, 102, 97, 117, 108, 116, 32, 83, 116, 114, 105, 110, 103, 80, 105, 101, 99, 101])
+      return Data([100, 101, 102, 97, 117, 108, 116, 32, 83, 116, 114, 105, 110, 103, 80, 105, 101, 99, 101])
     }
     set {_uniqueStorage()._oneofField = .oneofBytesStringPiece(newValue)}
   }
@@ -1530,6 +1566,7 @@ struct ProtobufUnittest_TestOneofParsingLite {
     case oneofBytesStringPiece(Data)
     case oneofEnum(ProtobufUnittest_V2EnumLite)
 
+  #if !swift(>=4.1)
     static func ==(lhs: ProtobufUnittest_TestOneofParsingLite.OneOf_OneofField, rhs: ProtobufUnittest_TestOneofParsingLite.OneOf_OneofField) -> Bool {
       switch (lhs, rhs) {
       case (.oneofInt32(let l), .oneofInt32(let r)): return l == r
@@ -1544,11 +1581,63 @@ struct ProtobufUnittest_TestOneofParsingLite {
       default: return false
       }
     }
+  #endif
   }
 
   init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// The following four messages are set up to test for wire compatibility between
+/// packed and non-packed repeated fields. We use the field number 2048, because
+/// that is large enough to require a 3-byte varint for the tag.
+struct ProtobufUnittest_PackedInt32 {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var repeatedInt32: [Int32] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct ProtobufUnittest_NonPackedInt32 {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var repeatedInt32: [Int32] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct ProtobufUnittest_PackedFixed32 {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var repeatedFixed32: [UInt32] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct ProtobufUnittest_NonPackedFixed32 {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var repeatedFixed32: [UInt32] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
 }
 
 // MARK: - Extension support defined in unittest_lite.proto.
@@ -2534,7 +2623,7 @@ extension ProtobufUnittest_TestAllExtensionsLite {
   }
 
   var ProtobufUnittest_defaultBytesExtensionLite: Data {
-    get {return getExtensionValue(ext: ProtobufUnittest_Extensions_default_bytes_extension_lite) ?? Data(bytes: [119, 111, 114, 108, 100])}
+    get {return getExtensionValue(ext: ProtobufUnittest_Extensions_default_bytes_extension_lite) ?? Data([119, 111, 114, 108, 100])}
     set {setExtensionValue(ext: ProtobufUnittest_Extensions_default_bytes_extension_lite, value: newValue)}
   }
   /// Returns true if extension `ProtobufUnittest_Extensions_default_bytes_extension_lite`
@@ -4161,89 +4250,89 @@ extension ProtobufUnittest_TestAllTypesLite: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestAllTypesLite) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: ProtobufUnittest_TestAllTypesLite, rhs: ProtobufUnittest_TestAllTypesLite) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._optionalInt32 != other_storage._optionalInt32 {return false}
-        if _storage._optionalInt64 != other_storage._optionalInt64 {return false}
-        if _storage._optionalUint32 != other_storage._optionalUint32 {return false}
-        if _storage._optionalUint64 != other_storage._optionalUint64 {return false}
-        if _storage._optionalSint32 != other_storage._optionalSint32 {return false}
-        if _storage._optionalSint64 != other_storage._optionalSint64 {return false}
-        if _storage._optionalFixed32 != other_storage._optionalFixed32 {return false}
-        if _storage._optionalFixed64 != other_storage._optionalFixed64 {return false}
-        if _storage._optionalSfixed32 != other_storage._optionalSfixed32 {return false}
-        if _storage._optionalSfixed64 != other_storage._optionalSfixed64 {return false}
-        if _storage._optionalFloat != other_storage._optionalFloat {return false}
-        if _storage._optionalDouble != other_storage._optionalDouble {return false}
-        if _storage._optionalBool != other_storage._optionalBool {return false}
-        if _storage._optionalString != other_storage._optionalString {return false}
-        if _storage._optionalBytes != other_storage._optionalBytes {return false}
-        if _storage._optionalGroup != other_storage._optionalGroup {return false}
-        if _storage._optionalNestedMessage != other_storage._optionalNestedMessage {return false}
-        if _storage._optionalForeignMessage != other_storage._optionalForeignMessage {return false}
-        if _storage._optionalImportMessage != other_storage._optionalImportMessage {return false}
-        if _storage._optionalNestedEnum != other_storage._optionalNestedEnum {return false}
-        if _storage._optionalForeignEnum != other_storage._optionalForeignEnum {return false}
-        if _storage._optionalImportEnum != other_storage._optionalImportEnum {return false}
-        if _storage._optionalStringPiece != other_storage._optionalStringPiece {return false}
-        if _storage._optionalCord != other_storage._optionalCord {return false}
-        if _storage._optionalPublicImportMessage != other_storage._optionalPublicImportMessage {return false}
-        if _storage._optionalLazyMessage != other_storage._optionalLazyMessage {return false}
-        if _storage._repeatedInt32 != other_storage._repeatedInt32 {return false}
-        if _storage._repeatedInt64 != other_storage._repeatedInt64 {return false}
-        if _storage._repeatedUint32 != other_storage._repeatedUint32 {return false}
-        if _storage._repeatedUint64 != other_storage._repeatedUint64 {return false}
-        if _storage._repeatedSint32 != other_storage._repeatedSint32 {return false}
-        if _storage._repeatedSint64 != other_storage._repeatedSint64 {return false}
-        if _storage._repeatedFixed32 != other_storage._repeatedFixed32 {return false}
-        if _storage._repeatedFixed64 != other_storage._repeatedFixed64 {return false}
-        if _storage._repeatedSfixed32 != other_storage._repeatedSfixed32 {return false}
-        if _storage._repeatedSfixed64 != other_storage._repeatedSfixed64 {return false}
-        if _storage._repeatedFloat != other_storage._repeatedFloat {return false}
-        if _storage._repeatedDouble != other_storage._repeatedDouble {return false}
-        if _storage._repeatedBool != other_storage._repeatedBool {return false}
-        if _storage._repeatedString != other_storage._repeatedString {return false}
-        if _storage._repeatedBytes != other_storage._repeatedBytes {return false}
-        if _storage._repeatedGroup != other_storage._repeatedGroup {return false}
-        if _storage._repeatedNestedMessage != other_storage._repeatedNestedMessage {return false}
-        if _storage._repeatedForeignMessage != other_storage._repeatedForeignMessage {return false}
-        if _storage._repeatedImportMessage != other_storage._repeatedImportMessage {return false}
-        if _storage._repeatedNestedEnum != other_storage._repeatedNestedEnum {return false}
-        if _storage._repeatedForeignEnum != other_storage._repeatedForeignEnum {return false}
-        if _storage._repeatedImportEnum != other_storage._repeatedImportEnum {return false}
-        if _storage._repeatedStringPiece != other_storage._repeatedStringPiece {return false}
-        if _storage._repeatedCord != other_storage._repeatedCord {return false}
-        if _storage._repeatedLazyMessage != other_storage._repeatedLazyMessage {return false}
-        if _storage._defaultInt32 != other_storage._defaultInt32 {return false}
-        if _storage._defaultInt64 != other_storage._defaultInt64 {return false}
-        if _storage._defaultUint32 != other_storage._defaultUint32 {return false}
-        if _storage._defaultUint64 != other_storage._defaultUint64 {return false}
-        if _storage._defaultSint32 != other_storage._defaultSint32 {return false}
-        if _storage._defaultSint64 != other_storage._defaultSint64 {return false}
-        if _storage._defaultFixed32 != other_storage._defaultFixed32 {return false}
-        if _storage._defaultFixed64 != other_storage._defaultFixed64 {return false}
-        if _storage._defaultSfixed32 != other_storage._defaultSfixed32 {return false}
-        if _storage._defaultSfixed64 != other_storage._defaultSfixed64 {return false}
-        if _storage._defaultFloat != other_storage._defaultFloat {return false}
-        if _storage._defaultDouble != other_storage._defaultDouble {return false}
-        if _storage._defaultBool != other_storage._defaultBool {return false}
-        if _storage._defaultString != other_storage._defaultString {return false}
-        if _storage._defaultBytes != other_storage._defaultBytes {return false}
-        if _storage._defaultNestedEnum != other_storage._defaultNestedEnum {return false}
-        if _storage._defaultForeignEnum != other_storage._defaultForeignEnum {return false}
-        if _storage._defaultImportEnum != other_storage._defaultImportEnum {return false}
-        if _storage._defaultStringPiece != other_storage._defaultStringPiece {return false}
-        if _storage._defaultCord != other_storage._defaultCord {return false}
-        if _storage._oneofField != other_storage._oneofField {return false}
-        if _storage._deceptivelyNamedList != other_storage._deceptivelyNamedList {return false}
+        let rhs_storage = _args.1
+        if _storage._optionalInt32 != rhs_storage._optionalInt32 {return false}
+        if _storage._optionalInt64 != rhs_storage._optionalInt64 {return false}
+        if _storage._optionalUint32 != rhs_storage._optionalUint32 {return false}
+        if _storage._optionalUint64 != rhs_storage._optionalUint64 {return false}
+        if _storage._optionalSint32 != rhs_storage._optionalSint32 {return false}
+        if _storage._optionalSint64 != rhs_storage._optionalSint64 {return false}
+        if _storage._optionalFixed32 != rhs_storage._optionalFixed32 {return false}
+        if _storage._optionalFixed64 != rhs_storage._optionalFixed64 {return false}
+        if _storage._optionalSfixed32 != rhs_storage._optionalSfixed32 {return false}
+        if _storage._optionalSfixed64 != rhs_storage._optionalSfixed64 {return false}
+        if _storage._optionalFloat != rhs_storage._optionalFloat {return false}
+        if _storage._optionalDouble != rhs_storage._optionalDouble {return false}
+        if _storage._optionalBool != rhs_storage._optionalBool {return false}
+        if _storage._optionalString != rhs_storage._optionalString {return false}
+        if _storage._optionalBytes != rhs_storage._optionalBytes {return false}
+        if _storage._optionalGroup != rhs_storage._optionalGroup {return false}
+        if _storage._optionalNestedMessage != rhs_storage._optionalNestedMessage {return false}
+        if _storage._optionalForeignMessage != rhs_storage._optionalForeignMessage {return false}
+        if _storage._optionalImportMessage != rhs_storage._optionalImportMessage {return false}
+        if _storage._optionalNestedEnum != rhs_storage._optionalNestedEnum {return false}
+        if _storage._optionalForeignEnum != rhs_storage._optionalForeignEnum {return false}
+        if _storage._optionalImportEnum != rhs_storage._optionalImportEnum {return false}
+        if _storage._optionalStringPiece != rhs_storage._optionalStringPiece {return false}
+        if _storage._optionalCord != rhs_storage._optionalCord {return false}
+        if _storage._optionalPublicImportMessage != rhs_storage._optionalPublicImportMessage {return false}
+        if _storage._optionalLazyMessage != rhs_storage._optionalLazyMessage {return false}
+        if _storage._repeatedInt32 != rhs_storage._repeatedInt32 {return false}
+        if _storage._repeatedInt64 != rhs_storage._repeatedInt64 {return false}
+        if _storage._repeatedUint32 != rhs_storage._repeatedUint32 {return false}
+        if _storage._repeatedUint64 != rhs_storage._repeatedUint64 {return false}
+        if _storage._repeatedSint32 != rhs_storage._repeatedSint32 {return false}
+        if _storage._repeatedSint64 != rhs_storage._repeatedSint64 {return false}
+        if _storage._repeatedFixed32 != rhs_storage._repeatedFixed32 {return false}
+        if _storage._repeatedFixed64 != rhs_storage._repeatedFixed64 {return false}
+        if _storage._repeatedSfixed32 != rhs_storage._repeatedSfixed32 {return false}
+        if _storage._repeatedSfixed64 != rhs_storage._repeatedSfixed64 {return false}
+        if _storage._repeatedFloat != rhs_storage._repeatedFloat {return false}
+        if _storage._repeatedDouble != rhs_storage._repeatedDouble {return false}
+        if _storage._repeatedBool != rhs_storage._repeatedBool {return false}
+        if _storage._repeatedString != rhs_storage._repeatedString {return false}
+        if _storage._repeatedBytes != rhs_storage._repeatedBytes {return false}
+        if _storage._repeatedGroup != rhs_storage._repeatedGroup {return false}
+        if _storage._repeatedNestedMessage != rhs_storage._repeatedNestedMessage {return false}
+        if _storage._repeatedForeignMessage != rhs_storage._repeatedForeignMessage {return false}
+        if _storage._repeatedImportMessage != rhs_storage._repeatedImportMessage {return false}
+        if _storage._repeatedNestedEnum != rhs_storage._repeatedNestedEnum {return false}
+        if _storage._repeatedForeignEnum != rhs_storage._repeatedForeignEnum {return false}
+        if _storage._repeatedImportEnum != rhs_storage._repeatedImportEnum {return false}
+        if _storage._repeatedStringPiece != rhs_storage._repeatedStringPiece {return false}
+        if _storage._repeatedCord != rhs_storage._repeatedCord {return false}
+        if _storage._repeatedLazyMessage != rhs_storage._repeatedLazyMessage {return false}
+        if _storage._defaultInt32 != rhs_storage._defaultInt32 {return false}
+        if _storage._defaultInt64 != rhs_storage._defaultInt64 {return false}
+        if _storage._defaultUint32 != rhs_storage._defaultUint32 {return false}
+        if _storage._defaultUint64 != rhs_storage._defaultUint64 {return false}
+        if _storage._defaultSint32 != rhs_storage._defaultSint32 {return false}
+        if _storage._defaultSint64 != rhs_storage._defaultSint64 {return false}
+        if _storage._defaultFixed32 != rhs_storage._defaultFixed32 {return false}
+        if _storage._defaultFixed64 != rhs_storage._defaultFixed64 {return false}
+        if _storage._defaultSfixed32 != rhs_storage._defaultSfixed32 {return false}
+        if _storage._defaultSfixed64 != rhs_storage._defaultSfixed64 {return false}
+        if _storage._defaultFloat != rhs_storage._defaultFloat {return false}
+        if _storage._defaultDouble != rhs_storage._defaultDouble {return false}
+        if _storage._defaultBool != rhs_storage._defaultBool {return false}
+        if _storage._defaultString != rhs_storage._defaultString {return false}
+        if _storage._defaultBytes != rhs_storage._defaultBytes {return false}
+        if _storage._defaultNestedEnum != rhs_storage._defaultNestedEnum {return false}
+        if _storage._defaultForeignEnum != rhs_storage._defaultForeignEnum {return false}
+        if _storage._defaultImportEnum != rhs_storage._defaultImportEnum {return false}
+        if _storage._defaultStringPiece != rhs_storage._defaultStringPiece {return false}
+        if _storage._defaultCord != rhs_storage._defaultCord {return false}
+        if _storage._oneofField != rhs_storage._oneofField {return false}
+        if _storage._deceptivelyNamedList != rhs_storage._deceptivelyNamedList {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4283,10 +4372,10 @@ extension ProtobufUnittest_TestAllTypesLite.NestedMessage: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestAllTypesLite.NestedMessage) -> Bool {
-    if self._bb != other._bb {return false}
-    if self._cc != other._cc {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestAllTypesLite.NestedMessage, rhs: ProtobufUnittest_TestAllTypesLite.NestedMessage) -> Bool {
+    if lhs._bb != rhs._bb {return false}
+    if lhs._cc != rhs._cc {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4313,9 +4402,9 @@ extension ProtobufUnittest_TestAllTypesLite.OptionalGroup: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestAllTypesLite.OptionalGroup) -> Bool {
-    if self._a != other._a {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestAllTypesLite.OptionalGroup, rhs: ProtobufUnittest_TestAllTypesLite.OptionalGroup) -> Bool {
+    if lhs._a != rhs._a {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4342,9 +4431,9 @@ extension ProtobufUnittest_TestAllTypesLite.RepeatedGroup: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestAllTypesLite.RepeatedGroup) -> Bool {
-    if self._a != other._a {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestAllTypesLite.RepeatedGroup, rhs: ProtobufUnittest_TestAllTypesLite.RepeatedGroup) -> Bool {
+    if lhs._a != rhs._a {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4371,9 +4460,9 @@ extension ProtobufUnittest_ForeignMessageLite: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_ForeignMessageLite) -> Bool {
-    if self._c != other._c {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_ForeignMessageLite, rhs: ProtobufUnittest_ForeignMessageLite) -> Bool {
+    if lhs._c != rhs._c {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4465,22 +4554,22 @@ extension ProtobufUnittest_TestPackedTypesLite: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestPackedTypesLite) -> Bool {
-    if self.packedInt32 != other.packedInt32 {return false}
-    if self.packedInt64 != other.packedInt64 {return false}
-    if self.packedUint32 != other.packedUint32 {return false}
-    if self.packedUint64 != other.packedUint64 {return false}
-    if self.packedSint32 != other.packedSint32 {return false}
-    if self.packedSint64 != other.packedSint64 {return false}
-    if self.packedFixed32 != other.packedFixed32 {return false}
-    if self.packedFixed64 != other.packedFixed64 {return false}
-    if self.packedSfixed32 != other.packedSfixed32 {return false}
-    if self.packedSfixed64 != other.packedSfixed64 {return false}
-    if self.packedFloat != other.packedFloat {return false}
-    if self.packedDouble != other.packedDouble {return false}
-    if self.packedBool != other.packedBool {return false}
-    if self.packedEnum != other.packedEnum {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestPackedTypesLite, rhs: ProtobufUnittest_TestPackedTypesLite) -> Bool {
+    if lhs.packedInt32 != rhs.packedInt32 {return false}
+    if lhs.packedInt64 != rhs.packedInt64 {return false}
+    if lhs.packedUint32 != rhs.packedUint32 {return false}
+    if lhs.packedUint64 != rhs.packedUint64 {return false}
+    if lhs.packedSint32 != rhs.packedSint32 {return false}
+    if lhs.packedSint64 != rhs.packedSint64 {return false}
+    if lhs.packedFixed32 != rhs.packedFixed32 {return false}
+    if lhs.packedFixed64 != rhs.packedFixed64 {return false}
+    if lhs.packedSfixed32 != rhs.packedSfixed32 {return false}
+    if lhs.packedSfixed64 != rhs.packedSfixed64 {return false}
+    if lhs.packedFloat != rhs.packedFloat {return false}
+    if lhs.packedDouble != rhs.packedDouble {return false}
+    if lhs.packedBool != rhs.packedBool {return false}
+    if lhs.packedEnum != rhs.packedEnum {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4507,9 +4596,9 @@ extension ProtobufUnittest_TestAllExtensionsLite: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestAllExtensionsLite) -> Bool {
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  static func ==(lhs: ProtobufUnittest_TestAllExtensionsLite, rhs: ProtobufUnittest_TestAllExtensionsLite) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -4536,9 +4625,9 @@ extension ProtobufUnittest_OptionalGroup_extension_lite: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_OptionalGroup_extension_lite) -> Bool {
-    if self._a != other._a {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_OptionalGroup_extension_lite, rhs: ProtobufUnittest_OptionalGroup_extension_lite) -> Bool {
+    if lhs._a != rhs._a {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4565,9 +4654,9 @@ extension ProtobufUnittest_RepeatedGroup_extension_lite: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_RepeatedGroup_extension_lite) -> Bool {
-    if self._a != other._a {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_RepeatedGroup_extension_lite, rhs: ProtobufUnittest_RepeatedGroup_extension_lite) -> Bool {
+    if lhs._a != rhs._a {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4594,9 +4683,9 @@ extension ProtobufUnittest_TestPackedExtensionsLite: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestPackedExtensionsLite) -> Bool {
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  static func ==(lhs: ProtobufUnittest_TestPackedExtensionsLite, rhs: ProtobufUnittest_TestPackedExtensionsLite) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -4614,8 +4703,8 @@ extension ProtobufUnittest_TestNestedExtensionLite: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestNestedExtensionLite) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestNestedExtensionLite, rhs: ProtobufUnittest_TestNestedExtensionLite) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4642,9 +4731,9 @@ extension ProtobufUnittest_TestDeprecatedLite: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestDeprecatedLite) -> Bool {
-    if self._deprecatedField != other._deprecatedField {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestDeprecatedLite, rhs: ProtobufUnittest_TestDeprecatedLite) -> Bool {
+    if lhs._deprecatedField != rhs._deprecatedField {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4734,22 +4823,22 @@ extension ProtobufUnittest_TestParsingMergeLite: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestParsingMergeLite) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: ProtobufUnittest_TestParsingMergeLite, rhs: ProtobufUnittest_TestParsingMergeLite) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._requiredAllTypes != other_storage._requiredAllTypes {return false}
-        if _storage._optionalAllTypes != other_storage._optionalAllTypes {return false}
-        if _storage._repeatedAllTypes != other_storage._repeatedAllTypes {return false}
-        if _storage._optionalGroup != other_storage._optionalGroup {return false}
-        if _storage._repeatedGroup != other_storage._repeatedGroup {return false}
+        let rhs_storage = _args.1
+        if _storage._requiredAllTypes != rhs_storage._requiredAllTypes {return false}
+        if _storage._optionalAllTypes != rhs_storage._optionalAllTypes {return false}
+        if _storage._repeatedAllTypes != rhs_storage._repeatedAllTypes {return false}
+        if _storage._optionalGroup != rhs_storage._optionalGroup {return false}
+        if _storage._repeatedGroup != rhs_storage._repeatedGroup {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -4806,15 +4895,15 @@ extension ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator: SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator) -> Bool {
-    if self.field1 != other.field1 {return false}
-    if self.field2 != other.field2 {return false}
-    if self.field3 != other.field3 {return false}
-    if self.group1 != other.group1 {return false}
-    if self.group2 != other.group2 {return false}
-    if self.ext1 != other.ext1 {return false}
-    if self.ext2 != other.ext2 {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator, rhs: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator) -> Bool {
+    if lhs.field1 != rhs.field1 {return false}
+    if lhs.field2 != rhs.field2 {return false}
+    if lhs.field3 != rhs.field3 {return false}
+    if lhs.group1 != rhs.group1 {return false}
+    if lhs.group2 != rhs.group2 {return false}
+    if lhs.ext1 != rhs.ext1 {return false}
+    if lhs.ext2 != rhs.ext2 {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4865,17 +4954,17 @@ extension ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator.Group1: 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator.Group1) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator.Group1, rhs: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator.Group1) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._field1 != other_storage._field1 {return false}
+        let rhs_storage = _args.1
+        if _storage._field1 != rhs_storage._field1 {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4926,17 +5015,17 @@ extension ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator.Group2: 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator.Group2) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator.Group2, rhs: ProtobufUnittest_TestParsingMergeLite.RepeatedFieldsGenerator.Group2) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._field1 != other_storage._field1 {return false}
+        let rhs_storage = _args.1
+        if _storage._field1 != rhs_storage._field1 {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -4987,17 +5076,17 @@ extension ProtobufUnittest_TestParsingMergeLite.OptionalGroup: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestParsingMergeLite.OptionalGroup) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: ProtobufUnittest_TestParsingMergeLite.OptionalGroup, rhs: ProtobufUnittest_TestParsingMergeLite.OptionalGroup) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._optionalGroupAllTypes != other_storage._optionalGroupAllTypes {return false}
+        let rhs_storage = _args.1
+        if _storage._optionalGroupAllTypes != rhs_storage._optionalGroupAllTypes {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -5048,17 +5137,17 @@ extension ProtobufUnittest_TestParsingMergeLite.RepeatedGroup: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestParsingMergeLite.RepeatedGroup) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: ProtobufUnittest_TestParsingMergeLite.RepeatedGroup, rhs: ProtobufUnittest_TestParsingMergeLite.RepeatedGroup) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._repeatedGroupAllTypes != other_storage._repeatedGroupAllTypes {return false}
+        let rhs_storage = _args.1
+        if _storage._repeatedGroupAllTypes != rhs_storage._repeatedGroupAllTypes {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -5076,8 +5165,8 @@ extension ProtobufUnittest_TestEmptyMessageLite: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestEmptyMessageLite) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestEmptyMessageLite, rhs: ProtobufUnittest_TestEmptyMessageLite) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -5104,9 +5193,9 @@ extension ProtobufUnittest_TestEmptyMessageWithExtensionsLite: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestEmptyMessageWithExtensionsLite) -> Bool {
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+  static func ==(lhs: ProtobufUnittest_TestEmptyMessageWithExtensionsLite, rhs: ProtobufUnittest_TestEmptyMessageWithExtensionsLite) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -5143,10 +5232,10 @@ extension ProtobufUnittest_V1MessageLite: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_V1MessageLite) -> Bool {
-    if self._intField != other._intField {return false}
-    if self._enumField != other._enumField {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_V1MessageLite, rhs: ProtobufUnittest_V1MessageLite) -> Bool {
+    if lhs._intField != rhs._intField {return false}
+    if lhs._enumField != rhs._enumField {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -5183,10 +5272,10 @@ extension ProtobufUnittest_V2MessageLite: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_V2MessageLite) -> Bool {
-    if self._intField != other._intField {return false}
-    if self._enumField != other._enumField {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_V2MessageLite, rhs: ProtobufUnittest_V2MessageLite) -> Bool {
+    if lhs._intField != rhs._intField {return false}
+    if lhs._enumField != rhs._enumField {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -5348,28 +5437,28 @@ extension ProtobufUnittest_TestHugeFieldNumbersLite: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestHugeFieldNumbersLite) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: ProtobufUnittest_TestHugeFieldNumbersLite, rhs: ProtobufUnittest_TestHugeFieldNumbersLite) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._optionalInt32 != other_storage._optionalInt32 {return false}
-        if _storage._fixed32 != other_storage._fixed32 {return false}
-        if _storage._repeatedInt32 != other_storage._repeatedInt32 {return false}
-        if _storage._packedInt32 != other_storage._packedInt32 {return false}
-        if _storage._optionalEnum != other_storage._optionalEnum {return false}
-        if _storage._optionalString != other_storage._optionalString {return false}
-        if _storage._optionalBytes != other_storage._optionalBytes {return false}
-        if _storage._optionalMessage != other_storage._optionalMessage {return false}
-        if _storage._optionalGroup != other_storage._optionalGroup {return false}
-        if _storage._stringStringMap != other_storage._stringStringMap {return false}
-        if _storage._oneofField != other_storage._oneofField {return false}
+        let rhs_storage = _args.1
+        if _storage._optionalInt32 != rhs_storage._optionalInt32 {return false}
+        if _storage._fixed32 != rhs_storage._fixed32 {return false}
+        if _storage._repeatedInt32 != rhs_storage._repeatedInt32 {return false}
+        if _storage._packedInt32 != rhs_storage._packedInt32 {return false}
+        if _storage._optionalEnum != rhs_storage._optionalEnum {return false}
+        if _storage._optionalString != rhs_storage._optionalString {return false}
+        if _storage._optionalBytes != rhs_storage._optionalBytes {return false}
+        if _storage._optionalMessage != rhs_storage._optionalMessage {return false}
+        if _storage._optionalGroup != rhs_storage._optionalGroup {return false}
+        if _storage._stringStringMap != rhs_storage._stringStringMap {return false}
+        if _storage._oneofField != rhs_storage._oneofField {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
-    if _protobuf_extensionFieldValues != other._protobuf_extensionFieldValues {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    if lhs._protobuf_extensionFieldValues != rhs._protobuf_extensionFieldValues {return false}
     return true
   }
 }
@@ -5396,9 +5485,9 @@ extension ProtobufUnittest_TestHugeFieldNumbersLite.OptionalGroup: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestHugeFieldNumbersLite.OptionalGroup) -> Bool {
-    if self._groupA != other._groupA {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittest_TestHugeFieldNumbersLite.OptionalGroup, rhs: ProtobufUnittest_TestHugeFieldNumbersLite.OptionalGroup) -> Bool {
+    if lhs._groupA != rhs._groupA {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -5522,17 +5611,133 @@ extension ProtobufUnittest_TestOneofParsingLite: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittest_TestOneofParsingLite) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: ProtobufUnittest_TestOneofParsingLite, rhs: ProtobufUnittest_TestOneofParsingLite) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._oneofField != other_storage._oneofField {return false}
+        let rhs_storage = _args.1
+        if _storage._oneofField != rhs_storage._oneofField {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension ProtobufUnittest_PackedInt32: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PackedInt32"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    2048: .standard(proto: "repeated_int32"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 2048: try decoder.decodeRepeatedInt32Field(value: &self.repeatedInt32)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.repeatedInt32.isEmpty {
+      try visitor.visitPackedInt32Field(value: self.repeatedInt32, fieldNumber: 2048)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: ProtobufUnittest_PackedInt32, rhs: ProtobufUnittest_PackedInt32) -> Bool {
+    if lhs.repeatedInt32 != rhs.repeatedInt32 {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension ProtobufUnittest_NonPackedInt32: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".NonPackedInt32"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    2048: .standard(proto: "repeated_int32"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 2048: try decoder.decodeRepeatedInt32Field(value: &self.repeatedInt32)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.repeatedInt32.isEmpty {
+      try visitor.visitRepeatedInt32Field(value: self.repeatedInt32, fieldNumber: 2048)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: ProtobufUnittest_NonPackedInt32, rhs: ProtobufUnittest_NonPackedInt32) -> Bool {
+    if lhs.repeatedInt32 != rhs.repeatedInt32 {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension ProtobufUnittest_PackedFixed32: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PackedFixed32"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    2048: .standard(proto: "repeated_fixed32"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 2048: try decoder.decodeRepeatedFixed32Field(value: &self.repeatedFixed32)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.repeatedFixed32.isEmpty {
+      try visitor.visitPackedFixed32Field(value: self.repeatedFixed32, fieldNumber: 2048)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: ProtobufUnittest_PackedFixed32, rhs: ProtobufUnittest_PackedFixed32) -> Bool {
+    if lhs.repeatedFixed32 != rhs.repeatedFixed32 {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension ProtobufUnittest_NonPackedFixed32: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".NonPackedFixed32"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    2048: .standard(proto: "repeated_fixed32"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 2048: try decoder.decodeRepeatedFixed32Field(value: &self.repeatedFixed32)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.repeatedFixed32.isEmpty {
+      try visitor.visitRepeatedFixed32Field(value: self.repeatedFixed32, fieldNumber: 2048)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: ProtobufUnittest_NonPackedFixed32, rhs: ProtobufUnittest_NonPackedFixed32) -> Bool {
+    if lhs.repeatedFixed32 != rhs.repeatedFixed32 {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

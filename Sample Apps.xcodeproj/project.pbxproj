@@ -21,7 +21,23 @@
 		0298FB98200999E300A0B016 /* DeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0298FB97200999E300A0B016 /* DeviceCell.swift */; };
 		0298FB9A20099A8900A0B016 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0298FB9920099A8900A0B016 /* DetailsViewController.swift */; };
 		02A4020B208D2BBE000FA7D0 /* OpenCastSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A4020A208D2BBE000FA7D0 /* OpenCastSwift.framework */; };
+		DBC7C78D22D15A2100820EE6 /* OpenCastSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A4020A208D2BBE000FA7D0 /* OpenCastSwift.framework */; };
+		DBC7C78E22D15A2100820EE6 /* OpenCastSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A4020A208D2BBE000FA7D0 /* OpenCastSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DBC7C78F22D15A2100820EE6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DBC7C78E22D15A2100820EE6 /* OpenCastSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		027E35CC200EAD5300A863E6 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
@@ -52,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A4020B208D2BBE000FA7D0 /* OpenCastSwift.framework in Frameworks */,
+				DBC7C78D22D15A2100820EE6 /* OpenCastSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +161,7 @@
 				028733B4200992DC0015266E /* Frameworks */,
 				028733B5200992DC0015266E /* Resources */,
 				0298FB8E200994A100A0B016 /* ShellScript */,
+				DBC7C78F22D15A2100820EE6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -243,13 +261,12 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftProtobuf.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		0298FB8F200994A400A0B016 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -439,12 +456,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7XLNECBC46;
+				DEVELOPMENT_TEAM = 83S62JHMRL;
 				INFOPLIST_FILE = "Sample iOS App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hollingsware.Sample-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -454,12 +471,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7XLNECBC46;
+				DEVELOPMENT_TEAM = 83S62JHMRL;
 				INFOPLIST_FILE = "Sample iOS App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hollingsware.Sample-iOS-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

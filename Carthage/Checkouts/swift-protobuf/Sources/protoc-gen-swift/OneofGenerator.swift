@@ -211,8 +211,11 @@ class OneofGenerator {
         }
 
         // Equatable conformance
+        p.print("\n")
+        p.outdent()
+        p.print("#if !swift(>=4.1)\n")
+        p.indent()
         p.print(
-            "\n",
             "\(visibility)static func ==(lhs: \(swiftFullName), rhs: \(swiftFullName)) -> Bool {\n")
         p.indent()
         p.print("switch (lhs, rhs) {\n")
@@ -231,8 +234,8 @@ class OneofGenerator {
         p.print("}\n")
         p.outdent()
         p.print("}\n")
-
         p.outdent()
+        p.print("#endif\n")
         p.print("}\n")
     }
 
@@ -363,14 +366,17 @@ class OneofGenerator {
         // First field causes the output.
         guard field === fields.first else { return }
 
+        let lhsProperty: String
         let otherStoredProperty: String
         if usesHeapStorage {
-          otherStoredProperty = "other_storage.\(underscoreSwiftFieldName)"
+          lhsProperty = "_storage.\(underscoreSwiftFieldName)"
+          otherStoredProperty = "rhs_storage.\(underscoreSwiftFieldName)"
         } else {
-          otherStoredProperty = "other.\(swiftFieldName)"
+          lhsProperty = "lhs.\(swiftFieldName)"
+          otherStoredProperty = "rhs.\(swiftFieldName)"
         }
 
-        p.print("if \(storedProperty) != \(otherStoredProperty) {return false}\n")
+        p.print("if \(lhsProperty) != \(otherStoredProperty) {return false}\n")
     }
 
     func generateIsInitializedCheck(printer p: inout CodePrinter, field: MemberFieldGenerator) {

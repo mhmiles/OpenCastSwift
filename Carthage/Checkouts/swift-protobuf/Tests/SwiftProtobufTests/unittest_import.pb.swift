@@ -84,6 +84,14 @@ enum ProtobufUnittestImport_ImportEnum: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension ProtobufUnittestImport_ImportEnum: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
+
 /// To use an enum in a map, it must has the first value as 0.
 enum ProtobufUnittestImport_ImportEnumForMap: SwiftProtobuf.Enum {
   typealias RawValue = Int
@@ -113,6 +121,14 @@ enum ProtobufUnittestImport_ImportEnumForMap: SwiftProtobuf.Enum {
   }
 
 }
+
+#if swift(>=4.2)
+
+extension ProtobufUnittestImport_ImportEnumForMap: CaseIterable {
+  // Support synthesized by the compiler.
+}
+
+#endif  // swift(>=4.2)
 
 struct ProtobufUnittestImport_ImportMessage {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -177,9 +193,9 @@ extension ProtobufUnittestImport_ImportMessage: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: ProtobufUnittestImport_ImportMessage) -> Bool {
-    if self._d != other._d {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: ProtobufUnittestImport_ImportMessage, rhs: ProtobufUnittestImport_ImportMessage) -> Bool {
+    if lhs._d != rhs._d {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

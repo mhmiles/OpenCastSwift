@@ -73,6 +73,32 @@ class DetailsViewController: UIViewController {
       }
     }
   }
+  
+  @IBAction func handlePlayYouTube() {
+    client.launch(appId: CastAppIdentifier.youtube) { (result) in
+      switch result {
+      case .success(let app):
+        self.client.youTubeLoad(videoID: "pxw-5qfJ1dk", with: app) { (result) in
+          switch result {
+          case .success:
+            print("Playing youtube video")
+          case .failure(let error):
+            print(error)
+          }
+        }
+      case .failure(let error):
+        print(error)
+      }
+    }
+  }
+  
+  @IBAction func handlePlay() {
+    client.play()
+  }
+  
+  @IBAction func handlePause() {
+    client.pause()
+  }
 }
 
 extension DetailsViewController: CastClientDelegate {

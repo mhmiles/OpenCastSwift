@@ -36,7 +36,7 @@ public final class CastMedia: NSObject {
         self.autoplay = autoplay
         self.currentTime = currentTime
     }
-    
+
 //    public convenience init(title: String, url: URL, poster: URL, contentType: String, streamType: String, autoplay: Bool, currentTime: Double) {
 //        guard let type = CastMediaStreamType(rawValue: streamType) else {
 //            fatalError("Invalid media stream type \(streamType)")

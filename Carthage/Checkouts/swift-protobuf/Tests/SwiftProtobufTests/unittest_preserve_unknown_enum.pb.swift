@@ -80,6 +80,19 @@ enum Proto3PreserveUnknownEnumUnittest_MyEnum: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension Proto3PreserveUnknownEnumUnittest_MyEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Proto3PreserveUnknownEnumUnittest_MyEnum] = [
+    .foo,
+    .bar,
+    .baz,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 enum Proto3PreserveUnknownEnumUnittest_MyEnumPlusExtra: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case eFoo // = 0
@@ -113,6 +126,20 @@ enum Proto3PreserveUnknownEnumUnittest_MyEnumPlusExtra: SwiftProtobuf.Enum {
   }
 
 }
+
+#if swift(>=4.2)
+
+extension Proto3PreserveUnknownEnumUnittest_MyEnumPlusExtra: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Proto3PreserveUnknownEnumUnittest_MyEnumPlusExtra] = [
+    .eFoo,
+    .eBar,
+    .eBaz,
+    .eExtra,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 struct Proto3PreserveUnknownEnumUnittest_MyMessage {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -152,6 +179,7 @@ struct Proto3PreserveUnknownEnumUnittest_MyMessage {
     case oneofE1(Proto3PreserveUnknownEnumUnittest_MyEnum)
     case oneofE2(Proto3PreserveUnknownEnumUnittest_MyEnum)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Proto3PreserveUnknownEnumUnittest_MyMessage.OneOf_O, rhs: Proto3PreserveUnknownEnumUnittest_MyMessage.OneOf_O) -> Bool {
       switch (lhs, rhs) {
       case (.oneofE1(let l), .oneofE1(let r)): return l == r
@@ -159,6 +187,7 @@ struct Proto3PreserveUnknownEnumUnittest_MyMessage {
       default: return false
       }
     }
+  #endif
   }
 
   init() {}
@@ -201,6 +230,7 @@ struct Proto3PreserveUnknownEnumUnittest_MyMessagePlusExtra {
     case oneofE1(Proto3PreserveUnknownEnumUnittest_MyEnumPlusExtra)
     case oneofE2(Proto3PreserveUnknownEnumUnittest_MyEnumPlusExtra)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Proto3PreserveUnknownEnumUnittest_MyMessagePlusExtra.OneOf_O, rhs: Proto3PreserveUnknownEnumUnittest_MyMessagePlusExtra.OneOf_O) -> Bool {
       switch (lhs, rhs) {
       case (.oneofE1(let l), .oneofE1(let r)): return l == r
@@ -208,6 +238,7 @@ struct Proto3PreserveUnknownEnumUnittest_MyMessagePlusExtra {
       default: return false
       }
     }
+  #endif
   }
 
   init() {}
@@ -290,13 +321,13 @@ extension Proto3PreserveUnknownEnumUnittest_MyMessage: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3PreserveUnknownEnumUnittest_MyMessage) -> Bool {
-    if self.e != other.e {return false}
-    if self.repeatedE != other.repeatedE {return false}
-    if self.repeatedPackedE != other.repeatedPackedE {return false}
-    if self.repeatedPackedUnexpectedE != other.repeatedPackedUnexpectedE {return false}
-    if self.o != other.o {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto3PreserveUnknownEnumUnittest_MyMessage, rhs: Proto3PreserveUnknownEnumUnittest_MyMessage) -> Bool {
+    if lhs.e != rhs.e {return false}
+    if lhs.repeatedE != rhs.repeatedE {return false}
+    if lhs.repeatedPackedE != rhs.repeatedPackedE {return false}
+    if lhs.repeatedPackedUnexpectedE != rhs.repeatedPackedUnexpectedE {return false}
+    if lhs.o != rhs.o {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -357,13 +388,13 @@ extension Proto3PreserveUnknownEnumUnittest_MyMessagePlusExtra: SwiftProtobuf.Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto3PreserveUnknownEnumUnittest_MyMessagePlusExtra) -> Bool {
-    if self.e != other.e {return false}
-    if self.repeatedE != other.repeatedE {return false}
-    if self.repeatedPackedE != other.repeatedPackedE {return false}
-    if self.repeatedPackedUnexpectedE != other.repeatedPackedUnexpectedE {return false}
-    if self.o != other.o {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto3PreserveUnknownEnumUnittest_MyMessagePlusExtra, rhs: Proto3PreserveUnknownEnumUnittest_MyMessagePlusExtra) -> Bool {
+    if lhs.e != rhs.e {return false}
+    if lhs.repeatedE != rhs.repeatedE {return false}
+    if lhs.repeatedPackedE != rhs.repeatedPackedE {return false}
+    if lhs.repeatedPackedUnexpectedE != rhs.repeatedPackedUnexpectedE {return false}
+    if lhs.o != rhs.o {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

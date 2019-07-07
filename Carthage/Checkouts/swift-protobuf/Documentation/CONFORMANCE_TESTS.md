@@ -16,9 +16,9 @@ these tests regularly.
 
 ## Preparation
 
-The conformance test suite requires Swift 3.0, standard command-line
+The conformance test suite requires Swift 4.0, standard command-line
 tools such as make and awk, and a full source checkout of
-[Google's protobuf project](https://github.com/google/protobuf).
+[Google's protobuf project](https://github.com/protocolbuffers/protobuf).
 
 The Makefile assumes by default that the protobuf project
 is checked out in an adjacent directory.

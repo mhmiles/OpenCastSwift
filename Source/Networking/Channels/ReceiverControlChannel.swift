@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 import SwiftyJSON
 
 class ReceiverControlChannel: CastChannel {
@@ -58,9 +57,9 @@ class ReceiverControlChannel: CastChannel {
     send(request) { result in
       switch result {
       case .success(let json):
-        completion(Result(value: AppAvailability(json: json)))
+        completion(.success(AppAvailability(json: json)))
       case .failure(let error):
-        completion(Result(error: CastError.launch(error.localizedDescription)))
+        completion(.failure(CastError.launch(error.localizedDescription)))
       }
     }
   }
@@ -74,10 +73,10 @@ class ReceiverControlChannel: CastChannel {
       send(request) { result in
         switch result {
         case .success(let json):
-          completion(Result(value: CastStatus(json: json)))
+          completion(.success(CastStatus(json: json)))
           
         case .failure(let error):
-          completion(Result(error: error))
+          completion(.failure(error))
         }
       }
     } else {
@@ -99,14 +98,14 @@ class ReceiverControlChannel: CastChannel {
       switch result {
       case .success(let json):
         guard let app = CastStatus(json: json).apps.first else {
-          completion(Result(error: CastError.launch("Unable to get launched app instance")))
+          completion(.failure(CastError.launch("Unable to get launched app instance")))
           return
         }
         
-        completion(Result(value: app))
+        completion(.success(app))
         
       case .failure(let error):
-        completion(Result(error: error))
+        completion(.failure(error))
       }
       
     }

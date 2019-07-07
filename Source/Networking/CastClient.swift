@@ -9,7 +9,6 @@
 import Foundation
 import SwiftProtobuf
 import SwiftyJSON
-import Result
 
 public enum CastPayload {
   case json([String: Any])
@@ -69,7 +68,7 @@ public class CastRequest: NSObject {
   
 }
 
-public final class CastClient: NSObject, RequestDispatchable, Channelable {
+public final class CastClient: NSObject, RequestDispatchable {
   
   public let device: CastDevice
   public weak var delegate: CastClientDelegate?
@@ -176,8 +175,8 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
         
         self.inputStream.delegate = self
         
-        self.inputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
-        self.outputStream.schedule(in: .current, forMode: .defaultRunLoopMode)
+        self.inputStream.schedule(in: .current, forMode: RunLoop.Mode.default)
+        self.outputStream.schedule(in: .current, forMode: RunLoop.Mode.default)
         
         self.inputStream.open()
         self.outputStream.open()
@@ -199,13 +198,13 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
     socketQueue.async {
       if self.inputStream != nil {
         self.inputStream.close()
-        self.inputStream.remove(from: RunLoop.current, forMode: .defaultRunLoopMode)
+        self.inputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
         self.inputStream = nil
       }
       
       if self.outputStream != nil {
         self.outputStream.close()
-        self.outputStream.remove(from: RunLoop.current, forMode: .defaultRunLoopMode)
+        self.outputStream.remove(from: RunLoop.current, forMode: RunLoop.Mode.default)
         self.outputStream = nil
       }
     }
@@ -238,6 +237,7 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
     DispatchQueue.main.async {
       _ = self.receiverControlChannel
       _ = self.mediaControlChannel
+      _ = self.youtubeChannel
       _ = self.heartbeatChannel
       
       if self.device.capabilities.contains(.multizoneGroup) {
@@ -269,7 +269,7 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
                                    sourceId: message.sourceID)
             
             if let requestId = json[CastJSONPayloadKeys.requestId].int {
-              callResponseHandler(for: requestId, with: Result(value: json))
+              callResponseHandler(for: requestId, with: .success(json))
             }
           } else {
             NSLog("Unable to get UTF8 JSON data from message")
@@ -287,6 +287,27 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
   //MARK: - Channelable
   
   var channels = [String: CastChannel]()
+  
+  internal func add(channel: CastChannel) {
+    let namespace = channel.namespace
+    guard channels[namespace] == nil else {
+      print("Channel already attached for \(namespace)")
+      return
+    }
+    
+    channels[namespace] = channel
+    channel.requestDispatcher = self
+  }
+  
+  internal func remove(channel: CastChannel) {
+    let namespace = channel.namespace
+    guard let channel = channels.removeValue(forKey: namespace) else {
+      print("No channel attached for \(namespace)")
+      return
+    }
+    
+    channel.requestDispatcher = nil
+  }
   
   private lazy var heartbeatChannel: HeartbeatChannel = {
     let channel = HeartbeatChannel()
@@ -311,6 +332,13 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
   
   private lazy var mediaControlChannel: MediaControlChannel = {
     let channel = MediaControlChannel()
+    self.add(channel: channel)
+    
+    return channel
+  }()
+  
+  private lazy var youtubeChannel: YoutubeChannel = {
+    let channel = YoutubeChannel()
     self.add(channel: channel)
     
     return channel
@@ -350,7 +378,7 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
       
       try write(data: messageData)
     } catch {
-      callResponseHandler(for: request.id, with: Result(error: .request(error.localizedDescription)))
+      callResponseHandler(for: request.id, with: .failure(.request(error.localizedDescription)))
     }
   }
   
@@ -373,29 +401,29 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
   public func join(app: CastApp? = nil, completion: @escaping (Result<CastApp, CastError>) -> Void) {
     guard outputStream != nil,
       let target = app ?? currentStatus?.apps.first else {
-      completion(Result(error: CastError.session("No Apps Running")))
+      completion(.failure(CastError.session("No Apps Running")))
       return
     }
     
     if target == connectedApp {
-      completion(Result(value: target))
+      completion(.success(target))
     } else if let existing = currentStatus?.apps.first(where: { $0.id == target.id }) {
       connect(to: existing)
-      completion(Result(value: existing))
+      completion(.success(existing))
     } else {
       receiverControlChannel.requestStatus { [weak self] result in
         switch result {
         case .success(let status):
           guard let app = status.apps.first else {
-            completion(Result(error: CastError.launch("Unable to get launched app instance")))
+            completion(.failure(CastError.launch("Unable to get launched app instance")))
             return
           }
           
           self?.connect(to: app)
-          completion(Result(value: app))
+          completion(.success(app))
           
         case .failure(let error):
-          completion(Result(error: error))
+          completion(.failure(error))
         }
       }
     }
@@ -408,11 +436,10 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
       switch result {
       case .success(let app):
         self?.connect(to: app)
-        fallthrough
-        
       default:
-        completion(result)
+        break
       }
+      completion(result)
     }
   }
   
@@ -431,10 +458,9 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
   
   public func load(media: CastMedia, with app: CastApp, completion: @escaping (Result<CastMediaStatus, CastError>) -> Void) {
     guard outputStream != nil else { return }
-    
     mediaControlChannel.load(media: media, with: app, completion: completion)
   }
-  
+
   public func requestMediaStatus(for app: CastApp, completion: ((Result<CastMediaStatus, CastError>) -> Void)? = nil) {
     guard outputStream != nil else { return }
     
@@ -548,6 +574,68 @@ public final class CastClient: NSObject, RequestDispatchable, Channelable {
     }
     
     multizoneControlChannel.setMuted(isMuted, for: device)
+  }
+  
+  // MARK: Youtube
+  
+  public func youTubeLoad(videoID id: String, playlistID: String? = nil, with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.playVideo(for: app, videoID: id, playlistID: playlistID) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
+  
+  public func youTubeAddToQueue(videoID id: String, with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.addToQueue(for: app, videoID: id) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
+  
+  public func youTubePlayNext(videoID id: String, with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.playNext(for: app, videoID: id) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
+  
+  public func youTubeRemove(videoID id: String, with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.removeVideo(for: app, videoID: id) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
+  
+  public func youTubeClearPlaylist(with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.clearPlaylist(for: app) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
   }
 }
 

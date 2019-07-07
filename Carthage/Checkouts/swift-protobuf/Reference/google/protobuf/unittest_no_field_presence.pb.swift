@@ -82,6 +82,19 @@ enum Proto2NofieldpresenceUnittest_ForeignEnum: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension Proto2NofieldpresenceUnittest_ForeignEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Proto2NofieldpresenceUnittest_ForeignEnum] = [
+    .foreignFoo,
+    .foreignBar,
+    .foreignBaz,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// This proto includes every type of field in both singular and repeated
 /// forms.
 struct Proto2NofieldpresenceUnittest_TestAllTypes {
@@ -174,7 +187,7 @@ struct Proto2NofieldpresenceUnittest_TestAllTypes {
   /// Returns true if `optionalNestedMessage` has been explicitly set.
   var hasOptionalNestedMessage: Bool {return _storage._optionalNestedMessage != nil}
   /// Clears the value of `optionalNestedMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalNestedMessage() {_storage._optionalNestedMessage = nil}
+  mutating func clearOptionalNestedMessage() {_uniqueStorage()._optionalNestedMessage = nil}
 
   var optionalForeignMessage: Proto2NofieldpresenceUnittest_ForeignMessage {
     get {return _storage._optionalForeignMessage ?? Proto2NofieldpresenceUnittest_ForeignMessage()}
@@ -183,7 +196,7 @@ struct Proto2NofieldpresenceUnittest_TestAllTypes {
   /// Returns true if `optionalForeignMessage` has been explicitly set.
   var hasOptionalForeignMessage: Bool {return _storage._optionalForeignMessage != nil}
   /// Clears the value of `optionalForeignMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalForeignMessage() {_storage._optionalForeignMessage = nil}
+  mutating func clearOptionalForeignMessage() {_uniqueStorage()._optionalForeignMessage = nil}
 
   var optionalProto2Message: ProtobufUnittest_TestAllTypes {
     get {return _storage._optionalProto2Message ?? ProtobufUnittest_TestAllTypes()}
@@ -192,7 +205,7 @@ struct Proto2NofieldpresenceUnittest_TestAllTypes {
   /// Returns true if `optionalProto2Message` has been explicitly set.
   var hasOptionalProto2Message: Bool {return _storage._optionalProto2Message != nil}
   /// Clears the value of `optionalProto2Message`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalProto2Message() {_storage._optionalProto2Message = nil}
+  mutating func clearOptionalProto2Message() {_uniqueStorage()._optionalProto2Message = nil}
 
   var optionalNestedEnum: Proto2NofieldpresenceUnittest_TestAllTypes.NestedEnum {
     get {return _storage._optionalNestedEnum}
@@ -224,7 +237,7 @@ struct Proto2NofieldpresenceUnittest_TestAllTypes {
   /// Returns true if `optionalLazyMessage` has been explicitly set.
   var hasOptionalLazyMessage: Bool {return _storage._optionalLazyMessage != nil}
   /// Clears the value of `optionalLazyMessage`. Subsequent reads from it will return its default value.
-  mutating func clearOptionalLazyMessage() {_storage._optionalLazyMessage = nil}
+  mutating func clearOptionalLazyMessage() {_uniqueStorage()._optionalLazyMessage = nil}
 
   /// Repeated
   var repeatedInt32: [Int32] {
@@ -387,6 +400,7 @@ struct Proto2NofieldpresenceUnittest_TestAllTypes {
     case oneofString(String)
     case oneofEnum(Proto2NofieldpresenceUnittest_TestAllTypes.NestedEnum)
 
+  #if !swift(>=4.1)
     static func ==(lhs: Proto2NofieldpresenceUnittest_TestAllTypes.OneOf_OneofField, rhs: Proto2NofieldpresenceUnittest_TestAllTypes.OneOf_OneofField) -> Bool {
       switch (lhs, rhs) {
       case (.oneofUint32(let l), .oneofUint32(let r)): return l == r
@@ -396,6 +410,7 @@ struct Proto2NofieldpresenceUnittest_TestAllTypes {
       default: return false
       }
     }
+  #endif
   }
 
   enum NestedEnum: SwiftProtobuf.Enum {
@@ -446,6 +461,19 @@ struct Proto2NofieldpresenceUnittest_TestAllTypes {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+#if swift(>=4.2)
+
+extension Proto2NofieldpresenceUnittest_TestAllTypes.NestedEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Proto2NofieldpresenceUnittest_TestAllTypes.NestedEnum] = [
+    .foo,
+    .bar,
+    .baz,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Proto2NofieldpresenceUnittest_TestProto2Required {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -458,7 +486,7 @@ struct Proto2NofieldpresenceUnittest_TestProto2Required {
   /// Returns true if `proto2` has been explicitly set.
   var hasProto2: Bool {return _storage._proto2 != nil}
   /// Clears the value of `proto2`. Subsequent reads from it will return its default value.
-  mutating func clearProto2() {_storage._proto2 = nil}
+  mutating func clearProto2() {_uniqueStorage()._proto2 = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -894,63 +922,63 @@ extension Proto2NofieldpresenceUnittest_TestAllTypes: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto2NofieldpresenceUnittest_TestAllTypes) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Proto2NofieldpresenceUnittest_TestAllTypes, rhs: Proto2NofieldpresenceUnittest_TestAllTypes) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._optionalInt32 != other_storage._optionalInt32 {return false}
-        if _storage._optionalInt64 != other_storage._optionalInt64 {return false}
-        if _storage._optionalUint32 != other_storage._optionalUint32 {return false}
-        if _storage._optionalUint64 != other_storage._optionalUint64 {return false}
-        if _storage._optionalSint32 != other_storage._optionalSint32 {return false}
-        if _storage._optionalSint64 != other_storage._optionalSint64 {return false}
-        if _storage._optionalFixed32 != other_storage._optionalFixed32 {return false}
-        if _storage._optionalFixed64 != other_storage._optionalFixed64 {return false}
-        if _storage._optionalSfixed32 != other_storage._optionalSfixed32 {return false}
-        if _storage._optionalSfixed64 != other_storage._optionalSfixed64 {return false}
-        if _storage._optionalFloat != other_storage._optionalFloat {return false}
-        if _storage._optionalDouble != other_storage._optionalDouble {return false}
-        if _storage._optionalBool != other_storage._optionalBool {return false}
-        if _storage._optionalString != other_storage._optionalString {return false}
-        if _storage._optionalBytes != other_storage._optionalBytes {return false}
-        if _storage._optionalNestedMessage != other_storage._optionalNestedMessage {return false}
-        if _storage._optionalForeignMessage != other_storage._optionalForeignMessage {return false}
-        if _storage._optionalProto2Message != other_storage._optionalProto2Message {return false}
-        if _storage._optionalNestedEnum != other_storage._optionalNestedEnum {return false}
-        if _storage._optionalForeignEnum != other_storage._optionalForeignEnum {return false}
-        if _storage._optionalStringPiece != other_storage._optionalStringPiece {return false}
-        if _storage._optionalCord != other_storage._optionalCord {return false}
-        if _storage._optionalLazyMessage != other_storage._optionalLazyMessage {return false}
-        if _storage._repeatedInt32 != other_storage._repeatedInt32 {return false}
-        if _storage._repeatedInt64 != other_storage._repeatedInt64 {return false}
-        if _storage._repeatedUint32 != other_storage._repeatedUint32 {return false}
-        if _storage._repeatedUint64 != other_storage._repeatedUint64 {return false}
-        if _storage._repeatedSint32 != other_storage._repeatedSint32 {return false}
-        if _storage._repeatedSint64 != other_storage._repeatedSint64 {return false}
-        if _storage._repeatedFixed32 != other_storage._repeatedFixed32 {return false}
-        if _storage._repeatedFixed64 != other_storage._repeatedFixed64 {return false}
-        if _storage._repeatedSfixed32 != other_storage._repeatedSfixed32 {return false}
-        if _storage._repeatedSfixed64 != other_storage._repeatedSfixed64 {return false}
-        if _storage._repeatedFloat != other_storage._repeatedFloat {return false}
-        if _storage._repeatedDouble != other_storage._repeatedDouble {return false}
-        if _storage._repeatedBool != other_storage._repeatedBool {return false}
-        if _storage._repeatedString != other_storage._repeatedString {return false}
-        if _storage._repeatedBytes != other_storage._repeatedBytes {return false}
-        if _storage._repeatedNestedMessage != other_storage._repeatedNestedMessage {return false}
-        if _storage._repeatedForeignMessage != other_storage._repeatedForeignMessage {return false}
-        if _storage._repeatedProto2Message != other_storage._repeatedProto2Message {return false}
-        if _storage._repeatedNestedEnum != other_storage._repeatedNestedEnum {return false}
-        if _storage._repeatedForeignEnum != other_storage._repeatedForeignEnum {return false}
-        if _storage._repeatedStringPiece != other_storage._repeatedStringPiece {return false}
-        if _storage._repeatedCord != other_storage._repeatedCord {return false}
-        if _storage._repeatedLazyMessage != other_storage._repeatedLazyMessage {return false}
-        if _storage._oneofField != other_storage._oneofField {return false}
+        let rhs_storage = _args.1
+        if _storage._optionalInt32 != rhs_storage._optionalInt32 {return false}
+        if _storage._optionalInt64 != rhs_storage._optionalInt64 {return false}
+        if _storage._optionalUint32 != rhs_storage._optionalUint32 {return false}
+        if _storage._optionalUint64 != rhs_storage._optionalUint64 {return false}
+        if _storage._optionalSint32 != rhs_storage._optionalSint32 {return false}
+        if _storage._optionalSint64 != rhs_storage._optionalSint64 {return false}
+        if _storage._optionalFixed32 != rhs_storage._optionalFixed32 {return false}
+        if _storage._optionalFixed64 != rhs_storage._optionalFixed64 {return false}
+        if _storage._optionalSfixed32 != rhs_storage._optionalSfixed32 {return false}
+        if _storage._optionalSfixed64 != rhs_storage._optionalSfixed64 {return false}
+        if _storage._optionalFloat != rhs_storage._optionalFloat {return false}
+        if _storage._optionalDouble != rhs_storage._optionalDouble {return false}
+        if _storage._optionalBool != rhs_storage._optionalBool {return false}
+        if _storage._optionalString != rhs_storage._optionalString {return false}
+        if _storage._optionalBytes != rhs_storage._optionalBytes {return false}
+        if _storage._optionalNestedMessage != rhs_storage._optionalNestedMessage {return false}
+        if _storage._optionalForeignMessage != rhs_storage._optionalForeignMessage {return false}
+        if _storage._optionalProto2Message != rhs_storage._optionalProto2Message {return false}
+        if _storage._optionalNestedEnum != rhs_storage._optionalNestedEnum {return false}
+        if _storage._optionalForeignEnum != rhs_storage._optionalForeignEnum {return false}
+        if _storage._optionalStringPiece != rhs_storage._optionalStringPiece {return false}
+        if _storage._optionalCord != rhs_storage._optionalCord {return false}
+        if _storage._optionalLazyMessage != rhs_storage._optionalLazyMessage {return false}
+        if _storage._repeatedInt32 != rhs_storage._repeatedInt32 {return false}
+        if _storage._repeatedInt64 != rhs_storage._repeatedInt64 {return false}
+        if _storage._repeatedUint32 != rhs_storage._repeatedUint32 {return false}
+        if _storage._repeatedUint64 != rhs_storage._repeatedUint64 {return false}
+        if _storage._repeatedSint32 != rhs_storage._repeatedSint32 {return false}
+        if _storage._repeatedSint64 != rhs_storage._repeatedSint64 {return false}
+        if _storage._repeatedFixed32 != rhs_storage._repeatedFixed32 {return false}
+        if _storage._repeatedFixed64 != rhs_storage._repeatedFixed64 {return false}
+        if _storage._repeatedSfixed32 != rhs_storage._repeatedSfixed32 {return false}
+        if _storage._repeatedSfixed64 != rhs_storage._repeatedSfixed64 {return false}
+        if _storage._repeatedFloat != rhs_storage._repeatedFloat {return false}
+        if _storage._repeatedDouble != rhs_storage._repeatedDouble {return false}
+        if _storage._repeatedBool != rhs_storage._repeatedBool {return false}
+        if _storage._repeatedString != rhs_storage._repeatedString {return false}
+        if _storage._repeatedBytes != rhs_storage._repeatedBytes {return false}
+        if _storage._repeatedNestedMessage != rhs_storage._repeatedNestedMessage {return false}
+        if _storage._repeatedForeignMessage != rhs_storage._repeatedForeignMessage {return false}
+        if _storage._repeatedProto2Message != rhs_storage._repeatedProto2Message {return false}
+        if _storage._repeatedNestedEnum != rhs_storage._repeatedNestedEnum {return false}
+        if _storage._repeatedForeignEnum != rhs_storage._repeatedForeignEnum {return false}
+        if _storage._repeatedStringPiece != rhs_storage._repeatedStringPiece {return false}
+        if _storage._repeatedCord != rhs_storage._repeatedCord {return false}
+        if _storage._repeatedLazyMessage != rhs_storage._repeatedLazyMessage {return false}
+        if _storage._oneofField != rhs_storage._oneofField {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -985,9 +1013,9 @@ extension Proto2NofieldpresenceUnittest_TestAllTypes.NestedMessage: SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto2NofieldpresenceUnittest_TestAllTypes.NestedMessage) -> Bool {
-    if self.bb != other.bb {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto2NofieldpresenceUnittest_TestAllTypes.NestedMessage, rhs: Proto2NofieldpresenceUnittest_TestAllTypes.NestedMessage) -> Bool {
+    if lhs.bb != rhs.bb {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1045,17 +1073,17 @@ extension Proto2NofieldpresenceUnittest_TestProto2Required: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto2NofieldpresenceUnittest_TestProto2Required) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: Proto2NofieldpresenceUnittest_TestProto2Required, rhs: Proto2NofieldpresenceUnittest_TestProto2Required) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._proto2 != other_storage._proto2 {return false}
+        let rhs_storage = _args.1
+        if _storage._proto2 != rhs_storage._proto2 {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1082,9 +1110,9 @@ extension Proto2NofieldpresenceUnittest_ForeignMessage: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Proto2NofieldpresenceUnittest_ForeignMessage) -> Bool {
-    if self.c != other.c {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: Proto2NofieldpresenceUnittest_ForeignMessage, rhs: Proto2NofieldpresenceUnittest_ForeignMessage) -> Bool {
+    if lhs.c != rhs.c {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

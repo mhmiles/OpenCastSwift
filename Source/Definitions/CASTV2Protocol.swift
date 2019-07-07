@@ -17,6 +17,7 @@ struct CastNamespace {
   static let discovery = "urn:x-cast:com.google.cast.receiver.discovery"
   static let setup = "urn:x-cast:com.google.cast.setup"
   static let multizone = "urn:x-cast:com.google.cast.multizone"
+  static let youtube = "urn:x-cast:com.google.youtube.mdx"
 }
 
 enum CastMessageType: String {
@@ -47,6 +48,7 @@ enum CastMessageType: String {
   case deviceRemoved = "DEVICE_REMOVED"
   case invalidRequest = "INVALID_REQUEST"
   case mdxSessionStatus = "mdxSessionStatus"
+  case getScreenID  = "getMdxSessionStatus"
 }
 
 struct CastJSONPayloadKeys {
