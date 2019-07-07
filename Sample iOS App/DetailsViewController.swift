@@ -53,13 +53,19 @@ class DetailsViewController: UIViewController {
   }
   
   @IBAction func handleTestCast(_ sender: Any) {
-    let youtube = YoutubeChannel()
-    client.add(channel: youtube)
-
-    client.launch(appId: CastAppIdentifier.youTube) { (result) in
+    client.launch(appId: CastAppIdentifier.youtube) { (result) in
       switch result {
       case .success(let app):
-        youtube.playVideo(for: app, videoID: "oHg5SJYRHA0")
+        let media = CastMediaType.youtube(id: "pxw-5qfJ1dk", playlistID: nil)
+        self.client.load(media: media, with: app) { (result) in
+            switch result {
+            case .success(let status):
+                print(status)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
       case .failure(let error):
         print(error)
       }

@@ -237,6 +237,7 @@ public final class CastClient: NSObject, RequestDispatchable {
     DispatchQueue.main.async {
       _ = self.receiverControlChannel
       _ = self.mediaControlChannel
+      _ = self.youtubeChannel
       _ = self.heartbeatChannel
       
       if self.device.capabilities.contains(.multizoneGroup) {
@@ -336,6 +337,13 @@ public final class CastClient: NSObject, RequestDispatchable {
     return channel
   }()
   
+  private lazy var youtubeChannel: YoutubeChannel = {
+    let channel = YoutubeChannel()
+    self.add(channel: channel)
+    
+    return channel
+  }()
+  
   private lazy var multizoneControlChannel: MultizoneControlChannel = {
     let channel = MultizoneControlChannel()
     self.add(channel: channel)
@@ -428,11 +436,10 @@ public final class CastClient: NSObject, RequestDispatchable {
       switch result {
       case .success(let app):
         self?.connect(to: app)
-        fallthrough
-        
       default:
-        completion(result)
+        break
       }
+      completion(result)
     }
   }
   
@@ -449,10 +456,15 @@ public final class CastClient: NSObject, RequestDispatchable {
     connectedApp = nil
   }
   
-  public func load(media: CastMedia, with app: CastApp, completion: @escaping (Result<CastMediaStatus, CastError>) -> Void) {
+  public func load(media: CastMediaType, with app: CastApp, completion: @escaping (Result<CastMediaStatus, CastError>) -> Void) {
     guard outputStream != nil else { return }
     
-    mediaControlChannel.load(media: media, with: app, completion: completion)
+    switch media {
+    case .url(let urlMedia):
+        mediaControlChannel.load(media: urlMedia, with: app, completion: completion)
+    case .youtube(id: let id, playlistID: let playlistID):
+        youtubeChannel.playVideo(for: app, videoID: id, playlistID: playlistID)
+    }
   }
   
   public func requestMediaStatus(for app: CastApp, completion: ((Result<CastMediaStatus, CastError>) -> Void)? = nil) {

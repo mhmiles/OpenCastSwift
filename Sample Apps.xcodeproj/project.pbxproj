@@ -21,7 +21,23 @@
 		0298FB98200999E300A0B016 /* DeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0298FB97200999E300A0B016 /* DeviceCell.swift */; };
 		0298FB9A20099A8900A0B016 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0298FB9920099A8900A0B016 /* DetailsViewController.swift */; };
 		02A4020B208D2BBE000FA7D0 /* OpenCastSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A4020A208D2BBE000FA7D0 /* OpenCastSwift.framework */; };
+		DBC7C78D22D15A2100820EE6 /* OpenCastSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A4020A208D2BBE000FA7D0 /* OpenCastSwift.framework */; };
+		DBC7C78E22D15A2100820EE6 /* OpenCastSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 02A4020A208D2BBE000FA7D0 /* OpenCastSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DBC7C78F22D15A2100820EE6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DBC7C78E22D15A2100820EE6 /* OpenCastSwift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		027E35CC200EAD5300A863E6 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/Mac/SwiftyJSON.framework; sourceTree = "<group>"; };
@@ -52,6 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A4020B208D2BBE000FA7D0 /* OpenCastSwift.framework in Frameworks */,
+				DBC7C78D22D15A2100820EE6 /* OpenCastSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +161,7 @@
 				028733B4200992DC0015266E /* Frameworks */,
 				028733B5200992DC0015266E /* Resources */,
 				0298FB8E200994A100A0B016 /* ShellScript */,
+				DBC7C78F22D15A2100820EE6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

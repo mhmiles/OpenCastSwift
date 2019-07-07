@@ -11,7 +11,7 @@ import SwiftyJSON
 
 public struct CastAppIdentifier {
   public static let defaultMediaPlayer = "CC1AD845"
-  public static let youTube = "233637DE"
+  public static let youtube = "233637DE"
   public static let googleAssistant = "97216CB6"
 }
 

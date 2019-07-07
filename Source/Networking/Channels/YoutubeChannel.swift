@@ -17,7 +17,7 @@ enum YoutubeAction: String {
   case clear = "clearPlaylist"
 }
 
-public class YoutubeChannel: CastChannel {
+class YoutubeChannel: CastChannel {
   
   private static let YOUTUBE_BASE_URL = "https://www.youtube.com/"
   private static let BIND_URL = URL(string: "\(YOUTUBE_BASE_URL)api/lounge/bc/bind")!
@@ -44,22 +44,47 @@ public class YoutubeChannel: CastChannel {
   
   /// Current number of requests performed
   private var reqCount: Int = 0
-  
-  private var sid: Int = 0
-  
+    
   // TODO: How to set the screenid without the initializer?
   private var screenID: String? = nil
   
   private var gsessionID: String = ""
+    
+  private var sid: String = ""
   
   private var loungeToken: String = ""
+    
+  private var fetchScreenIDCompletion: ((Result<String, CastError>) -> Void)? = nil
 
   public init() {
     super.init(namespace: CastNamespace.youtube)
   }
+    
+  override func handleResponse(_ json: JSON, sourceId: String) {
+    guard let rawType = json["type"].string else { return }
+
+    guard let type = CastMessageType(rawValue: rawType) else {
+      print("Unknown type: \(rawType)")
+      print(json)
+      return
+    }
+
+    switch type {
+    case .mdxSessionStatus:
+        DispatchQueue.main.async {
+            let completion = self.fetchScreenIDCompletion
+            self.fetchScreenIDCompletion = nil
+            guard let screenID = json["data"].dictionary?["screenId"]?.string else { return }
+            self.screenID = screenID
+            completion?(.success(screenID))
+        }
+    default:
+        break
+    }
+  }
 
   public func playVideo(for app: CastApp, videoID: String, playlistID: String? = nil) {
-    fetchScreenIDIfNecessary(for: app) { result in
+    fetchScreenID(for: app) { result in
       switch result {
       case .success:
         self.startSession() {
@@ -72,7 +97,7 @@ public class YoutubeChannel: CastChannel {
   }
 
   public func addToQueue(for app: CastApp, videoID: String) {
-    fetchScreenIDIfNecessary(for: app) { result in
+    fetchScreenID(for: app) { result in
       switch result {
       case .success:
         self.queueAction(.add, videoID: videoID)
@@ -83,7 +108,7 @@ public class YoutubeChannel: CastChannel {
   }
 
   public func playNext(for app: CastApp, videoID: String) {
-    fetchScreenIDIfNecessary(for: app) { result in
+    fetchScreenID(for: app) { result in
       switch result {
       case .success:
         self.queueAction(.insert, videoID: videoID)
@@ -94,7 +119,7 @@ public class YoutubeChannel: CastChannel {
   }
 
   public func removeVideo(for app: CastApp,videoID: String) {
-    fetchScreenIDIfNecessary(for: app) { result in
+    fetchScreenID(for: app) { result in
       switch result {
       case .success:
         self.queueAction(.remove, videoID: videoID)
@@ -105,7 +130,7 @@ public class YoutubeChannel: CastChannel {
   }
 
   public func clearPlaylist(for app: CastApp) {
-    fetchScreenIDIfNecessary(for: app) { result in
+    fetchScreenID(for: app) { result in
       switch result {
       case .success:
         self.queueAction(.clear)
@@ -133,10 +158,14 @@ public class YoutubeChannel: CastChannel {
     postRequest(YoutubeChannel.LOUNGE_TOKEN_URL, data: ["screen_ids": screenID]) {
       result in
       switch result {
-      case .success(let response):
-        // TODO: Traverse json response
-//        self.loungeToken = response.json()["screens"][0]["loungeToken"]
-        completion()
+      case .success(let data):
+        do {
+            let json = try JSON(data: data)
+            self.loungeToken = json["screens"][0]["loungeToken"].stringValue
+            completion()
+        } catch {
+            print(error)
+        }
       case .failure(let error):
         // TODO: Handle error
         print(error)
@@ -170,11 +199,26 @@ public class YoutubeChannel: CastChannel {
 
     postRequest(YoutubeChannel.BIND_URL, data: data, headers: headers, params: urlParams) { result in
       switch result {
-      case .success(let response):
-        // TODO: Implement the regex
-//        var content = str(response.content)
-//        self.sid = re.search(SID_REGEX, content)
-//        self.gsessionID = re.search(GSESSION_ID_REGEX, content)
+      case .success(let data):
+        guard let content = String(data: data, encoding: .utf8) else {
+            print("Failed to encode response")
+            return
+        }
+        
+        let gsessionRegex = try? NSRegularExpression(pattern: #""S","(.*?)"]"#, options: .caseInsensitive)
+        if let match = gsessionRegex?.firstMatch(in: content, options: [], range: NSRange(location: 0, length: content.utf16.count)) {
+            if let gsessionID = Range(match.range(at: 1), in: content) {
+                self.gsessionID = String(content[gsessionID])
+            }
+        }
+        
+        let sidRegex = try? NSRegularExpression(pattern: #""c","(.*?)",\""#, options: .caseInsensitive)
+        if let match = sidRegex?.firstMatch(in: content, options: [], range: NSRange(location: 0, length: content.utf16.count)) {
+            if let sid = Range(match.range(at: 1), in: content) {
+                self.sid = String(content[sid])
+            }
+        }
+
         completion()
       case .failure(let error):
         // TODO: Handle error
@@ -269,7 +313,7 @@ public class YoutubeChannel: CastChannel {
     headers: [String: String]? = nil,
     params: [String: String]? = nil,
     sessionRequest: Bool = false,
-    completion: ((Result<Any, NSError>) -> Void)? = nil
+    completion: ((Result<Data, NSError>) -> Void)? = nil
   ) {
     var request: URLRequest
 
@@ -315,12 +359,9 @@ public class YoutubeChannel: CastChannel {
       guard let data = data else {
         return
       }
-
-      do {
-        let json = try JSONSerialization.jsonObject(with: data, options: [])
-        print(json)
-      } catch {
-        print(error)
+        
+      DispatchQueue.main.async {
+        completion?(.success(data))
       }
     }.resume()
   }
@@ -352,33 +393,21 @@ public class YoutubeChannel: CastChannel {
     return ret
   }
 
-  private func fetchScreenIDIfNecessary(for app: CastApp, completion: @escaping (Result<String, CastError>) -> Void) {
+  private func fetchScreenID(for app: CastApp, completion: @escaping (Result<String, CastError>) -> Void) {
     if let screenID = screenID {
       completion(.success(screenID))
       return
     }
 
-    let payload: [String: Any] = [
-      CastJSONPayloadKeys.type: CastMessageType.getScreenID.rawValue,
-      CastJSONPayloadKeys.sessionId: app.sessionId
-    ]
-    
     let request = requestDispatcher.request(
       withNamespace: namespace,
       destinationId: app.transportId,
-      payload: payload
+      payload: [CastJSONPayloadKeys.type: CastMessageType.getScreenID.rawValue]
     )
-
-    send(request) { result in
-      switch result {
-      case .success(let json):
-        print(json)
-//        guard let screenID = json["data"]?["screenId"] else { return }
-//        self.screenID = screenID
-//        completion(Result(success: screenID))
-      case .failure(let error):
-        completion(.failure(CastError.load(error.localizedDescription)))
-      }
+    
+    fetchScreenIDCompletion = completion
+    self.send(request) { (result) in
+        print("Herro")
     }
   }
 }
