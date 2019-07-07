@@ -16,11 +16,6 @@ public enum CastMediaStreamType: String {
     case live = "LIVE"
 }
 
-public enum CastMediaType {
-    case url(CastMedia)
-    case youtube(id: String, playlistID: String?)
-}
-
 public final class CastMedia: NSObject {
     public let title: String
     public let url: URL

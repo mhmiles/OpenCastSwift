@@ -17,6 +17,16 @@ enum YoutubeAction: String {
   case clear = "clearPlaylist"
 }
 
+public enum YouTubeChannelError: Error {
+  case actionQueueFailure(Error)
+  case loungeIDFetchFailure(Error)
+  case channelBindingFailure(Error?)
+  case gSessionFetchFailure
+  case sidFetchFailure
+  case screenIDFetchFailure(CastError)
+  case initializationFailure(NSError)
+}
+
 class YoutubeChannel: CastChannel {
   
   private static let YOUTUBE_BASE_URL = "https://www.youtube.com/"
@@ -45,7 +55,6 @@ class YoutubeChannel: CastChannel {
   /// Current number of requests performed
   private var reqCount: Int = 0
     
-  // TODO: How to set the screenid without the initializer?
   private var screenID: String? = nil
   
   private var gsessionID: String = ""
@@ -79,71 +88,128 @@ class YoutubeChannel: CastChannel {
             completion?(.success(screenID))
         }
     default:
-        break
+        print(rawType)
     }
   }
 
-  public func playVideo(for app: CastApp, videoID: String, playlistID: String? = nil) {
+  public func playVideo(
+    for app: CastApp,
+    videoID: String,
+    playlistID: String? = nil,
+    completion: ((Result<Void, YouTubeChannelError>) -> Void)? = nil
+  ) {
     fetchScreenID(for: app) { result in
       switch result {
       case .success:
-        self.startSession() {
-          self.initializeQueue(videoID: videoID, playlistID: playlistID)
+        self.startSession { result in
+          switch result {
+          case .success:
+            self.initializeQueue(videoID: videoID, playlistID: playlistID) { result in
+              switch result {
+              case .success:
+                completion?(.success(()))
+              case .failure(let error):
+                completion?(.failure(error))
+              }
+            }
+          case .failure(let error):
+            completion?(.failure(error))
+          }
         }
       case .failure(let error):
-        print(error)
+        completion?(.failure(.screenIDFetchFailure(error)))
       }
     }
   }
 
-  public func addToQueue(for app: CastApp, videoID: String) {
+  public func addToQueue(for app: CastApp, videoID: String, completion: ((Result<Void, YouTubeChannelError>) -> Void)? = nil) {
     fetchScreenID(for: app) { result in
       switch result {
       case .success:
-        self.queueAction(.add, videoID: videoID)
+        self.queueAction(.add, videoID: videoID) {
+          switch $0 {
+          case .success:
+            completion?(.success(()))
+          case .failure(let error):
+            completion?(.failure(error))
+          }
+        }
       case .failure(let error):
-        print(error)
+        completion?(.failure(.screenIDFetchFailure(error)))
       }
     }
   }
 
-  public func playNext(for app: CastApp, videoID: String) {
+  public func playNext(for app: CastApp, videoID: String, completion: ((Result<Void, YouTubeChannelError>) -> Void)? = nil) {
     fetchScreenID(for: app) { result in
       switch result {
       case .success:
-        self.queueAction(.insert, videoID: videoID)
+        self.queueAction(.insert, videoID: videoID) {
+          switch $0 {
+          case .success:
+            completion?(.success(()))
+          case .failure(let error):
+            completion?(.failure(error))
+          }
+        }
       case .failure(let error):
-        print(error)
+        completion?(.failure(.screenIDFetchFailure(error)))
       }
     }
   }
 
-  public func removeVideo(for app: CastApp,videoID: String) {
+  public func removeVideo(for app: CastApp, videoID: String, completion: ((Result<Void, YouTubeChannelError>) -> Void)? = nil) {
     fetchScreenID(for: app) { result in
       switch result {
       case .success:
-        self.queueAction(.remove, videoID: videoID)
+        self.queueAction(.remove, videoID: videoID) {
+          switch $0 {
+          case .success:
+            completion?(.success(()))
+          case .failure(let error):
+            completion?(.failure(error))
+          }
+        }
       case .failure(let error):
-        print(error)
+        completion?(.failure(.screenIDFetchFailure(error)))
       }
     }
   }
 
-  public func clearPlaylist(for app: CastApp) {
+  public func clearPlaylist(for app: CastApp, completion: ((Result<Void, YouTubeChannelError>) -> Void)? = nil) {
     fetchScreenID(for: app) { result in
       switch result {
       case .success:
-        self.queueAction(.clear)
+        self.queueAction(.clear) {
+          switch $0 {
+          case .success:
+            completion?(.success(()))
+          case .failure(let error):
+            completion?(.failure(error))
+          }
+        }
       case .failure(let error):
-        print(error)
+        completion?(.failure(.screenIDFetchFailure(error)))
       }
     }
   }
 
-  private func startSession(_ completion: @escaping () -> Void) {
-    getLoungeID() {
-      self.bind() {
-        completion()
+  private func startSession(
+    _ completion: @escaping (Result<Void, YouTubeChannelError>) -> Void
+  ) {
+    getLoungeID { result in
+      switch result {
+      case .success:
+        self.bind { result in
+          switch result {
+          case .success:
+            completion(.success(()))
+          case .failure(let error):
+            completion(.failure(error))
+          }
+        }
+      case .failure(let error):
+        completion(.failure(error))
       }
     }
   }
@@ -153,7 +219,7 @@ class YoutubeChannel: CastChannel {
 
     The token is used as a header in all session requests
   */
-  private func getLoungeID(_ completion: @escaping () -> Void) {
+  private func getLoungeID(_ completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
     guard let screenID = screenID else { return }
     postRequest(YoutubeChannel.LOUNGE_TOKEN_URL, data: ["screen_ids": screenID]) {
       result in
@@ -162,13 +228,12 @@ class YoutubeChannel: CastChannel {
         do {
             let json = try JSON(data: data)
             self.loungeToken = json["screens"][0]["loungeToken"].stringValue
-            completion()
+            completion(.success(()))
         } catch {
-            print(error)
+            completion(.failure(.loungeIDFetchFailure(error)))
         }
       case .failure(let error):
-        // TODO: Handle error
-        print(error)
+        completion(.failure(.loungeIDFetchFailure(error)))
       }
     }
   }
@@ -181,7 +246,7 @@ class YoutubeChannel: CastChannel {
 
     SID, gsessionid are used as url params in all further session requests.
    */
-  private func bind(_ completion: @escaping () -> Void) {
+  private func bind(_ completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
     rid = 0
     reqCount = 0
 
@@ -201,7 +266,7 @@ class YoutubeChannel: CastChannel {
       switch result {
       case .success(let data):
         guard let content = String(data: data, encoding: .utf8) else {
-            print("Failed to encode response")
+            completion(.failure(.channelBindingFailure(nil)))
             return
         }
         
@@ -209,20 +274,27 @@ class YoutubeChannel: CastChannel {
         if let match = gsessionRegex?.firstMatch(in: content, options: [], range: NSRange(location: 0, length: content.utf16.count)) {
             if let gsessionID = Range(match.range(at: 1), in: content) {
                 self.gsessionID = String(content[gsessionID])
+            } else {
+                completion(.failure(.gSessionFetchFailure))
             }
+        } else {
+            completion(.failure(.gSessionFetchFailure))
         }
         
         let sidRegex = try? NSRegularExpression(pattern: #""c","(.*?)",\""#, options: .caseInsensitive)
         if let match = sidRegex?.firstMatch(in: content, options: [], range: NSRange(location: 0, length: content.utf16.count)) {
             if let sid = Range(match.range(at: 1), in: content) {
                 self.sid = String(content[sid])
+            } else {
+                completion(.failure(.sidFetchFailure))
             }
+        } else {
+            completion(.failure(.sidFetchFailure))
         }
 
-        completion()
+        completion(.success(()))
       case .failure(let error):
-        // TODO: Handle error
-        print(error)
+        completion(.failure(.channelBindingFailure(error)))
       }
     }
   }
@@ -230,7 +302,7 @@ class YoutubeChannel: CastChannel {
   /**
     Initialize a queue with a video and start playing that video.
   */
-  private func initializeQueue(videoID: String, playlistID: String?) {
+  private func initializeQueue(videoID: String, playlistID: String?, completion: ((Result<Void, YouTubeChannelError>) -> Void)? = nil) {
     let data = formatSessionParams([
       LIST_ID: playlistID ?? "",
       ACTION: YoutubeAction.set.rawValue,
@@ -257,13 +329,24 @@ class YoutubeChannel: CastChannel {
       headers: headers,
       params: params,
       sessionRequest: true
-    )
+    ) { result in
+      switch result {
+      case .success:
+        completion?(.success(()))
+      case .failure(let error):
+        completion?(.failure(.initializationFailure(error)))
+      }
+    }
   }
 
   /**
     Sends actions for an established queue.
   */
-  private func queueAction(_ action: YoutubeAction, videoID: String = "") {
+  private func queueAction(
+    _ action: YoutubeAction,
+    videoID: String = "",
+    completion: ((Result<Void, YouTubeChannelError>) -> Void)? = nil
+  ) {
     let performAction = {
       let requestData = self.formatSessionParams([
         self.ACTION: action,
@@ -289,20 +372,37 @@ class YoutubeChannel: CastChannel {
         headers: headers,
         params: urlParams,
         sessionRequest: true
-      )
+      ) { result in
+        switch result {
+        case .success:
+          completion?(.success(()))
+        case .failure(let error):
+          completion?(.failure(.actionQueueFailure(error)))
+        }
+      }
     }
 
-    // If nothing is playing actions will work but won"t affect the queue.
+    // If nothing is playing actions will work but won't affect the queue.
     // This is for binding existing sessions
     if inSession == false {
-      startSession() {
-        performAction()
+      startSession { result in
+        switch result {
+        case .success:
+          performAction()
+        case .failure(let error):
+          completion?(.failure(.actionQueueFailure(error)))
+        }
       }
     } else {
       // There is a bug that causes session to get out of sync after about 30 seconds. Binding again works.
       // Binding for each session request has a pretty big performance impact
-      bind() {
-        performAction()
+      bind { result in
+        switch result {
+        case .success:
+          performAction()
+        case .failure(let error):
+          completion?(.failure(.actionQueueFailure(error)))
+        }
       }
     }
   }
@@ -393,7 +493,10 @@ class YoutubeChannel: CastChannel {
     return ret
   }
 
-  private func fetchScreenID(for app: CastApp, completion: @escaping (Result<String, CastError>) -> Void) {
+  private func fetchScreenID(
+    for app: CastApp,
+    completion: @escaping (Result<String, CastError>) -> Void
+  ) {
     if let screenID = screenID {
       completion(.success(screenID))
       return
@@ -406,8 +509,6 @@ class YoutubeChannel: CastChannel {
     )
     
     fetchScreenIDCompletion = completion
-    self.send(request) { (result) in
-        print("Herro")
-    }
+    send(request)
   }
 }

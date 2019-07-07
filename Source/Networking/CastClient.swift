@@ -288,7 +288,7 @@ public final class CastClient: NSObject, RequestDispatchable {
   
   var channels = [String: CastChannel]()
   
-  public func add(channel: CastChannel) {
+  internal func add(channel: CastChannel) {
     let namespace = channel.namespace
     guard channels[namespace] == nil else {
       print("Channel already attached for \(namespace)")
@@ -299,7 +299,7 @@ public final class CastClient: NSObject, RequestDispatchable {
     channel.requestDispatcher = self
   }
   
-  public func remove(channel: CastChannel) {
+  internal func remove(channel: CastChannel) {
     let namespace = channel.namespace
     guard let channel = channels.removeValue(forKey: namespace) else {
       print("No channel attached for \(namespace)")
@@ -456,17 +456,11 @@ public final class CastClient: NSObject, RequestDispatchable {
     connectedApp = nil
   }
   
-  public func load(media: CastMediaType, with app: CastApp, completion: @escaping (Result<CastMediaStatus, CastError>) -> Void) {
+  public func load(media: CastMedia, with app: CastApp, completion: @escaping (Result<CastMediaStatus, CastError>) -> Void) {
     guard outputStream != nil else { return }
-    
-    switch media {
-    case .url(let urlMedia):
-        mediaControlChannel.load(media: urlMedia, with: app, completion: completion)
-    case .youtube(id: let id, playlistID: let playlistID):
-        youtubeChannel.playVideo(for: app, videoID: id, playlistID: playlistID)
-    }
+    mediaControlChannel.load(media: media, with: app, completion: completion)
   }
-  
+
   public func requestMediaStatus(for app: CastApp, completion: ((Result<CastMediaStatus, CastError>) -> Void)? = nil) {
     guard outputStream != nil else { return }
     
@@ -580,6 +574,68 @@ public final class CastClient: NSObject, RequestDispatchable {
     }
     
     multizoneControlChannel.setMuted(isMuted, for: device)
+  }
+  
+  // MARK: Youtube
+  
+  public func youTubeLoad(videoID id: String, playlistID: String? = nil, with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.playVideo(for: app, videoID: id, playlistID: playlistID) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
+  
+  public func youTubeAddToQueue(videoID id: String, with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.addToQueue(for: app, videoID: id) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
+  
+  public func youTubePlayNext(videoID id: String, with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.playNext(for: app, videoID: id) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
+  
+  public func youTubeRemove(videoID id: String, with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.removeVideo(for: app, videoID: id) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
+  }
+  
+  public func youTubeClearPlaylist(with app: CastApp, completion: @escaping (Result<Void, YouTubeChannelError>) -> Void) {
+    guard outputStream != nil else { return }
+    youtubeChannel.clearPlaylist(for: app) { result in
+      switch result {
+      case .success:
+        completion(.success(()))
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
   }
 }
 
